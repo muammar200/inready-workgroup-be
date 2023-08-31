@@ -213,5 +213,6 @@ return [
         'updated_at'               => 'diperbarui pada',
         'username'                 => 'nama pengguna',
         'year'                     => 'tahun',
+        'category_id'              => 'Kategori',
     ],
 ];
