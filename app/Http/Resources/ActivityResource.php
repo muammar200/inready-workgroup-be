@@ -2,10 +2,11 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ArticleResource extends JsonResource
+class ActivityResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,9 +18,9 @@ class ArticleResource extends JsonResource
         return [
             "id" => $this->id,
             "title" => $this->title,
-            "category" => $this->category->name,
-            "writer" => $this->user->username,
-            "created_at" => $this->created_at->isoFormat('D/MM/Y'),
+            "location" => $this->location,
+            "time" => Carbon::parse($this->time)->isoFormat("D/MM/Y"),
+            "registration_link" => $this->registration_link,
         ];
     }
 }

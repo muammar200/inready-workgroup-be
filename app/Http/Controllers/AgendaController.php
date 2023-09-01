@@ -21,14 +21,14 @@ class AgendaController extends Controller
         return response()->json([
             "meta" => new MetaSearchResource($agendas),
             "data" => AgendaResource::collection($agendas),
-        ]);
+        ], 200);
     }
 
     public function show(Agenda $agenda)
     {
         return response()->json([
             "data" => new AgendaDetailResource($agenda),
-        ]);
+        ], 200);
     }
 
     public function store(Request $request)
@@ -41,11 +41,11 @@ class AgendaController extends Controller
         $validated["user_id"] = 1;
         try {
             $agenda = Agenda::create($validated);
-            return response()->json(new AgendaDetailResource($agenda));
+            return response()->json(new AgendaDetailResource($agenda), 201);
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
-            ]);
+            ], 400);
         }
     }
 
@@ -58,11 +58,11 @@ class AgendaController extends Controller
         ]);
         try {
             $agenda->update($validated);
-            return response()->json(new AgendaDetailResource($agenda));
+            return response()->json(new AgendaDetailResource($agenda), 200);
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
-            ]);
+            ], 400);
         }
     }
 
@@ -70,10 +70,14 @@ class AgendaController extends Controller
     {
         try {
             $agenda->delete();
+            return response()->json([
+                "success" => true,
+            ], 200);
         } catch (\Throwable $th) {
             return response()->json([
+                "success" => false,
                 "message" => $th->getMessage(),
-            ]);
+            ], 400);
         }
     }
 }

@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\AgendaController;
-use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\CategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AgendaController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('category', [CategoryController::class, 'index']);
 Route::resource('article', ArticleController::class)->except(['create', 'edit']);
 Route::resource('agenda', AgendaController::class)->except(['create', 'edit']);
+Route::resource('activity', ActivityController::class)->except(['create', 'edit']);
