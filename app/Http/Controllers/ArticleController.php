@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PaginateSearchRequest;
 use App\Http\Resources\ArticleDetailResource;
 use App\Http\Resources\ArticleResource;
-use App\Http\Resources\MetaSearchResource;
+use App\Http\Resources\MetaPaginateResource;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -20,7 +20,7 @@ class ArticleController extends Controller
 
         $articles = Article::where("title", "LIKE", "%$search%")->paginate($perpage, ["*"], 'page', $page);
         return response()->json([
-            "meta" => new MetaSearchResource($articles),
+            "meta" => new MetaPaginateResource($articles),
             "data" => ArticleResource::collection($articles),
         ], 200);
     }

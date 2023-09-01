@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PaginateSearchRequest;
 use App\Http\Resources\AgendaDetailResource;
 use App\Http\Resources\AgendaResource;
-use App\Http\Resources\MetaSearchResource;
+use App\Http\Resources\MetaPaginateResource;
 use App\Models\Agenda;
 use Illuminate\Http\Request;
 
@@ -19,7 +19,7 @@ class AgendaController extends Controller
 
         $agendas = Agenda::where("title", "LIKE", "%$search%")->paginate($perpage, ["*"], 'page', $page);
         return response()->json([
-            "meta" => new MetaSearchResource($agendas),
+            "meta" => new MetaPaginateResource($agendas),
             "data" => AgendaResource::collection($agendas),
         ], 200);
     }

@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MetaSearchResource extends JsonResource
+class MemberResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,10 +15,11 @@ class MetaSearchResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "page" => $this->currentPage(),
-            "perpage" => $this->perPage(),
-            "total_page" => $this->lastPage(),
-            "total_item" => $this->total(),
+            "id" => $this->id,
+            "nri" => $this->nri,
+            "name" => $this->name,
+            "address" => $this->address,
+            "phone" => $this->phone,
         ];
     }
 }

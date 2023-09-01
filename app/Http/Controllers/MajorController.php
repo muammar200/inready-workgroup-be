@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\IdNameResource;
-use App\Models\Category;
+use App\Models\Major;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class MajorController extends Controller
 {
     public function index() {
-        $categories = Category::orderBy("name", "asc")->get();
+        $majors = Major::orderBy("name", "asc")->get();
         return response()->json([
-            "data" => IdNameResource::collection($categories),
+            "data" => IdNameResource::collection($majors),
         ], 200);
     }
 }

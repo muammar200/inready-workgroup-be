@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Activity;
 use Illuminate\Http\Request;
-use App\Http\Resources\MetaSearchResource;
 use App\Http\Requests\PaginateSearchRequest;
 use App\Http\Resources\ActivityDetailResource;
 use App\Http\Resources\ActivityResource;
+use App\Http\Resources\MetaPaginateResource;
 use Illuminate\Support\Facades\Storage;
 use Psy\CodeCleaner\ReturnTypePass;
 
@@ -21,7 +21,7 @@ class ActivityController extends Controller
 
         $activities = Activity::where("title", "LIKE", "%$search%")->paginate($perpage, ["*"], 'page', $page);
         return response()->json([
-            "meta" => new MetaSearchResource($activities),
+            "meta" => new MetaPaginateResource($activities),
             "data" => ActivityResource::collection($activities),
         ], 200);
     }
