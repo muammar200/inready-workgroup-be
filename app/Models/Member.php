@@ -24,4 +24,8 @@ class Member extends Model
     public function editor() {
         return $this->belongsTo(User::class, 'updated_by', 'id');
     }
+
+    public function user() {
+        return $this->hasOne(User::class, "member_id");
+    }
 }

@@ -56,8 +56,8 @@ class MemberController extends Controller
         } else {
             unset($validated["photo"]);
         }
-        $validated["created_by "]  = 1;
-        $validated["updated_by "]  = 1;
+        $validated["created_by"]  = 1;
+        $validated["updated_by"]  = 1;
         try {
             $member = Member::create($validated);
             return response()->json(new MemberDetailResource($member), 201);
@@ -94,7 +94,7 @@ class MemberController extends Controller
         } else {
             unset($validated["photo"]);
         }
-        $validated["updated_by "]  = 1;
+        $validated["updated_by"]  = 1;
         try {
             $member->update($validated);
             return response()->json(new MemberDetailResource($member), 200);

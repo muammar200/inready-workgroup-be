@@ -42,8 +42,8 @@ class ArticleController extends Controller
             "content" => "required|string",
         ]);
         $validated["image"] = $request->file("image")->storePublicly("article", "public");
-        $validated["created_by "]  = 1;
-        $validated["updated_by "]  = 1;
+        $validated["created_by"]  = 1;
+        $validated["updated_by"]  = 1;
         try {
             $article = Article::create($validated);
             return response()->json(new ArticleDetailResource($article), 201);
@@ -68,7 +68,7 @@ class ArticleController extends Controller
         } else {
             unset($validated["image"]);
         }
-        $validated["updated_by "]  = 1;
+        $validated["updated_by"]  = 1;
         try {
             $article->update($validated);
             return response()->json(new ArticleDetailResource($article), 200);

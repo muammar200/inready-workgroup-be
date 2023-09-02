@@ -44,8 +44,8 @@ class WorkController extends Controller
         if ($request->file("image")) {
             $validated["image"] = $request->file("image")->storePublicly("work", "public");
         }
-        $validated["created_by "]  = 1;
-        $validated["updated_by "]  = 1;
+        $validated["created_by"]  = 1;
+        $validated["updated_by"]  = 1;
         try {
             $work = Work::create($validated);
             return response()->json(new WorkDetailResource($work), 201);
@@ -73,7 +73,7 @@ class WorkController extends Controller
         } else {
             unset($validated["image"]);
         }
-        $validated["updated_by "]  = 1;
+        $validated["updated_by"]  = 1;
         try {
             $work->update($validated);
             return response()->json(new WorkDetailResource($work), 200);

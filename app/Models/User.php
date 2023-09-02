@@ -71,4 +71,22 @@ class User extends Authenticatable
         return $this->hasMany(Member::class, 'updated_by');
     }
 
+    public function works_created(){
+        return $this->hasMany(Member::class, 'created_by');
+    }
+    public function works_updated(){
+        return $this->hasMany(Member::class, 'updated_by');
+    }
+
+    public function creator() {
+        return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+    public function editor() {
+        return $this->belongsTo(User::class, 'updated_by', 'id');
+    }
+
+    public function member() {
+        return $this->belongsTo(Member::class, 'member_id', "id");
+    }
+
 }
