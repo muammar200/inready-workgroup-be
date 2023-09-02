@@ -25,7 +25,8 @@ class ActivityFactory extends Factory
             "registration_link" => fake()->sentence(2),
             "flayer_image" => "flayer.jpg",
             "time" => fake()->date(),
-            "user_id" => fake()->randomElement($userIds),
+            "created_by" => fake()->randomElement($userIds),
+            "updated_by" => fake()->randomElement($userIds),
         ];
     }
 }

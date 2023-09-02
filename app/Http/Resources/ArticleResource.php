@@ -18,7 +18,7 @@ class ArticleResource extends JsonResource
             "id" => $this->id,
             "title" => $this->title,
             "category" => $this->category->name,
-            "writer" => $this->user->username,
+            "writer" => $this->creator->username,
             "created_at" => $this->created_at->isoFormat('D/MM/Y'),
         ];
     }

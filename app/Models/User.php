@@ -43,16 +43,32 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function article()
-    {
-        return $this->hasMany(Article::class);
+    public function articles_created(){
+        return $this->hasMany(Article::class, 'created_by');
+    }
+    public function articles_updated(){
+        return $this->hasMany(Article::class, 'updated_by');
+    }
+    
+    public function agendas_created(){
+        return $this->hasMany(Agenda::class, 'created_by');
+    }
+    public function agendas_updated(){
+        return $this->hasMany(Agenda::class, 'updated_by');
+    }
+    
+    public function activities_created(){
+        return $this->hasMany(Activity::class, 'created_by');
+    }
+    public function activities_updated(){
+        return $this->hasMany(Activity::class, 'updated_by');
     }
 
-    public function agenda() {
-        return $this->hasMany(Agenda::class);
+    public function members_created(){
+        return $this->hasMany(Member::class, 'created_by');
+    }
+    public function members_updated(){
+        return $this->hasMany(Member::class, 'updated_by');
     }
 
-    public function activity() {
-        return $this->hasMany(Activity::class);
-    }
 }

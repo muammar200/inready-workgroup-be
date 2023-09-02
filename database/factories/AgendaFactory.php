@@ -22,7 +22,8 @@ class AgendaFactory extends Factory
             "title" => fake()->sentence(3),
             "location" => fake()->sentence(2),
             "time" => fake()->date(),
-            "user_id" => fake()->randomElement($userIds),
+            "created_by" => fake()->randomElement($userIds),
+            "updated_by" => fake()->randomElement($userIds),
         ];
     }
 }

@@ -38,7 +38,8 @@ class MemberFactory extends Factory
             "email" => fake()->email(),
             "instagram" => fake()->sentence(1, true),
             "facebook" => fake()->sentence(1, true),
-            "user_id" => fake()->randomElement($userIds),
+            "created_by" => fake()->randomElement($userIds),
+            "updated_by" => fake()->randomElement($userIds),
         ];
     }
 }

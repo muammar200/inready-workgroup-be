@@ -17,4 +17,11 @@ class Member extends Model
     public function concentration() {
         return $this->belongsTo(Concentration::class);
     }
+
+    public function creator() {
+        return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+    public function editor() {
+        return $this->belongsTo(User::class, 'updated_by', 'id');
+    }
 }

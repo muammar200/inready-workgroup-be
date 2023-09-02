@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PaginateSearchRequest;
-use App\Http\Resources\ArticleDetailResource;
-use App\Http\Resources\ArticleResource;
-use App\Http\Resources\MetaPaginateResource;
+use App\Models\User;
 use App\Models\Article;
 use Illuminate\Http\Request;
+use App\Http\Resources\ArticleResource;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\PaginateSearchRequest;
+use App\Http\Resources\MetaPaginateResource;
+use App\Http\Resources\ArticleDetailResource;
 
 class ArticleController extends Controller
 {

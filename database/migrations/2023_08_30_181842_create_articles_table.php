@@ -18,12 +18,14 @@ return new class extends Migration
             $table->string('title');
             $table->longText('content');
             $table->string('image');
-            $table->foreignIdFor(Category::class)->nullable();
-            $table->foreignIdFor(User::class)->nullable();
+            $table->foreignIdFor(Category::class, 'category_id')->nullable();
+            $table->foreignIdFor(User::class, 'created_by')->nullable();
+            $table->foreignIdFor(User::class, 'updated_by')->nullable();
             $table->timestamps();
 
             $table->foreign("category_id")->references("id")->on("categories")->onDelete("set null");
-            $table->foreign("user_id")->references("id")->on("users")->onDelete("set null");
+            $table->foreign("created_by")->references("id")->on("users")->onDelete("set null");
+            $table->foreign("updated_by")->references("id")->on("users")->onDelete("set null");
         });
     }
 

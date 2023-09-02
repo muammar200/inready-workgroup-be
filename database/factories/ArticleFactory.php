@@ -28,7 +28,8 @@ class ArticleFactory extends Factory
             "content" => fake()->paragraph(),
             "image" => "articleImage.jpg",
             "category_id" => $randomCategoryId,
-            "user_id" => $randomUserId,
+            "created_by" => $randomUserId,
+            "updated_by" => $randomUserId,
         ];
     }
 }
