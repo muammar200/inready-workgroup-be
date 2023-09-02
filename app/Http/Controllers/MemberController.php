@@ -56,7 +56,8 @@ class MemberController extends Controller
         } else {
             unset($validated["photo"]);
         }
-        $validated["user_id "]  = 1;
+        $validated["created_by "]  = 1;
+        $validated["updated_by "]  = 1;
         try {
             $member = Member::create($validated);
             return response()->json(new MemberDetailResource($member), 201);
@@ -72,7 +73,7 @@ class MemberController extends Controller
         $validated = $request->validate([
             "nri" => "required|unique:members,nri,$member->id",
             "name" => "required|string",
-            "photo" => "nullable|image",
+            "photo" => "nullable",
             "address" => "nullable|string",
             "pob" => "nullable|string",
             "gender" => "required|in:male,female",
@@ -93,6 +94,7 @@ class MemberController extends Controller
         } else {
             unset($validated["photo"]);
         }
+        $validated["updated_by "]  = 1;
         try {
             $member->update($validated);
             return response()->json(new MemberDetailResource($member), 200);

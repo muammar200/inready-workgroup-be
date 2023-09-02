@@ -9,6 +9,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ConcentrationController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\WorkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +29,4 @@ Route::resource('article', ArticleController::class)->except(['create', 'edit'])
 Route::resource('agenda', AgendaController::class)->except(['create', 'edit']);
 Route::resource('activity', ActivityController::class)->except(['create', 'edit']);
 Route::resource('member', MemberController::class)->except(['create', 'edit']);
+Route::resource('work', WorkController::class)->except(['create', 'edit']);

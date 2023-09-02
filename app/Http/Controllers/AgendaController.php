@@ -38,7 +38,8 @@ class AgendaController extends Controller
             "location" => "required|string",
             "time" => "required|date",
         ]);
-        $validated["user_id"] = 1;
+        $validated["created_by "]  = 1;
+        $validated["updated_by "]  = 1;
         try {
             $agenda = Agenda::create($validated);
             return response()->json(new AgendaDetailResource($agenda), 201);
@@ -56,6 +57,7 @@ class AgendaController extends Controller
             "location" => "required|string",
             "time" => "required|date",
         ]);
+        $validated["updated_by "]  = 1;
         try {
             $agenda->update($validated);
             return response()->json(new AgendaDetailResource($agenda), 200);

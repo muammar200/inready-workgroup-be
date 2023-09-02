@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Work;
 use App\Models\Agenda;
 use App\Models\Member;
 use App\Models\Article;
@@ -26,6 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(MajorSeeder::class);
         $this->call(ConcentrationSeeder::class);
         Member::factory()->count(15)->create();
+        Work::factory()->count(10)->create();
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

@@ -43,7 +43,8 @@ class ActivityController extends Controller
             "description" => "required|string",
         ]);
         $validated["flayer_image"] = $request->file("flayer_image")->storePublicly("activity", "public");
-        $validated["user_id"] = 1;
+        $validated["created_by "]  = 1;
+        $validated["updated_by "]  = 1;
         try {
             $activity = Activity::create($validated);
             return response()->json(new ActivityDetailResource($activity), 201);
@@ -58,7 +59,7 @@ class ActivityController extends Controller
     {
         $validated = $request->validate([
             "title" => "required|string",
-            "flayer_image" => "required",
+            "flayer_image" => "nullable",
             "location" => "required|string",
             "time" => "required|date",
             "description" => "required|string",
@@ -69,6 +70,7 @@ class ActivityController extends Controller
         } else {
             unset($validated["flayer_image"]);
         }
+        $validated["updated_by "]  = 1;
         try {
             $activity->update($validated);
             return response(new ActivityDetailResource($activity), 200);
