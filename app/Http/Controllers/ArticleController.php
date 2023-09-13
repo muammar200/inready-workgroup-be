@@ -50,7 +50,7 @@ class ArticleController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
-            ], 400);
+            ], 500);
         }
     }
 
@@ -75,7 +75,7 @@ class ArticleController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
-            ], 400);
+            ], 500);
         }
     }
 

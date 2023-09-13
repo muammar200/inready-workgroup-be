@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\User;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Article>
@@ -23,8 +24,10 @@ class ArticleFactory extends Factory
 
         $userIds = User::pluck('id')->toArray();
         $randomUserId = fake()->randomElement($userIds);
+        $title = fake()->sentence(5);
         return [
-            "title" => fake()->sentence(5),
+            "title" => $title,
+            "slug" => Str::slug($title),
             "content" => fake()->paragraph(),
             "image" => "articleImage.jpg",
             "category_id" => $randomCategoryId,

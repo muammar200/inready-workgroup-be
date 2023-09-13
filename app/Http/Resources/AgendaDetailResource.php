@@ -17,6 +17,7 @@ class AgendaDetailResource extends JsonResource
         return [
             "id" => $this->id,
             "title" => $this->title,
+            "slug" => $this->slug,
             "location" => $this->location,
             "time" => $this->time,
             "created_at" => $this->created_at->isoFormat('D MMMM Y'),

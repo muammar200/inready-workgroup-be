@@ -17,6 +17,7 @@ class ArticleResource extends JsonResource
         return [
             "id" => $this->id,
             "title" => $this->title,
+            "slug" => $this->slug,
             "category" => $this->category->name,
             "writer" => $this->creator->username,
             "created_at" => $this->created_at->isoFormat('D/MM/Y'),

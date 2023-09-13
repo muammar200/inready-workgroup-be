@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('slug')->unique();
             $table->longText('content');
             $table->string('image');
             $table->foreignIdFor(Category::class, 'category_id')->nullable();

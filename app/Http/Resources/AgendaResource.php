@@ -18,6 +18,7 @@ class AgendaResource extends JsonResource
         return [
             "id" => $this->id,
             "title" => $this->title,
+            "slug" => $this->slug,
             "location" => $this->location,
             "time" => Carbon::parse($this->time)->isoFormat("D/MM/Y"),
         ];
