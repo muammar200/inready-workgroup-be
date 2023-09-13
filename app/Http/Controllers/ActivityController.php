@@ -65,7 +65,9 @@ class ActivityController extends Controller
             "description" => "required|string",
         ]);
         if ($request->file("flayer_image")) {
-            Storage::delete($activity->flayer_image);
+            if ($activity->flayer_image && Storage::exists($activity->flayer_image)) {
+                Storage::delete($activity->flayer_image);
+            }
             $validated["flayer_image"] = $request->file("flayer_image")->storePublicly("activity", "public");
         } else {
             unset($validated["flayer_image"]);
@@ -84,7 +86,7 @@ class ActivityController extends Controller
     public function destroy(Activity $activity)
     {
         try {
-            if (Storage::exists($activity->flayer_image)) {
+            if ($activity->flayer_image && Storage::exists($activity->flayer_image)) {
                 Storage::delete($activity->flayer_image);
             }
             $activity->delete();

@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Public;
 
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AgendaResource extends JsonResource
+class PublicAgendaResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,10 +16,11 @@ class AgendaResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "title" => $this->title,
             "slug" => $this->slug,
+            "title" => $this->title,
+            "time" => $this->time,
             "location" => $this->location,
-            "time" => Carbon::parse($this->time)->isoFormat("D/MM/Y"),
+            "description" => $this->description,
         ];
     }
 }

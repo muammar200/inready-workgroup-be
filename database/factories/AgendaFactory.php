@@ -3,7 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Agenda>
@@ -18,10 +20,13 @@ class AgendaFactory extends Factory
     public function definition(): array
     {
         $userIds = User::pluck('id')->toArray();
+        $title = fake()->sentence(3);
         return [
-            "title" => fake()->sentence(3),
+            "title" => $title,
+            "slug" => Str::slug($title),
             "location" => fake()->sentence(2),
-            "time" => fake()->date(),
+            "time" => fake()->dateTimeBetween("-1 years", Carbon::now()->addDays(90)),
+            "description" => fake()->sentence(10),
             "created_by" => fake()->randomElement($userIds),
             "updated_by" => fake()->randomElement($userIds),
         ];

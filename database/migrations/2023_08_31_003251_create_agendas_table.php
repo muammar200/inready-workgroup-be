@@ -15,8 +15,10 @@ return new class extends Migration
         Schema::create('agendas', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('slug')->unique();
             $table->string('location');
             $table->date('time');
+            $table->longText('description')->nullable();
             $table->foreignIdFor(User::class, "created_by")->nullable();
             $table->foreignIdFor(User::class, "updated_by")->nullable();
             $table->timestamps();

@@ -17,6 +17,7 @@ class ArticleDetailResource extends JsonResource
         return [
             "id" => $this->id,
             "title" => $this->title,
+            "slug" => $this->slug,
             "category" => $this->category->name,
             "writer" => $this->creator->username,
             "image" => url("storage/$this->image"),

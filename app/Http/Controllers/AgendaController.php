@@ -8,6 +8,7 @@ use App\Http\Resources\AgendaResource;
 use App\Http\Resources\MetaPaginateResource;
 use App\Models\Agenda;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class AgendaController extends Controller
 {
@@ -35,6 +36,7 @@ class AgendaController extends Controller
     {
         $validated = $request->validate([
             "title" => "required|string",
+            "description" => "nullable|string",
             "location" => "required|string",
             "time" => "required|date",
         ]);
@@ -46,7 +48,7 @@ class AgendaController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
-            ], 400);
+            ], 500);
         }
     }
 
@@ -54,6 +56,7 @@ class AgendaController extends Controller
     {
         $validated = $request->validate([
             "title" => "required|string",
+            "description" => "nullable|string",
             "location" => "required|string",
             "time" => "required|date",
         ]);
@@ -64,7 +67,7 @@ class AgendaController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
-            ], 400);
+            ], 500);
         }
     }
 
@@ -79,7 +82,7 @@ class AgendaController extends Controller
             return response()->json([
                 "success" => false,
                 "message" => $th->getMessage(),
-            ], 400);
+            ], 500);
         }
     }
 }

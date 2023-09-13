@@ -2,11 +2,10 @@
 
 namespace App\Http\Resources;
 
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AgendaResource extends JsonResource
+class GalleryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,10 +16,8 @@ class AgendaResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "title" => $this->title,
-            "slug" => $this->slug,
-            "location" => $this->location,
-            "time" => Carbon::parse($this->time)->isoFormat("D/MM/Y"),
+            "image" => url("storage/$this->image"),
+            "is_active" => $this->is_active,
         ];
     }
 }

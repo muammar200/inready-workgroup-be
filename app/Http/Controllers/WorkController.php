@@ -40,6 +40,7 @@ class WorkController extends Controller
             "image" => "nullable|image",
             "link" => "nullable|string",
             "description" => "nullable|string",
+            "is_active" => "nullable|boolean",
         ]);
         if ($request->file("image")) {
             $validated["image"] = $request->file("image")->storePublicly("work", "public");
@@ -52,7 +53,7 @@ class WorkController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
-            ], 400);
+            ], 500);
         }
     }
 
@@ -64,9 +65,10 @@ class WorkController extends Controller
             "image" => "nullable",
             "link" => "nullable|string",
             "description" => "nullable|string",
+            "is_active" => "nullable|boolean",
         ]);
         if ($request->file("image")) {
-            if (Storage::exists($work->image)) {
+            if ($work->image && Storage::exists($work->image)) {
                 Storage::delete($work->image);
             }
             $validated["image"] = $request->file("image")->storePublicly("work", "public");
@@ -80,14 +82,14 @@ class WorkController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
-            ], 400);
+            ], 500);
         }
     }
 
     public function destroy(Work $work)
     {
         try {
-            if (Storage::exists($work->image)) {
+            if ($work->image && Storage::exists($work->image)) {
                 Storage::delete($work->image);
             }
             $work->delete();
@@ -97,7 +99,8 @@ class WorkController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 "success" => false,
-            ], 400);
+                "message" => $th->getMessage(),
+            ], 500);
         }
     }
 }

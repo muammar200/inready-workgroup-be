@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class WorkFactory extends Factory
 {
+    static $counter = 1;
     /**
      * Define the model's default state.
      *
@@ -18,14 +19,17 @@ class WorkFactory extends Factory
      */
     public function definition(): array
     {
+        $imageNumber = self::$counter;
+        self::$counter++;
         $memberIds = Member::pluck('id')->toArray();
         $userIds = User::pluck('id')->toArray();
         return [
-            "member_id" => fake()->randomElement($memberIds),
+            "member_id" => self::$counter - 1,
             "title" => fake()->sentence(3, true),
             "description" => fake()->sentences(5, true),
-            "link" => fake()->sentence(4, true),
-            "image" => "work.jpg",
+            "link" => str_replace(" ", "", fake()->sentence(4, true)) . ".com",
+            "image" => "work/work-$imageNumber.jpg",
+            "is_active" => fake()->randomElement([0, 1]),
             "created_by" => fake()->randomElement($userIds),
             "updated_by" => fake()->randomElement($userIds),
         ];
