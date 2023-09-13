@@ -9,6 +9,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ConcentrationController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\SliderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkController;
 
@@ -32,3 +33,4 @@ Route::resource('activity', ActivityController::class)->except(['create', 'edit'
 Route::resource('member', MemberController::class)->except(['create', 'edit']);
 Route::resource('work', WorkController::class)->except(['create', 'edit']);
 Route::resource('user', UserController::class)->except(['create', 'edit']);
+Route::resource('slider', SliderController::class)->except(['create', 'edit']);

@@ -63,7 +63,9 @@ class ArticleController extends Controller
             "content" => "required|string",
         ]);
         if ($request->file("image")) {
-            Storage::delete($article->image);
+            if ($article->image && Storage::exists($article->image)) {
+                Storage::delete($article->image);
+            }
             $validated["image"] = $request->file("image")->storePublicly("article", "public");
         } else {
             unset($validated["image"]);
@@ -82,7 +84,7 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         try {
-            if (Storage::exists($article->image)) {
+            if ($article->image && Storage::exists($article->image)) {
                 Storage::delete($article->image);
             }
             $article->delete();

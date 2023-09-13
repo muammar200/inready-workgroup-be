@@ -87,7 +87,7 @@ class MemberController extends Controller
             "facebook" => "nullable|string",
         ]);
         if ($request->file("photo")) {
-            if (Storage::exists($member->photo)) {
+            if ($member->photo && Storage::exists($member->photo)) {
                 Storage::delete($member->photo);
             }
             $validated["photo"] = $request->file("photo")->storePublicly("member_photo", "public");
@@ -108,7 +108,7 @@ class MemberController extends Controller
     public function destroy(Member $member)
     {
         try {
-            if (Storage::exists($member->photo)) {
+            if ($member->photo && Storage::exists($member->photo)) {
                 Storage::delete($member->photo);
             }
             $member->delete();

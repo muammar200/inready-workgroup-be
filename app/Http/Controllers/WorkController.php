@@ -66,7 +66,7 @@ class WorkController extends Controller
             "description" => "nullable|string",
         ]);
         if ($request->file("image")) {
-            if (Storage::exists($work->image)) {
+            if ($work->image && Storage::exists($work->image)) {
                 Storage::delete($work->image);
             }
             $validated["image"] = $request->file("image")->storePublicly("work", "public");
@@ -87,7 +87,7 @@ class WorkController extends Controller
     public function destroy(Work $work)
     {
         try {
-            if (Storage::exists($work->image)) {
+            if ($work->image && Storage::exists($work->image)) {
                 Storage::delete($work->image);
             }
             $work->delete();

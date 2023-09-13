@@ -10,6 +10,7 @@ use App\Models\Member;
 use App\Models\Article;
 use App\Models\Activity;
 use App\Models\Category;
+use App\Models\Slider;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -28,11 +29,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ConcentrationSeeder::class);
         Member::factory()->count(15)->create();
         Work::factory()->count(10)->create();
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        Slider::factory()->count(10)->create();
     }
 }
