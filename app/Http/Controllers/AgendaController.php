@@ -36,6 +36,7 @@ class AgendaController extends Controller
     {
         $validated = $request->validate([
             "title" => "required|string",
+            "description" => "nullable|string",
             "location" => "required|string",
             "time" => "required|date",
         ]);
@@ -55,6 +56,7 @@ class AgendaController extends Controller
     {
         $validated = $request->validate([
             "title" => "required|string",
+            "description" => "nullable|string",
             "location" => "required|string",
             "time" => "required|date",
         ]);

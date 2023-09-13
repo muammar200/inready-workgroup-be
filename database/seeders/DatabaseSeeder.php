@@ -10,6 +10,7 @@ use App\Models\Member;
 use App\Models\Article;
 use App\Models\Activity;
 use App\Models\Category;
+use App\Models\Gallery;
 use App\Models\Slider;
 use Illuminate\Database\Seeder;
 
@@ -23,12 +24,13 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         Category::factory()->count(5)->create();
         Article::factory()->count(5)->create();
-        Agenda::factory()->count(5)->create();
+        Agenda::factory()->count(25)->create();
         Activity::factory()->count(5)->create();
         $this->call(MajorSeeder::class);
         $this->call(ConcentrationSeeder::class);
         Member::factory()->count(15)->create();
         Work::factory()->count(10)->create();
         Slider::factory()->count(10)->create();
+        Gallery::factory()->count(15)->create();
     }
 }

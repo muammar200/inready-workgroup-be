@@ -9,6 +9,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ConcentrationController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\Public\HomeController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkController;
@@ -23,6 +24,15 @@ use App\Http\Controllers\WorkController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::prefix("home")->group(function () {
+  Route::controller(HomeController::class)->group(function () {
+      Route::get('slider', 'slider');
+      Route::get('work', 'work');
+      Route::get('blog', 'article');
+      Route::get('gallery', 'gallery');
+      Route::get('agenda', 'agenda');
+  });
+});
 
 Route::get('category', [CategoryController::class, 'index']);
 Route::get('major', [MajorController::class, 'index']);
