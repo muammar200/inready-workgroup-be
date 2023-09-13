@@ -72,10 +72,17 @@ class User extends Authenticatable
     }
 
     public function works_created(){
-        return $this->hasMany(Member::class, 'created_by');
+        return $this->hasMany(Work::class, 'created_by');
     }
     public function works_updated(){
-        return $this->hasMany(Member::class, 'updated_by');
+        return $this->hasMany(Work::class, 'updated_by');
+    }
+    
+    public function sliders_created(){
+        return $this->hasMany(Slider::class, 'created_by');
+    }
+    public function sliders_updated(){
+        return $this->hasMany(Slider::class, 'updated_by');
     }
 
     public function creator() {
