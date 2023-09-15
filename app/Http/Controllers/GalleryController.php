@@ -53,7 +53,7 @@ class GalleryController extends Controller
     {
         $validated = $request->validate([
             "image" => "nullable",
-            "is_active" => "nullable|boolean",
+            "is_active" => "required|boolean",
         ]);
         if ($request->file("image")) {
             if ($gallery->image && Storage::exists($gallery->image)) {

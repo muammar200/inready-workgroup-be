@@ -57,8 +57,8 @@ class SliderController extends Controller
         $validated = $request->validate([
             "title" => "required",
             "description" => "required",
-            "image" => "required|image",
-            "is_active" => "boolean",
+            "image" => "nullable",
+            "is_active" => "required|boolean",
         ]);
         if ($request->file("image")) {
             if ($slider->image && Storage::exists($slider->image)) {
@@ -93,7 +93,7 @@ class SliderController extends Controller
             return response()->json([
                 "success" => false,
                 "message" => $th->getMessage(),
-            ], 400);
+            ], 500);
         }
     }
 }

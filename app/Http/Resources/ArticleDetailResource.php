@@ -19,7 +19,7 @@ class ArticleDetailResource extends JsonResource
             "title" => $this->title,
             "slug" => $this->slug,
             "category" => $this->category->name,
-            "writer" => $this->creator->username,
+            "writer" => $this->creator?->member->name,
             "image" => url("storage/$this->image"),
             "content" => $this->content,
             "created_at" => $this->created_at->isoFormat('D MMMM Y'),

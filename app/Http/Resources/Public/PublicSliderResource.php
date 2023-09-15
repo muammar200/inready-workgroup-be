@@ -19,6 +19,7 @@ class PublicSliderResource extends JsonResource
             "title" => $this->title,
             "description" => $this->description,
             "image" => url("storage/$this->image"),
+            "date" => $this->created_at->isoFormat("DD MMMM Y"),
         ];
     }
 }

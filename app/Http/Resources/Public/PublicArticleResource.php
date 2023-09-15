@@ -20,7 +20,7 @@ class PublicArticleResource extends JsonResource
             "title" => $this->title,
             "content" => $this->content,
             "image" => url("storage/$this->image"),
-            "created_by" => $this->creator->member->name,
+            "created_by" => $this->creator?->member->name,
             "created_at" => $this->created_at->format("M d, Y"),
         ];
     }
