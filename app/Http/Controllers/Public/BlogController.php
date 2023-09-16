@@ -8,7 +8,6 @@ use App\Http\Resources\Public\NextBlogResource;
 use App\Http\Resources\Public\PublicBlogDetailResource;
 use App\Http\Resources\Public\PublicBlogResource;
 use App\Models\Article;
-use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
