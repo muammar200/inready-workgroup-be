@@ -16,10 +16,10 @@ class NextBlogResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'creator' => $this->creator->username,
+            'creator' => $this->creator->fullname,
             'updated_at' => Carbon::parse($this->created_at)->format('d m Y'),
             'title' => $this->title,
-        'content' => $this->content,
+            'content' => $this->content,
         ];
     }
 }
