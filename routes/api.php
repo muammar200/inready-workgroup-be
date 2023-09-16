@@ -10,6 +10,7 @@ use App\Http\Controllers\ConcentrationController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\Public\BlogController;
 use App\Http\Controllers\Public\HomeController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\UserController;
@@ -25,14 +26,24 @@ use App\Http\Controllers\WorkController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::prefix("home")->group(function () {
-  Route::controller(HomeController::class)->group(function () {
-      Route::get('slider', 'slider');
-      Route::get('work', 'work');
-      Route::get('blog', 'article');
-      Route::get('gallery', 'gallery');
-      Route::get('agenda', 'agenda');
+Route::prefix("public")->group(function () {
+  Route::prefix("home")->group(function () {
+    Route::controller(HomeController::class)->group(function () {
+        Route::get('slider', 'slider');
+        Route::get('work', 'work');
+        Route::get('blog', 'article');
+        Route::get('gallery', 'gallery');
+        Route::get('agenda', 'agenda');
+    });
   });
+
+  Route::prefix("blog")->group(function () {
+    Route::controller(BlogController::class)->group(function () {
+      Route::get('/', 'index');
+      Route::get('/show/{article:slug}', 'show');
+    });
+  });
+  
 });
 
 Route::get('category', [CategoryController::class, 'index']);
