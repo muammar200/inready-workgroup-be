@@ -21,7 +21,7 @@ class BlogController extends Controller
 
     public function show(Article $article){
 
-        $data = Article::whereDate('created_at', $article->created_at)->limit(3)->get();
+        $data = Article::whereDate('created_at', '>',$article->created_at)->limit(3)->get();
 
         return response()->json([
             'data' => new PublicBlogDetailResource($article),
