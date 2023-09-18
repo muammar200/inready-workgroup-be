@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PaginateSearchRequest;
 use App\Http\Resources\IdNameResource;
+use App\Http\Resources\MetaPaginateResource;
 use App\Models\Major;
 use Illuminate\Http\Request;
 
@@ -17,6 +18,7 @@ class MajorController extends Controller
 
         $majors = Major::where("name", "LIKE", "%$search%")->orderBy("name", "asc")->paginate($perpage, ["*"], 'page', $page);
         return response()->json([
+            "meta" => new MetaPaginateResource($majors),
             "data" => IdNameResource::collection($majors),
         ], 200);
     }

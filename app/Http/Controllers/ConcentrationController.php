@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PaginateSearchRequest;
 use App\Http\Resources\IdNameResource;
+use App\Http\Resources\MetaPaginateResource;
 use App\Models\Concentration;
 use Illuminate\Http\Request;
 
@@ -17,6 +18,7 @@ class ConcentrationController extends Controller
 
         $concentrations = Concentration::where("name", "LIKE", "%$search%")->orderBy("name", "asc")->paginate($perpage, ["*"], 'page', $page);
         return response()->json([
+            "meta" => new MetaPaginateResource($concentrations),
             "data" => IdNameResource::collection($concentrations),
         ], 200);
     }
