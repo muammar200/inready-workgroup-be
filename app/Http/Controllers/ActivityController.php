@@ -37,6 +37,7 @@ class ActivityController extends Controller
     {
         $validated = $request->validate([
             "title" => "required|string",
+            "registration_link" => "nullable",
             "flayer_image" => "required|image",
             "location" => "required|string",
             "time" => "required|date",
@@ -63,6 +64,7 @@ class ActivityController extends Controller
             "location" => "required|string",
             "time" => "required|date",
             "description" => "required|string",
+            "registration_link" => "nullable",
         ]);
         if ($request->file("flayer_image")) {
             if ($activity->flayer_image && Storage::exists($activity->flayer_image)) {
