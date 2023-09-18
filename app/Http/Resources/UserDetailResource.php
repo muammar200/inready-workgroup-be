@@ -17,6 +17,7 @@ class UserDetailResource extends JsonResource
         return [
             "id" => $this->id,
             "name" => $this->member->name,
+            "member_id" => $this->member_id,
             "username" => $this->username,
             "level" => $this->level,
             "created_at" => $this->created_at->isoFormat("D MMMM Y"),

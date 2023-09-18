@@ -36,7 +36,7 @@ class WorkController extends Controller
     {
         $validated = $request->validate([
             "title" => "required|string",
-            "member_id" => "required|exists:works,id",
+            "member_id" => "required|exists:members,id",
             "image" => "nullable|image",
             "link" => "nullable|string",
             "description" => "nullable|string",
@@ -61,7 +61,7 @@ class WorkController extends Controller
     {
         $validated = $request->validate([
             "title" => "required|string",
-            "member_id" => "required|exists:works,id",
+            "member_id" => "required|exists:members,id",
             "image" => "nullable",
             "link" => "nullable|string",
             "description" => "nullable|string",
