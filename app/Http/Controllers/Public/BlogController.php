@@ -12,13 +12,7 @@ use App\Models\Article;
 class BlogController extends Controller
 {
     public function index(){
-        $category = request()->query('category');
-        $data = Article::
-            when(!is_null($category), function($q) use ($category){
-                $q->where('category_id', $category);
-            })
-            ->latest()
-            ->paginate(4);
+        $data = Article::latest()->paginate(4);
         return response()->json([
             'data' => PublicBlogResource::collection($data),
             'meta' => new MetaPaginateResource($data)
