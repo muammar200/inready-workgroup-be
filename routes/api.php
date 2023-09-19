@@ -54,6 +54,8 @@ Route::prefix("public")->group(function () {
   
 });
 
+
+Route::get('/member/all', [MemberController::class, 'getAllMember']);
 Route::resource('category', CategoryController::class)->except(['create', 'edit']);
 Route::resource('major', MajorController::class)->except(['create', 'edit']);
 Route::resource('concentration', ConcentrationController::class)->except(['create', 'edit']);

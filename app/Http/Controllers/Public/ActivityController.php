@@ -7,7 +7,6 @@ use App\Http\Resources\MetaPaginateResource;
 use App\Http\Resources\Public\DetailActivityResource;
 use App\Http\Resources\Public\PublicActivityResource;
 use App\Models\Activity;
-use Illuminate\Http\Request;
 
 class ActivityController extends Controller
 {
