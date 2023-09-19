@@ -18,7 +18,7 @@ class WorkController extends Controller
         $perpage = $request->input('perpage', 10);
         $search = $request->input('search', "");
 
-        $works = Work::where("title", "LIKE", "%$search%")->paginate($perpage, ["*"], 'page', $page);
+        $works = Work::where("title", "LIKE", "%$search%")->latest()->paginate($perpage, ["*"], 'page', $page);
         return response()->json([
             "meta" => new MetaPaginateResource($works),
             "data" => WorkResource::collection($works),

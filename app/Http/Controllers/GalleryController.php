@@ -16,7 +16,7 @@ class GalleryController extends Controller
         $page = $request->input("page", 1);
         $perpage = $request->input("perpage", 10);
 
-        $galleries = Gallery::paginate($perpage, ["*"], 'page', $page);
+        $galleries = Gallery::latest()->paginate($perpage, ["*"], 'page', $page);
         return response()->json([
             "meta" => new MetaPaginateResource($galleries),
             "data" => GalleryResource::collection($galleries),

@@ -18,7 +18,7 @@ class UserController extends Controller
         $perpage = $request->input('perpage', 10);
         $search = $request->input('search', "");
 
-        $users = User::where("username", "LIKE", "%$search%")->paginate($perpage, ["*"], 'page', $page);
+        $users = User::where("username", "LIKE", "%$search%")->latest()->paginate($perpage, ["*"], 'page', $page);
         return response()->json([
             "meta" => new MetaPaginateResource($users),
             "data" => UserResource::collection($users),

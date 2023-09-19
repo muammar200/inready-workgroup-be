@@ -17,7 +17,7 @@ class SliderController extends Controller
         $perpage = $request->input("perpage", 10);
         $search = $request->input("search", "");
 
-        $sliders = Slider::where("title", "LIKE", "%$search%")->paginate($perpage, ["*"], 'page', $page);
+        $sliders = Slider::where("title", "LIKE", "%$search%")->latest()->paginate($perpage, ["*"], 'page', $page);
         return response()->json([
             "meta" => new MetaPaginateResource($sliders),
             "data" => SliderResource::collection($sliders),

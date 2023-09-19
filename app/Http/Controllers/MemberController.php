@@ -26,7 +26,7 @@ class MemberController extends Controller
         $perpage = $request->input("perpage", 10);
         $search = $request->input("search", "");
 
-        $members = Member::where("name", "LIKE", "%$search%")->paginate($perpage, ["*"], 'page', $page);
+        $members = Member::where("name", "LIKE", "%$search%")->latest()->paginate($perpage, ["*"], 'page', $page);
         return response()->json([
             "meta" => new MetaPaginateResource($members),
             "data" => MemberResource::collection($members),
