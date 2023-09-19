@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('link')->nullable();
             $table->string('image')->nullable();
             $table->boolean('is_active')->default(false);
+            $table->boolean('is_best')->default(false);
             $table->foreignIdFor(User::class, 'created_by')->nullable();
             $table->foreignIdFor(User::class, 'updated_by')->nullable();
             $table->timestamps();
