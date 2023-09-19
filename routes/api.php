@@ -54,11 +54,11 @@ Route::prefix("public")->group(function () {
   
 });
 
-Route::get('/member/all', [MemberController::class, 'getAllMember']);
 
-Route::get('category', [CategoryController::class, 'index']);
-Route::get('major', [MajorController::class, 'index']);
-Route::get('concentration', [ConcentrationController::class, 'index']);
+Route::get('/member/all', [MemberController::class, 'getAllMember']);
+Route::resource('category', CategoryController::class)->except(['create', 'edit']);
+Route::resource('major', MajorController::class)->except(['create', 'edit']);
+Route::resource('concentration', ConcentrationController::class)->except(['create', 'edit']);
 Route::resource('article', ArticleController::class)->except(['create', 'edit'])->parameters(["article" => "article:slug"]);
 Route::resource('agenda', AgendaController::class)->except(['create', 'edit'])->parameters(["agenda" => "agenda:slug"]);
 Route::resource('activity', ActivityController::class)->except(['create', 'edit']);

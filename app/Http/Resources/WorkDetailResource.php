@@ -18,6 +18,7 @@ class WorkDetailResource extends JsonResource
             "id" => $this->id,
             "title" => $this->title,
             "creator" => $this->member->name,
+            "member_id" => $this->member_id,
             "concentration" => $this->member->concentration->name,
             "link" => $this->link,
             "image" => url("storage/$this->image"),

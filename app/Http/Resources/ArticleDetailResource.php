@@ -19,6 +19,7 @@ class ArticleDetailResource extends JsonResource
             "title" => $this->title,
             "slug" => $this->slug,
             "category" => $this->category->name,
+            "category_id" => $this->category_id,
             "writer" => $this->creator?->member->name,
             "image" => url("storage/$this->image"),
             "content" => $this->content,
