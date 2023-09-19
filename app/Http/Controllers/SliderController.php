@@ -40,8 +40,8 @@ class SliderController extends Controller
             "is_active" => "boolean",
         ]);
         $validated["image"] = $request->file("image")->storePublicly("slider", "public");
-        $validated["created_by"]  = 1;
-        $validated["updated_by"]  = 1;
+        // $validated["created_by"]  = 1;
+        // $validated["updated_by"]  = 1;
         try {
             $slider = Slider::create($validated);
             return response()->json(new SliderResource($slider), 201);
@@ -68,7 +68,7 @@ class SliderController extends Controller
         } else {
             unset($validated["image"]);
         }
-        $validated["updated_by"]  = 1;
+        // $validated["updated_by"]  = 1;
         try {
             $slider->update($validated);
             return response()->json(new SliderResource($slider), 200);
