@@ -21,6 +21,7 @@ class ActivityResource extends JsonResource
             "location" => $this->location,
             "time" => Carbon::parse($this->time)->isoFormat("D/MM/Y"),
             "registration_link" => $this->registration_link,
+            "flayer_image" => $this->flayer_image,
         ];
     }
 }

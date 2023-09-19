@@ -10,6 +10,8 @@ use App\Http\Controllers\ConcentrationController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\Public\ActivityController as PublicActivityController;
+use App\Http\Controllers\Public\BlogCategoryController;
 use App\Http\Controllers\Public\BlogController;
 use App\Http\Controllers\Public\HomeController;
 use App\Http\Controllers\SliderController;
@@ -38,14 +40,26 @@ Route::prefix("public")->group(function () {
   });
 
   Route::prefix("blog")->group(function () {
+
+    Route::get('/categories', [BlogCategoryController::class, 'index']);
+
     Route::controller(BlogController::class)->group(function () {
       Route::get('/', 'index');
       Route::get('/show/{article:slug}', 'show');
     });
   });
+
+  Route::prefix("activity")->group(function () {
+    Route::controller(PublicActivityController::class)->group(function () {
+      Route::get('/', 'index');
+      Route::get('/show/{activity}', 'show');
+    });
+  });
   
 });
 
+
+Route::get('/member/all', [MemberController::class, 'getAllMember']);
 Route::resource('category', CategoryController::class)->except(['create', 'edit']);
 Route::resource('major', MajorController::class)->except(['create', 'edit']);
 Route::resource('concentration', ConcentrationController::class)->except(['create', 'edit']);

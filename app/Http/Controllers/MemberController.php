@@ -13,6 +13,13 @@ use App\Http\Resources\MetaPaginateResource;
 
 class MemberController extends Controller
 {
+
+    public function getAllMember(){
+        return response()->json([
+            'data' => Member::latest()->get(['id', 'name'])
+        ],200);
+    }
+
     public function index(PaginateSearchRequest $request)
     {
         $page = $request->input("page", 1);
