@@ -16,7 +16,7 @@ class MemberController extends Controller
 
     public function getAllMember(){
         return response()->json([
-            'date' => Member::latest()->get(['id', 'name'])
+            'data' => Member::latest()->get(['id', 'name'])
         ],200);
     }
 

@@ -11,6 +11,7 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\Public\ActivityController as PublicActivityController;
+use App\Http\Controllers\Public\BlogCategoryController;
 use App\Http\Controllers\Public\BlogController;
 use App\Http\Controllers\Public\HomeController;
 use App\Http\Controllers\SliderController;
@@ -39,6 +40,9 @@ Route::prefix("public")->group(function () {
   });
 
   Route::prefix("blog")->group(function () {
+
+    Route::get('/categories', [BlogCategoryController::class, 'index']);
+
     Route::controller(BlogController::class)->group(function () {
       Route::get('/', 'index');
       Route::get('/show/{article:slug}', 'show');
