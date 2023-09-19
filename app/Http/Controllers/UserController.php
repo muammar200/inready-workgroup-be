@@ -40,8 +40,8 @@ class UserController extends Controller
             "member_id" => "required|exists:members,id",
         ]);
         $validated["password"] = Hash::make($validated["password"]);
-        $validated["created_by"]  = 1;
-        $validated["updated_by"]  = 1;
+        // $validated["created_by"]  = 1;
+        // $validated["updated_by"]  = 1;
         try {
             $user = User::create($validated);
             return response()->json(new UserDetailResource($user));
@@ -64,7 +64,7 @@ class UserController extends Controller
         } else {
             unset($validated["password"]);
         }
-        $validated["updated_by"]  = 1;
+        // $validated["updated_by"]  = 1;
         try {
             $user->update($validated);
             return response()->json(new UserDetailResource($user));
