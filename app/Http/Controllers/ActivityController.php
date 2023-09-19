@@ -19,7 +19,7 @@ class ActivityController extends Controller
         $perpage = $request->input('perpage', 10);
         $search = $request->input("search", "");
 
-        $activities = Activity::where("title", "LIKE", "%$search%")->paginate($perpage, ["*"], 'page', $page);
+        $activities = Activity::where("title", "LIKE", "%$search%")->latest()->paginate($perpage, ["*"], 'page', $page);
         return response()->json([
             "meta" => new MetaPaginateResource($activities),
             "data" => ActivityResource::collection($activities),

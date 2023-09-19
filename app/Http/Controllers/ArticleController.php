@@ -19,7 +19,7 @@ class ArticleController extends Controller
         $perpage = $request->input("perpage", 10);
         $search = $request->input("search", "");
 
-        $articles = Article::where("title", "LIKE", "%$search%")->paginate($perpage, ["*"], 'page', $page);
+        $articles = Article::where("title", "LIKE", "%$search%")->latest()->paginate($perpage, ["*"], 'page', $page);
         return response()->json([
             "meta" => new MetaPaginateResource($articles),
             "data" => ArticleResource::collection($articles),
