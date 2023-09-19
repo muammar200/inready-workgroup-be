@@ -54,6 +54,8 @@ Route::prefix("public")->group(function () {
   
 });
 
+Route::get('/member/all', [MemberController::class, 'getAllMember']);
+
 Route::get('category', [CategoryController::class, 'index']);
 Route::get('major', [MajorController::class, 'index']);
 Route::get('concentration', [ConcentrationController::class, 'index']);
