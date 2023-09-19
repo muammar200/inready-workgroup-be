@@ -14,6 +14,7 @@ use App\Http\Controllers\Public\ActivityController as PublicActivityController;
 use App\Http\Controllers\Public\BlogCategoryController;
 use App\Http\Controllers\Public\BlogController;
 use App\Http\Controllers\Public\HomeController;
+use App\Http\Controllers\Public\WorksController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkController;
@@ -51,6 +52,13 @@ Route::prefix("public")->group(function () {
 
   Route::prefix("activity")->group(function () {
     Route::controller(PublicActivityController::class)->group(function () {
+      Route::get('/', 'index');
+      Route::get('/show/{activity}', 'show');
+    });
+  });
+
+  Route::prefix("works")->group(function () {
+    Route::controller(WorksController::class)->group(function () {
       Route::get('/', 'index');
       Route::get('/show/{activity}', 'show');
     });
