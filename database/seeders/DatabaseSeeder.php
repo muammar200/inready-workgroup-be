@@ -9,8 +9,11 @@ use App\Models\Agenda;
 use App\Models\Member;
 use App\Models\Article;
 use App\Models\Activity;
+use App\Models\BPO;
 use App\Models\Category;
+use App\Models\Division;
 use App\Models\Gallery;
+use App\Models\Presidium;
 use App\Models\Slider;
 use Illuminate\Database\Seeder;
 
@@ -28,9 +31,70 @@ class DatabaseSeeder extends Seeder
         Activity::factory()->count(5)->create();
         $this->call(MajorSeeder::class);
         $this->call(ConcentrationSeeder::class);
-        Member::factory()->count(15)->create();
+        Member::factory()->count(50)->create();
         Work::factory()->count(10)->create();
         Slider::factory()->count(10)->create();
         Gallery::factory()->count(15)->create();
+
+        $data = [
+            [
+                'name' => 'Ketua Umum',
+                'level' => 1,
+            ],
+            [
+                'name' => 'Bendahara Umum',
+                'level' => 2,
+            ],
+            [
+                'name' => 'Sekretaris Umum',
+                'level' => 3,
+            ],
+            [
+                'name' => 'Wakil Ketua 1',
+                'level' => 4,
+            ],
+            [
+                'name' => 'Wakil Ketua 2',
+                'level' => 5,
+            ],
+            [
+                'name' => 'Wakil Ketua 3',
+                'level' => 6,
+            ],
+        ];
+
+        foreach ($data as $i) {
+            Presidium::create($i);
+        }
+
+        foreach(Presidium::where('level', '>', 3)->get() as $pres){
+            for($i = 0; $i < rand(2,3); $i++){
+                Division::create([
+                    'name' => fake()->jobTitle,
+                    'presidium_id' => $pres->id
+                ]);
+            }
+        }
+
+        foreach(Member::limit(6)->get() as $i => $member){
+            BPO::create([
+                'member_id' => $member->id,
+                'presidium_id' => $i+1,
+            ]);
+        }
+
+        foreach(Member::where('id', '>', 6)->get() as $member){
+            BPO::create([
+                'member_id' => $member->id,
+                'division_id' => Division::inRandomOrder()->first()->id,
+            ]);
+        }
+
+        foreach(Division::all() as $div){
+            $bpo = BPO::where('division_id', $div->id)->inRandomOrder()->first();
+            $bpo->update(['is_division_head' => true]);
+        }
+
+
     }
 }
