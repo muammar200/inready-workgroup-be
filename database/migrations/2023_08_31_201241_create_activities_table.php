@@ -23,7 +23,6 @@ return new class extends Migration
             $table->foreignIdFor(User::class, 'created_by')->nullable();
             $table->foreignIdFor(User::class, 'updated_by')->nullable();
             $table->timestamps();
-
             $table->foreign("created_by")->references("id")->on("users")->onDelete("set null");
             $table->foreign("updated_by")->references("id")->on("users")->onDelete("set null");
         });

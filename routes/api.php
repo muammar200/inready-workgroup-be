@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\BPOController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ConcentrationController;
 use App\Http\Controllers\GalleryController;
@@ -13,7 +14,9 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\Public\ActivityController as PublicActivityController;
 use App\Http\Controllers\Public\BlogCategoryController;
 use App\Http\Controllers\Public\BlogController;
+use App\Http\Controllers\Public\BPOController as PublicBPOController;
 use App\Http\Controllers\Public\HomeController;
+use App\Http\Controllers\Public\WorksController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkController;
@@ -55,11 +58,21 @@ Route::prefix("public")->group(function () {
       Route::get('/show/{activity}', 'show');
     });
   });
+
+  Route::prefix("works")->group(function () {
+    Route::controller(WorksController::class)->group(function () {
+      Route::get('/', 'index');
+      Route::get('/show/{activity}', 'show');
+    });
+  });
+
+  Route::get('bpo', [PublicBPOController::class, 'index']);
   
 });
 
 
 Route::get('/member/all', [MemberController::class, 'getAllMember']);
+Route::resource('bpo', BPOController::class)->except(['create', 'edit']);
 Route::resource('category', CategoryController::class)->except(['create', 'edit']);
 Route::resource('major', MajorController::class)->except(['create', 'edit']);
 Route::resource('concentration', ConcentrationController::class)->except(['create', 'edit']);
