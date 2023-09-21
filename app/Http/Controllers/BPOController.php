@@ -9,14 +9,16 @@ use Illuminate\Http\Request;
 class BPOController extends Controller
 {
 
-    public function index(){
+    public function index()
+    {
         $data = BPO::orderBy('presidium_id', 'DESC')->latest()->get();
         return response()->json([
             'data' => BPOResource::collection($data)
         ]);
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
         $validated = $request->validate([
             'member_id' => 'required',
@@ -33,36 +35,34 @@ class BPOController extends Controller
                 "message" => $th->getMessage(),
             ], 500);
         }
-
     }
 
-    public function update(Request $request, BPO $bPO){
+    public function update(Request $request, BPO $bpo)
+    {
 
         try {
-            $bPO->update($request->all());
+            $bpo->update($request->all());
             return response()->json([
                 'message' => 'data berhasil di update',
-                'data' => $bPO
+                'data' => $bpo
             ]);
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
             ], 500);
         }
-
     }
 
-    public function destroy(BPO $bPO){
+    public function destroy(BPO $bpo)
+    {
 
         try {
-            $bPO->delete();
-            return response()->json([ 'message' => 'data berhasil di hapus' ]);
+            $bpo->delete();
+            return response()->json(['message' => 'data berhasil di hapus']);
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
             ], 500);
         }
-
     }
-
 }

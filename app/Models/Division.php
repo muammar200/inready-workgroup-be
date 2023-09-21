@@ -11,8 +11,13 @@ class Division extends Model
 
     protected $guarded = ['id'];
 
-    public function bpo(){
+    public function bpo()
+    {
         return $this->hasMany(BPO::class)->orderBy('is_division_head', 'DESC');
     }
 
+    public function presidium()
+    {
+        return $this->belongsTo(Presidium::class);
+    }
 }
