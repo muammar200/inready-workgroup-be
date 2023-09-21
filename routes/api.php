@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\ArticleController;
@@ -16,6 +15,7 @@ use App\Http\Controllers\Public\BlogCategoryController;
 use App\Http\Controllers\Public\BlogController;
 use App\Http\Controllers\Public\BPOController as PublicBPOController;
 use App\Http\Controllers\Public\HomeController;
+use App\Http\Controllers\Public\MemberController as PublicMemberController;
 use App\Http\Controllers\Public\WorksController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\UserController;
@@ -66,7 +66,8 @@ Route::prefix("public")->group(function () {
     });
   });
 
-  Route::get('bpo', [PublicBPOController::class, 'index']);
+  Route::get('/bpo', [PublicBPOController::class, 'index']);
+  Route::get('/member', [PublicMemberController::class, 'index']);
   
 });
 
