@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ActivityFactory extends Factory
 {
+    static $counter = 1;
     /**
      * Define the model's default state.
      *
@@ -17,13 +18,15 @@ class ActivityFactory extends Factory
      */
     public function definition(): array
     {
+        $imageNumber = self::$counter;
+        self::$counter++;
         $userIds = User::pluck("id")->toArray();
         return [
             "title" => fake()->sentence(3),
             "location" => fake()->sentence(5),
             "description" => fake()->sentence(10),
             "registration_link" => fake()->sentence(2),
-            "flayer_image" => "flayer.jpg",
+            "flayer_image" => "flayer_image/image-$imageNumber.jpg",
             "time" => fake()->date(),
             "created_by" => fake()->randomElement($userIds),
             "updated_by" => fake()->randomElement($userIds),

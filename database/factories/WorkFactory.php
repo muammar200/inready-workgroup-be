@@ -30,6 +30,7 @@ class WorkFactory extends Factory
             "link" => str_replace(" ", "", fake()->sentence(4, true)) . ".com",
             "image" => "work/work-$imageNumber.jpg",
             "is_active" => fake()->randomElement([0, 1]),
+            "is_best" => fake()->randomElement([0,1]),
             "created_by" => fake()->randomElement($userIds),
             "updated_by" => fake()->randomElement($userIds),
         ];

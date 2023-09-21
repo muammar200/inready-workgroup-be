@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
  */
 class ArticleFactory extends Factory
 {
+    static $counter = 1;
     /**
      * Define the model's default state.
      *
@@ -19,6 +20,9 @@ class ArticleFactory extends Factory
      */
     public function definition(): array
     {
+        $imageNumber = self::$counter;
+        self::$counter++;
+
         $categoryIds = Category::pluck('id')->toArray();
         $randomCategoryId = fake()->randomElement($categoryIds);
 
@@ -29,7 +33,7 @@ class ArticleFactory extends Factory
             "title" => $title,
             "slug" => Str::slug($title),
             "content" => fake()->paragraph(),
-            "image" => "articleImage.jpg",
+            "image" => "article/image-$imageNumber.jpg",
             "category_id" => $randomCategoryId,
             "created_by" => $randomUserId,
             "updated_by" => $randomUserId,
