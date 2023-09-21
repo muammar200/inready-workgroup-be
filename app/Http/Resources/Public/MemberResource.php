@@ -5,7 +5,7 @@ namespace App\Http\Resources\Public;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class DivisionMembersResource extends JsonResource
+class MemberResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,12 +15,11 @@ class DivisionMembersResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'name' => $this->member->name,
-            'is_division_head' => $this->is_division_head,
+            'name' => $this->name,
             'concentration' => $this->concentration->name,
-            'ig' => $this->member->instagram,
-            'fb' => $this->member->facebook,
-            'email' => $this->member->email
+            'ig' => $this->instagram,
+            'fb' => $this->facebook,
+            'email' => $this->email
         ];
     }
 }
