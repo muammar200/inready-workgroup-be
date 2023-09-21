@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class MemberFactory extends Factory
 {
+    static $counter = 1;
     /**
      * Define the model's default state.
      *
@@ -19,13 +20,15 @@ class MemberFactory extends Factory
      */
     public function definition(): array
     {
+        $imageNumber = self::$counter;
+        self::$counter++;
         $majorIds = Major::all();
         $concentrationIds = Concentration::all();
         $userIds = User::all();
         return [
             "nri" => fake()->randomNumber(9, true),
             "name" => fake()->name(),
-            "photo" => "photo.jpg",
+            "photo" => "member_photo/image-$imageNumber.jpg",
             "address" => fake()->sentence(3,true),
             "pob" => fake()->sentence(2, true),
             "dob" => fake()->date(),
