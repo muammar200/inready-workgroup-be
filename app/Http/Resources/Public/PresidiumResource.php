@@ -16,7 +16,8 @@ class PresidiumResource extends JsonResource
     {
         return [
             'name' => $this->member->name,
-            'position' => $this->name
+            'position' => $this->name,
+            'concentrartion' => $this->member->concentration->name
         ];
     }
 }
