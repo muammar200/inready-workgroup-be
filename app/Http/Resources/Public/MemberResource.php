@@ -5,7 +5,7 @@ namespace App\Http\Resources\Public;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PresidiumResource extends JsonResource
+class MemberResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,9 +15,11 @@ class PresidiumResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'name' => $this->member->name,
-            'position' => $this->name,
-            'concentration' => $this->member->concentration->name
+            'name' => $this->name,
+            'concentration' => $this->concentration->name,
+            'ig' => $this->instagram,
+            'fb' => $this->facebook,
+            'email' => $this->email
         ];
     }
 }

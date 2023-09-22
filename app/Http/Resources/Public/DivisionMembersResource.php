@@ -16,7 +16,11 @@ class DivisionMembersResource extends JsonResource
     {
         return [
             'name' => $this->member->name,
-            'is_division_head' => $this->is_division_head
+            'is_division_head' => $this->is_division_head,
+            'concentration' => $this->member->concentration->name,
+            'ig' => $this->member->instagram,
+            'fb' => $this->member->facebook,
+            'email' => $this->member->email
         ];
     }
 }
