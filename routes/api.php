@@ -80,6 +80,7 @@ Route::prefix("public")->group(function () {
     Route::controller(DashboardController::class)->group(function () {
         Route::get('member_chart', 'member_chart');
         Route::get('member_column_chart', 'member_column_chart');
+        Route::get('upcoming_agenda', 'upcoming_agenda');
     });
   });
   Route::get('/member/all', [MemberController::class, 'getAllMember']);
