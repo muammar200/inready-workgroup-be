@@ -17,7 +17,11 @@ class BPOController extends Controller
         $perpage = $request->input("perpage", 10);
         $search = $request->input("search", "");
 
-        $bpos = BPO::orderBy('presidium_id', 'DESC')->latest()->paginate($perpage, ["*"], 'page', $page);
+        $bpos = BPO::select('bpo.*')->join("members", "bpo.member_id", "=", "members.id")
+            ->where('members.name', 'LIKE', "%$search%")
+            ->orderBy('bpo.presidium_id', 'DESC')
+            ->latest()
+            ->paginate($perpage, ["*"], 'page', $page);
         return response()->json([
             "meta" => new MetaPaginateResource($bpos),
             'data' => BPOResource::collection($bpos),
