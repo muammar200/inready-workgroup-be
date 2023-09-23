@@ -13,7 +13,7 @@ class DivisionController extends Controller
     public function index(PaginateSearchRequest $request)
     {
         $page = $request->input("page", 1);
-        $perpage = $request->input("perpage", 10);
+        $perpage = $request->input("perpage", 100);
         $search = $request->input("search", "");
 
         $divisions = Division::select()->where("name", "LIKE", "%$search%")->latest()->paginate($perpage, ["*"], 'page', $page);
