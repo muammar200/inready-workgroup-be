@@ -2,18 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PaginateSearchRequest;
 use App\Http\Resources\BPOResource;
+use App\Http\Resources\MetaPaginateResource;
 use App\Models\BPO;
 use Illuminate\Http\Request;
 
 class BPOController extends Controller
 {
 
-    public function index()
+    public function index(PaginateSearchRequest $request)
     {
-        $data = BPO::orderBy('presidium_id', 'DESC')->latest()->get();
+        $page = $request->input("page", 1);
+        $perpage = $request->input("perpage", 10);
+        $search = $request->input("search", "");
+
+        $bpos = BPO::orderBy('presidium_id', 'DESC')->latest()->paginate($perpage, ["*"], 'page', $page);
         return response()->json([
-            'data' => BPOResource::collection($data)
+            "meta" => new MetaPaginateResource($bpos),
+            'data' => BPOResource::collection($bpos),
         ]);
     }
 
