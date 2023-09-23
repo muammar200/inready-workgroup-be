@@ -17,6 +17,13 @@ class BPOController extends Controller
         ]);
     }
 
+    public function show(BPO $bpo)
+    {
+        return response()->json([
+            "data" => new BPOResource($bpo),
+        ], 200);
+    }
+
     public function store(Request $request)
     {
 

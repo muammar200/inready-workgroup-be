@@ -13,7 +13,7 @@ class PresidiumController extends Controller
     public function index(PaginateSearchRequest $request)
     {
         $page = $request->input("page", 1);
-        $perpage = $request->input("perpage", 10);
+        $perpage = $request->input("perpage", 100);
         $search = $request->input("search", "");
 
         $presidiums = Presidium::select()->where("name", "LIKE", "%$search%")->orderBy("level", "asc")->paginate($perpage, ["*"], 'page', $page);
