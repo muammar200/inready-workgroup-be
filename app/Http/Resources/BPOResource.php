@@ -21,6 +21,8 @@ class BPOResource extends JsonResource
             'is_division_head' => $this->is_division_head ?? false,
             'presidium' => $this->position->name ?? null,
             'division' => $this->division->name ?? null,
+            'presidium_id' => $this->presidium_id,
+            'division_id' => $this->division_id,
         ];
     }
 }
