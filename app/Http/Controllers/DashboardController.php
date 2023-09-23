@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\NameCountResource;
+use App\Http\Resources\Public\PublicAgendaResource;
+use App\Models\Agenda;
 use App\Models\Member;
+use Carbon\Carbon;
 use Generator;
 use Illuminate\Http\Request;
 
@@ -66,8 +69,21 @@ class DashboardController extends Controller
             ];
         }
         return response()->json([
-            "male" => $maleResult,
-            "female" => $femaleResult,
+            "data" => [
+                "male" => $maleResult,
+                "female" => $femaleResult,
+            ],
+        ], 200);
+    }
+
+    public function upcoming_agenda()
+    {
+        $agendas = Agenda::where("time", ">=", Carbon::now())
+            ->orderBy("time")
+            ->take(4)
+            ->get();
+        return response()->json([
+            "data" => PublicAgendaResource::collection($agendas),
         ], 200);
     }
 }
