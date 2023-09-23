@@ -79,6 +79,7 @@ Route::prefix("public")->group(function () {
   Route::prefix("dashboard")->group(function () {
     Route::controller(DashboardController::class)->group(function () {
         Route::get('member_chart', 'member_chart');
+        Route::get('member_column_chart', 'member_column_chart');
     });
   });
   Route::get('/member/all', [MemberController::class, 'getAllMember']);
