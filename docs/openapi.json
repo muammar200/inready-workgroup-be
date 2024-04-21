@@ -1,0 +1,378 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "Inready",
+        "version": "1.0",
+        "description": "API Website Inready Workgroup",
+        "contact": {
+            "name": "Ikbal Djaya",
+            "url": "https://ahmadikbaldjaya.github.io/inready-docs/",
+            "email": "ikbaldjaya@gmail.com"
+        }
+    },
+    "servers": [
+        {
+            "url": "https://inr.hmjti-uinam.com/api",
+            "description": "Live Server"
+        },
+        {
+            "url": "http://localhost:3000/api",
+            "description": "Local Server"
+        }
+    ],
+    "security": [],
+    "paths": {
+        "/admin/dashboard/member_chart": {},
+        "/admin/dashboard/member_column_chart": {},
+        "/admin/dashboard/upcoming_agenda": {},
+        "/admin/slider": {
+            "get": {
+                "tags": ["Admin"],
+                "summary": "Get List Of Sliders",
+                "description": "Get List Of Sliders",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/pagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/perpagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/search"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success Get List Of Slider",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Slider"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/MetaPagination"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Admin"],
+                "summary": "Create Slider",
+                "description": "Create New Slider",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Slider Title",
+                                        "required": ["true"]
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Slider Description",
+                                        "required": ["true"]
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary",
+                                        "required": ["true"]
+                                    },
+                                    "is_active": {
+                                        "type": "boolean",
+                                        "example": false,
+                                        "default": false,
+                                        "required": ["false"]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Create New Slider",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/Slider"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/slider/{slider_id}": {
+            "parameters": [
+                {
+                    "name": "slider_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "example": 1
+                    }
+                }
+            ],
+            "get": {
+                "tags": ["Admin"],
+                "summary": "Get Slider",
+                "description": "Get Slider By Id",
+                "responses": {
+                    "200": {
+                        "description": "Success Get Slider",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/Slider"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Admin"],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/_method"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Slider Title",
+                                        "required": ["true"]
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Slider Description",
+                                        "required": ["true"]
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "anyOf": [
+                                            {
+                                                "type": "string",
+                                                "format": "binary"
+                                            }
+                                        ]
+                                    },
+                                    "is_active": {
+                                        "type": "boolean",
+                                        "example": false,
+                                        "required": ["true"]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Create New Slider",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/Slider"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Admin"],
+                "summary": "Delete Slider",
+                "description": "Delete Slider By Id",
+                "responses": {
+                    "200": {
+                        "description": "Success Delete Slider",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BaseResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "parameters": {
+            "_method": {
+                "name": "_mehtod",
+                "in": "query",
+                "description": "Post to put method",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "default": "put",
+                    "example": "put"
+                }
+            },
+            "pagePagination": {
+                "name": "page",
+                "in": "query",
+                "description": "Page Number",
+                "required": false,
+                "schema": {
+                    "type": "integer",
+                    "default": 1,
+                    "example": 1
+                }
+            },
+            "perpagePagination": {
+                "name": "perpage",
+                "in": "query",
+                "description": "Items per page",
+                "required": false,
+                "schema": {
+                    "type": "integer",
+                    "default": 10,
+                    "example": 10
+                }
+            },
+            "search": {
+                "name": "search",
+                "in": "query",
+                "description": "Search Keyword",
+                "required": false,
+                "schema": {
+                    "type": "string",
+                    "default": "",
+                    "example": ""
+                }
+            }
+        },
+        "schemas": {
+            "BaseResponse": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "example": 200
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "OK"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Success Process"
+                    }
+                }
+            },
+            "MetaPagination": {
+                "type": "object",
+                "properties": {
+                    "meta": {
+                        "type": "object",
+                        "properties": {
+                            "page": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "perpage": {
+                                "type": "integer",
+                                "example": 10
+                            },
+                            "total_page": {
+                                "type": "integer",
+                                "example": 5
+                            },
+                            "total_item": {
+                                "type": "integer",
+                                "example": 45
+                            }
+                        }
+                    }
+                }
+            },
+            "Slider": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Slider 1"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Slider Description"
+                    },
+                    "image": {
+                        "type": "string",
+                        "example": "http://localhost/slider/slider.jpg"
+                    },
+                    "is_active": {
+                        "type": "boolean",
+                        "example": false
+                    }
+                }
+            }
+        }
+    }
+}
