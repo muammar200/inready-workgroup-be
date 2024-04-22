@@ -22,12 +22,192 @@
     ],
     "security": [],
     "paths": {
-        "/admin/dashboard/member_chart": {},
-        "/admin/dashboard/member_column_chart": {},
-        "/admin/dashboard/upcoming_agenda": {},
+        "/admin/dashboard/member_chart": {
+            "get": {
+                "tags": ["Dashboard"],
+                "summary": "Member Chart",
+                "description": "Dashboard Member Chart",
+                "responses": {
+                    "200": {
+                        "description": "Success Get Data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "member_count": {
+                                                            "type": "integer",
+                                                            "example": 100
+                                                        },
+                                                        "desain_count": {
+                                                            "type": "integer",
+                                                            "example": 10
+                                                        },
+                                                        "website_count": {
+                                                            "type": "integer",
+                                                            "example": 70
+                                                        },
+                                                        "mobile_count": {
+                                                            "type": "integer",
+                                                            "example": 20
+                                                        },
+                                                        "desain_percent": {
+                                                            "type": "number",
+                                                            "example": 10
+                                                        },
+                                                        "website_percent": {
+                                                            "type": "number",
+                                                            "example": 70
+                                                        },
+                                                        "mobile_percent": {
+                                                            "type": "number",
+                                                            "example": 20
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/dashboard/member_column_chart": {
+            "get": {
+                "tags": ["Dashboard"],
+                "summary": "Member Colum Chart",
+                "description": "Dashboard Member Column Chart",
+                "responses": {
+                    "200": {
+                        "description": "Success Get Data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "male": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "angkatan": {
+                                                                        "type": "string",
+                                                                        "example": "nama angkatan"
+                                                                    },
+                                                                    "count": {
+                                                                        "type": "integer",
+                                                                        "example": 10
+                                                                    }
+                                                                }
+                                                            }
+                                                        },
+                                                        "female": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "angkatan": {
+                                                                        "type": "string",
+                                                                        "example": "nama angkatan"
+                                                                    },
+                                                                    "count": {
+                                                                        "type": "integer",
+                                                                        "example": 10
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/dashboard/upcoming_agenda": {
+            "get": {
+                "tags": ["Dashboard"],
+                "summary": "Upcoming Agenda",
+                "description": "Upcoming Agenda",
+                "responses": {
+                    "200": {
+                        "description": "Success Get Data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "slug": {
+                                                                "type": "string",
+                                                                "example": "agenda-slug"
+                                                            },
+                                                            "title": {
+                                                                "type": "string",
+                                                                "example": "Agenda Title"
+                                                            },
+                                                            "time": {
+                                                                "type": "string",
+                                                                "format": "date"
+                                                            },
+                                                            "location": {
+                                                                "type": "string",
+                                                                "example": "agenda location"
+                                                            },
+                                                            "description": {
+                                                                "type": "string",
+                                                                "example": "agenda description"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/admin/slider": {
             "get": {
-                "tags": ["Admin"],
+                "tags": ["Slider"],
                 "summary": "Get List Of Sliders",
                 "description": "Get List Of Sliders",
                 "parameters": [
@@ -72,7 +252,7 @@
                 }
             },
             "post": {
-                "tags": ["Admin"],
+                "tags": ["Slider"],
                 "summary": "Create Slider",
                 "description": "Create New Slider",
                 "requestBody": {
@@ -83,26 +263,23 @@
                                 "properties": {
                                     "title": {
                                         "type": "string",
-                                        "example": "Slider Title",
-                                        "required": ["true"]
+                                        "example": "Slider Title"
                                     },
                                     "description": {
                                         "type": "string",
-                                        "example": "Slider Description",
-                                        "required": ["true"]
+                                        "example": "Slider Description"
                                     },
                                     "image": {
                                         "type": "string",
-                                        "format": "binary",
-                                        "required": ["true"]
+                                        "format": "binary"
                                     },
                                     "is_active": {
                                         "type": "boolean",
                                         "example": false,
-                                        "default": false,
-                                        "required": ["false"]
+                                        "default": false
                                     }
-                                }
+                                },
+                                "required": ["title", "description", "image"]
                             }
                         }
                     }
@@ -145,7 +322,7 @@
                 }
             ],
             "get": {
-                "tags": ["Admin"],
+                "tags": ["Slider"],
                 "summary": "Get Slider",
                 "description": "Get Slider By Id",
                 "responses": {
@@ -173,7 +350,9 @@
                 }
             },
             "post": {
-                "tags": ["Admin"],
+                "tags": ["Slider"],
+                "summary": "Edit Slider",
+                "description": "Edit Slider By Id",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/_method"
@@ -187,29 +366,33 @@
                                 "properties": {
                                     "title": {
                                         "type": "string",
-                                        "example": "Slider Title",
-                                        "required": ["true"]
+                                        "example": "Slider Title"
                                     },
                                     "description": {
                                         "type": "string",
-                                        "example": "Slider Description",
-                                        "required": ["true"]
+                                        "example": "Slider Description"
                                     },
                                     "image": {
-                                        "type": "string",
                                         "anyOf": [
                                             {
                                                 "type": "string",
                                                 "format": "binary"
+                                            },
+                                            {
+                                                "type": "string"
                                             }
                                         ]
                                     },
                                     "is_active": {
                                         "type": "boolean",
-                                        "example": false,
-                                        "required": ["true"]
+                                        "example": false
                                     }
-                                }
+                                },
+                                "required": [
+                                    "title",
+                                    "description",
+                                    "is_active"
+                                ]
                             }
                         }
                     }
@@ -239,12 +422,1513 @@
                 }
             },
             "delete": {
-                "tags": ["Admin"],
+                "tags": ["Slider"],
                 "summary": "Delete Slider",
                 "description": "Delete Slider By Id",
                 "responses": {
                     "200": {
                         "description": "Success Delete Slider",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BaseResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/member": {
+            "get": {
+                "tags": ["Member"],
+                "summary": "Get List Of Members",
+                "description": "Get List Of Members",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/pagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/perpagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/search"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success Get List Of Members",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Member"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/MetaPagination"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Member"],
+                "summary": "Create New Member",
+                "description": "Create New Member",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nri": {
+                                        "type": "string",
+                                        "example": "123456788"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "member name"
+                                    },
+                                    "photo": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "example": "member address"
+                                    },
+                                    "pob": {
+                                        "type": "string",
+                                        "example": "member pob"
+                                    },
+                                    "dob": {
+                                        "type": "string",
+                                        "example": "21-04-2024",
+                                        "format": "ISO 8601"
+                                    },
+                                    "gender": {
+                                        "enum": ["male", "female"]
+                                    },
+                                    "generation": {
+                                        "type": "string",
+                                        "example": "14"
+                                    },
+                                    "major_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "concentration_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "position": {
+                                        "type": "string",
+                                        "example": "member position"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "08123456781"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "member@gmail.com"
+                                    },
+                                    "instagram": {
+                                        "type": "string",
+                                        "example": "member_ig"
+                                    },
+                                    "facebook": {
+                                        "type": "string",
+                                        "example": "member_fb"
+                                    }
+                                },
+                                "required": [
+                                    "nri",
+                                    "name",
+                                    "gender",
+                                    "generation",
+                                    "major_id",
+                                    "concentration_id",
+                                    "position"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Create New Member",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/MemberDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/member/{member_id}": {
+            "parameters": [
+                {
+                    "name": "member_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }
+            ],
+            "get": {
+                "tags": ["Member"],
+                "summary": "Get Member",
+                "description": "Get Member By Id",
+                "responses": {
+                    "200": {
+                        "description": "Success Get Member",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/MemberDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Member"],
+                "summary": "Edit Member",
+                "description": "Edit Member By Id",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/_method"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nri": {
+                                        "type": "string",
+                                        "example": "123456788"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "member name"
+                                    },
+                                    "photo": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "string",
+                                                "format": "binary"
+                                            }
+                                        ]
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "example": "member address"
+                                    },
+                                    "pob": {
+                                        "type": "string",
+                                        "example": "member pob"
+                                    },
+                                    "dob": {
+                                        "type": "string",
+                                        "example": "21-04-2024",
+                                        "format": "ISO 8601"
+                                    },
+                                    "gender": {
+                                        "enum": ["male", "female"]
+                                    },
+                                    "generation": {
+                                        "type": "string",
+                                        "example": "14"
+                                    },
+                                    "major_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "concentration_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "position": {
+                                        "type": "string",
+                                        "example": "member position"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "08123456781"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "member@gmail.com"
+                                    },
+                                    "instagram": {
+                                        "type": "string",
+                                        "example": "member_ig"
+                                    },
+                                    "facebook": {
+                                        "type": "string",
+                                        "example": "member_fb"
+                                    }
+                                },
+                                "required": [
+                                    "nri",
+                                    "name",
+                                    "gender",
+                                    "generation",
+                                    "major_id",
+                                    "concentration_id",
+                                    "position"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Create New Member",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/MemberDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Member"],
+                "summary": "Delete Member",
+                "description": "Delete Member By Id",
+                "responses": {
+                    "200": {
+                        "description": "Success Delete Member",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BaseResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/article": {
+            "get": {
+                "tags": ["Article"],
+                "summary": "Get List Of Articles",
+                "description": "Get List Of Articles",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/pagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/perpagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/search"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success Get List Of Articles",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Article"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/MetaPagination"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Article"],
+                "summary": "Create New Article",
+                "description": "Create New Article",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "article title"
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "content": {
+                                        "type": "string",
+                                        "example": "article content"
+                                    }
+                                },
+                                "required": [
+                                    "title",
+                                    "category_id",
+                                    "image",
+                                    "content"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Create New Article",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/ArticleDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/article/{article_id}": {
+            "parameters": [
+                {
+                    "name": "article_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }
+            ],
+            "get": {
+                "tags": ["Article"],
+                "summary": "Get Article",
+                "description": "Get Article By Id",
+                "responses": {
+                    "200": {
+                        "description": "Success Get Article",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/ArticleDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Article"],
+                "summary": "Edit Article",
+                "description": "Edit Article By Id",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/_method"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "article title"
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "image": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "string",
+                                                "format": "binary"
+                                            }
+                                        ]
+                                    },
+                                    "content": {
+                                        "type": "string",
+                                        "example": "article content"
+                                    }
+                                },
+                                "required": ["title", "category_id", "content"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Create New Article",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/ArticleDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Article"],
+                "summary": "Delete Article",
+                "description": "Delete Article By Id",
+                "responses": {
+                    "200": {
+                        "description": "Success Delete Article",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BaseResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/activity": {
+            "get": {
+                "tags": ["Activity"],
+                "summary": "Get List Of Activities",
+                "description": "Get List Of Activities",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/pagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/perpagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/search"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success Get List Of Activities",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Activity"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/MetaPagination"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Activity"],
+                "summary": "Create New Activity",
+                "description": "Create New Activity",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "activity title"
+                                    },
+                                    "registration_link": {
+                                        "type": "string",
+                                        "example": "url"
+                                    },
+                                    "flayer_image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "location": {
+                                        "type": "string",
+                                        "example": "location name"
+                                    },
+                                    "time": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "activity description"
+                                    }
+                                },
+                                "required": [
+                                    "title",
+                                    "flayer_image",
+                                    "location",
+                                    "time",
+                                    "description"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Create New Activity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/ActivityDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/activity/{activity_id}": {
+            "parameters": [
+                {
+                    "name": "activity_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }
+            ],
+            "get": {
+                "tags": ["Activity"],
+                "summary": "Get Activity",
+                "description": "Get Activity By Id",
+                "responses": {
+                    "200": {
+                        "description": "Success Get Activity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/ActivityDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Activity"],
+                "summary": "Edit Activity",
+                "description": "Edit Activity By Id",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/_method"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "activity title"
+                                    },
+                                    "registration_link": {
+                                        "type": "string",
+                                        "example": "url"
+                                    },
+                                    "flayer_image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "location": {
+                                        "type": "string",
+                                        "example": "location name"
+                                    },
+                                    "time": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "activity description"
+                                    }
+                                },
+                                "required": [
+                                    "title",
+                                    "location",
+                                    "time",
+                                    "description"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Edit Activity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/ActivityDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Activity"],
+                "summary": "Delete Activity",
+                "description": "Delete Activity By Id",
+                "responses": {
+                    "200": {
+                        "description": "Success Delete Activity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BaseResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/work": {
+            "get": {
+                "tags": ["Work"],
+                "summary": "Get List Of Works",
+                "description": "Get List Of Works",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/pagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/perpagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/search"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success Get List Of Works",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Work"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/MetaPagination"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Work"],
+                "summary": "Create New Work",
+                "description": "Create New Work",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Samudra Potere"
+                                    },
+                                    "member_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "link": {
+                                        "type": "string",
+                                        "format": "uri"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "description"
+                                    },
+                                    "is_active": {
+                                        "type": "boolean",
+                                        "example": 0
+                                    }
+                                },
+                                "required": ["title", "member_id"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Create New Work",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/WorkDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/work/{work_id}": {
+            "parameters": [
+                {
+                    "name": "work_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }
+            ],
+            "get": {
+                "tags": ["Work"],
+                "summary": "Get Work",
+                "description": "Get Work By Id",
+                "responses": {
+                    "200": {
+                        "description": "Success Get Work",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/WorkDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Work"],
+                "summary": "Edit Work",
+                "description": "Edit Work By Id",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/_method"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Samudra Potere"
+                                    },
+                                    "member_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "image": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "string",
+                                                "format": "binary"
+                                            }
+                                        ]
+                                    },
+                                    "link": {
+                                        "type": "string",
+                                        "format": "uri"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "description"
+                                    },
+                                    "is_active": {
+                                        "type": "boolean",
+                                        "example": 0
+                                    }
+                                },
+                                "required": ["title", "member_id"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Edit Work",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/WorkDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Work"],
+                "summary": "Delete Work",
+                "description": "Delete Work By Id",
+                "responses": {
+                    "200": {
+                        "description": "Success Delete Work",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BaseResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/agenda": {
+            "get": {
+                "tags": ["Agenda"],
+                "summary": "Get List Of Agendas",
+                "description": "Get List Of Agendas",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/pagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/perpagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/search"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success Get List Of Agendas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Agenda"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/MetaPagination"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Agenda"],
+                "summary": "Create New Agenda",
+                "description": "Create New Agenda",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Samudra Potere"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "description"
+                                    },
+                                    "location": {
+                                        "type": "string",
+                                        "example": "location name"
+                                    },
+                                    "time": {
+                                        "type": "string",
+                                        "format": "date"
+                                    }
+                                },
+                                "required": ["title", "location", "time"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Create New Agenda",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/AgendaDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/agenda/{agenda_id}": {
+            "parameters": [
+                {
+                    "name": "agenda_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }
+            ],
+            "get": {
+                "tags": ["Agenda"],
+                "summary": "Get Agenda",
+                "description": "Get Agenda By Id",
+                "responses": {
+                    "200": {
+                        "description": "Success Get Agenda",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/AgendaDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Agenda"],
+                "summary": "Edit Agenda",
+                "description": "Edit Agenda By Id",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/_method"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Samudra Potere"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "description"
+                                    },
+                                    "location": {
+                                        "type": "string",
+                                        "example": "location name"
+                                    },
+                                    "time": {
+                                        "type": "string",
+                                        "format": "date"
+                                    }
+                                },
+                                "required": ["title", "location", "time"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Edit Agenda",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/AgendaDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Agenda"],
+                "summary": "Delete Agenda",
+                "description": "Delete Agenda By Id",
+                "responses": {
+                    "200": {
+                        "description": "Success Delete Agenda",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BaseResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/user": {
+            "get": {
+                "tags": ["User"],
+                "summary": "Get List Of Users",
+                "description": "Get List Of Users",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/pagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/perpagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/search"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success Get List Of Users",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/User"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/MetaPagination"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["User"],
+                "summary": "Create New User",
+                "description": "Create New User",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "example": "ikrar"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password12345"
+                                    },
+                                    "member_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "required": [
+                                    "username",
+                                    "password",
+                                    "member_id"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Create New User",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/UserDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/user/{user_id}": {
+            "parameters": [
+                {
+                    "name": "user_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }
+            ],
+            "get": {
+                "tags": ["User"],
+                "summary": "Get User",
+                "description": "Get User By Id",
+                "responses": {
+                    "200": {
+                        "description": "Success Get User",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/UserDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["User"],
+                "summary": "Edit User",
+                "description": "Edit User By Id",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/_method"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "example": "ikrar"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password12345"
+                                    },
+                                    "member_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "required": ["username", "member_id"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Edit User",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/UserDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["User"],
+                "summary": "Delete User",
+                "description": "Delete User By Id",
+                "responses": {
+                    "200": {
+                        "description": "Success Delete User",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -372,6 +2056,352 @@
                         "example": false
                     }
                 }
+            },
+            "Member": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "nri": {
+                        "type": "string",
+                        "example": "123456789"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "member name"
+                    },
+                    "address": {
+                        "type": "string",
+                        "example": "member address"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "081234567899"
+                    }
+                }
+            },
+            "MemberDetail": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Member"
+                    },
+                    {
+                        "properties": {
+                            "photo": {
+                                "type": "string",
+                                "example": "http://localhost/member/member.jpg"
+                            },
+                            "pob": {
+                                "type": "string",
+                                "example": "Pangkep"
+                            },
+                            "dob": {
+                                "type": "string",
+                                "example": "18 Agustus 2002",
+                                "format": "D MMMM Y"
+                            },
+                            "gender": {
+                                "type": "string",
+                                "example": "male"
+                            },
+                            "generation": {
+                                "type": "string",
+                                "example": "100"
+                            },
+                            "major": {
+                                "type": "string",
+                                "example": "Teknik Informatika"
+                            },
+                            "major_id": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "concentration": {
+                                "type": "string",
+                                "example": "Website"
+                            },
+                            "concentration_id": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "position": {
+                                "type": "string",
+                                "example": "Member Position"
+                            },
+                            "email": {
+                                "type": "string",
+                                "example": "member@gmail.com"
+                            },
+                            "instagram": {
+                                "type": "string",
+                                "example": "member_ig"
+                            },
+                            "facebook": {
+                                "type": "string",
+                                "example": "member_fb"
+                            }
+                        }
+                    }
+                ]
+            },
+            "Article": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "article title"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "example": "article-slug"
+                    },
+                    "category": {
+                        "type": "string",
+                        "example": "article category"
+                    },
+                    "writer": {
+                        "type": "string",
+                        "example": "user writer"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date"
+                    }
+                }
+            },
+            "ArticleDetail": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Article"
+                    },
+                    {
+                        "properties": {
+                            "category_id": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "image": {
+                                "type": "string",
+                                "example": "http://localhost/article/article.jpg"
+                            },
+                            "content": {
+                                "type": "string",
+                                "example": "content body"
+                            },
+                            "updated_at": {
+                                "type": "string",
+                                "format": "date"
+                            }
+                        }
+                    }
+                ]
+            },
+            "Activity": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "activity title"
+                    },
+                    "location": {
+                        "type": "string",
+                        "example": "activity location"
+                    },
+                    "time": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "registration_link": {
+                        "type": "string",
+                        "example": "http://regis"
+                    },
+                    "flayer_image": {
+                        "type": "string",
+                        "example": "http://localhost/activity/activity.jpg"
+                    }
+                }
+            },
+            "ActivityDetail": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Activity"
+                    },
+                    {
+                        "properties": {
+                            "description": {
+                                "type": "string",
+                                "example": "activity description"
+                            },
+                            "created_at": {
+                                "type": "string",
+                                "format": "date"
+                            },
+                            "updated_at": {
+                                "type": "string",
+                                "format": "date"
+                            }
+                        }
+                    }
+                ]
+            },
+            "Work": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "title"
+                    },
+                    "creator": {
+                        "type": "string",
+                        "example": "member name"
+                    },
+                    "link": {
+                        "type": "string",
+                        "format": "uri"
+                    }
+                }
+            },
+            "WorkDetail": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Work"
+                    },
+                    {
+                        "properties": {
+                            "member_id": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "concentration": {
+                                "type": "string",
+                                "example": "Mobile"
+                            },
+                            "image": {
+                                "type": "string",
+                                "example": "http://localhost/work/work.jpg",
+                                "format": "uri"
+                            },
+                            "description": {
+                                "type": "string",
+                                "example": "description"
+                            },
+                            "created_at": {
+                                "type": "string",
+                                "format": "date"
+                            },
+                            "updated_at": {
+                                "type": "string",
+                                "format": "date"
+                            }
+                        }
+                    }
+                ]
+            },
+            "Agenda": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "title"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "example": "agenda-slug"
+                    },
+                    "location": {
+                        "type": "string",
+                        "example": "location name"
+                    },
+                    "time": {
+                        "type": "string",
+                        "format": "date"
+                    }
+                }
+            },
+            "AgendaDetail": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Agenda"
+                    },
+                    {
+                        "properties": {
+                            "description": {
+                                "type": "string",
+                                "example": "agenda description"
+                            },
+                            "created_at": {
+                                "type": "string",
+                                "format": "date"
+                            },
+                            "updayed_at": {
+                                "type": "string",
+                                "format": "date"
+                            }
+                        }
+                    }
+                ]
+            },
+            "User": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Aidil"
+                    },
+                    "username": {
+                        "type": "string",
+                        "example": "bagong"
+                    },
+                    "level": {
+                        "type": "string",
+                        "example": "editor"
+                    }
+                }
+            },
+            "UserDetail": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/User"
+                    },
+                    {
+                        "properties": {
+                            "member_id": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "created_at": {
+                                "type": "string",
+                                "format": "date"
+                            },
+                            "updated_at": {
+                                "type": "string",
+                                "format": "date"
+                            }
+                        }
+                    }
+                ]
             }
         }
     }
