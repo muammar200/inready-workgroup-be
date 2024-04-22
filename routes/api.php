@@ -76,6 +76,7 @@ Route::prefix("public")->group(function () {
 });
 
 // Route::middleware(['auth:sanctum'])->group(function () {
+Route::prefix("admin")->group(function () {
   Route::prefix("dashboard")->group(function () {
     Route::controller(DashboardController::class)->group(function () {
         Route::get('member_chart', 'member_chart');
@@ -98,6 +99,7 @@ Route::prefix("public")->group(function () {
   Route::resource('gallery', GalleryController::class)->except(['create', 'edit']);
   Route::resource('presidium', PresidiumController::class)->except(['create', 'edit']);
   Route::resource('division', DivisionController::class)->except(['create', 'edit']);
+});
 // });
 
 Route::controller(AuthenticateController::class)->group(function () {

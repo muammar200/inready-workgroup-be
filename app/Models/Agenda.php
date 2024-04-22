@@ -11,6 +11,10 @@ class Agenda extends Model
     use HasFactory, Sluggable;
 
     protected $guarded = ["id"];
+    protected $dispatchesEvents = [
+        "creating" => SetCreatedBy::class,
+        "saving" => SetUpdatedBy::class,
+    ];
 
     public function sluggable(): array
     {

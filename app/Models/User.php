@@ -42,6 +42,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    protected $dispatchesEvents = [
+        "creating" => SetCreatedBy::class,
+        "saving" => SetUpdatedBy::class,
+    ];
 
     public function articles_created(){
         return $this->hasMany(Article::class, 'created_by');

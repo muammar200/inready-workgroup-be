@@ -9,6 +9,10 @@ class Gallery extends Model
 {
     use HasFactory;
     protected $guarded = ["id"];
+    protected $dispatchesEvents = [
+        "creating" => SetCreatedBy::class,
+        "saving" => SetUpdatedBy::class,
+    ];
 
     public function creator()
     {

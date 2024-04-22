@@ -20,7 +20,11 @@
             "description": "Local Server"
         }
     ],
-    "security": [],
+    "security": [
+        {
+            "AuthToken": []
+        }
+    ],
     "paths": {
         "/admin/dashboard/member_chart": {
             "get": {
@@ -257,7 +261,7 @@
                 "description": "Create New Slider",
                 "requestBody": {
                     "content": {
-                        "application/x-www-form-urlencoded": {
+                        "multipart/form-data": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
@@ -275,8 +279,8 @@
                                     },
                                     "is_active": {
                                         "type": "boolean",
-                                        "example": false,
-                                        "default": false
+                                        "example": 0,
+                                        "default": 0
                                     }
                                 },
                                 "required": ["title", "description", "image"]
@@ -360,7 +364,7 @@
                 ],
                 "requestBody": {
                     "content": {
-                        "application/x-www-form-urlencoded": {
+                        "multipart/form-data": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
@@ -385,7 +389,7 @@
                                     },
                                     "is_active": {
                                         "type": "boolean",
-                                        "example": false
+                                        "example": 0
                                     }
                                 },
                                 "required": [
@@ -491,7 +495,7 @@
                 "description": "Create New Member",
                 "requestBody": {
                     "content": {
-                        "application/x-www-form-urlencoded": {
+                        "multipart/form-data": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
@@ -645,7 +649,7 @@
                 ],
                 "requestBody": {
                     "content": {
-                        "application/x-www-form-urlencoded": {
+                        "multipart/form-data": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
@@ -824,7 +828,7 @@
                 "description": "Create New Article",
                 "requestBody": {
                     "content": {
-                        "application/x-www-form-urlencoded": {
+                        "multipart/form-data": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
@@ -931,7 +935,7 @@
                 ],
                 "requestBody": {
                     "content": {
-                        "application/x-www-form-urlencoded": {
+                        "multipart/form-data": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
@@ -1058,7 +1062,7 @@
                 "description": "Create New Activity",
                 "requestBody": {
                     "content": {
-                        "application/x-www-form-urlencoded": {
+                        "multipart/form-data": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
@@ -1174,7 +1178,7 @@
                 ],
                 "requestBody": {
                     "content": {
-                        "application/x-www-form-urlencoded": {
+                        "multipart/form-data": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
@@ -1307,7 +1311,7 @@
                 "description": "Create New Work",
                 "requestBody": {
                     "content": {
-                        "application/x-www-form-urlencoded": {
+                        "multipart/form-data": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
@@ -1417,13 +1421,13 @@
                 ],
                 "requestBody": {
                     "content": {
-                        "application/x-www-form-urlencoded": {
+                        "multipart/form-data": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
                                     "title": {
                                         "type": "string",
-                                        "example": "Samudra Potere"
+                                        "example": "Samudera Potere"
                                     },
                                     "member_id": {
                                         "type": "integer",
@@ -1942,6 +1946,13 @@
         }
     },
     "components": {
+        "securitySchemes": {
+            "AuthToken": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "Bearer 'Token'"
+            }
+        },
         "parameters": {
             "_method": {
                 "name": "_mehtod",
@@ -2053,7 +2064,7 @@
                     },
                     "is_active": {
                         "type": "boolean",
-                        "example": false
+                        "example": 0
                     }
                 }
             },
