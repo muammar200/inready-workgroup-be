@@ -23,19 +23,19 @@ class UserSeeder extends Seeder
         User::create([
             "username" => "albar",
             "password" => Hash::make("password"),
-            "level" => "admin",
+            "level" => "editor",
             "member_id" => "2",
         ]);
         User::create([
             "username" => "darma",
             "password" => Hash::make("password"),
-            "level" => "admin",
+            "level" => "user",
             "member_id" => "3",
         ]);
         User::create([
             "username" => "aidil",
             "password" => Hash::make("password"),
-            "level" => "admin",
+            "level" => "user",
             "member_id" => "4",
         ]);
     }

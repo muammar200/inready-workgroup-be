@@ -30,7 +30,7 @@
             "get": {
                 "tags": ["Dashboard"],
                 "summary": "Member Chart",
-                "description": "Dashboard Member Chart",
+                "description": "Dashboard Member Chart \n\n Role: Admin | Editor | User",
                 "responses": {
                     "200": {
                         "description": "Success Get Data",
@@ -90,7 +90,7 @@
             "get": {
                 "tags": ["Dashboard"],
                 "summary": "Member Colum Chart",
-                "description": "Dashboard Member Column Chart",
+                "description": "Dashboard Member Column Chart \n\n Role: Admin | Editor | User",
                 "responses": {
                     "200": {
                         "description": "Success Get Data",
@@ -154,7 +154,7 @@
             "get": {
                 "tags": ["Dashboard"],
                 "summary": "Upcoming Agenda",
-                "description": "Upcoming Agenda",
+                "description": "Upcoming Agenda \n\n Role: Admin | Editor | User",
                 "responses": {
                     "200": {
                         "description": "Success Get Data",
@@ -213,7 +213,7 @@
             "get": {
                 "tags": ["Slider"],
                 "summary": "Get List Of Sliders",
-                "description": "Get List Of Sliders",
+                "description": "Get List Of Sliders \n\n Role: Admin | Editor | User",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/pagePagination"
@@ -258,7 +258,7 @@
             "post": {
                 "tags": ["Slider"],
                 "summary": "Create Slider",
-                "description": "Create New Slider",
+                "description": "Create New Slider \n\n Role: Admin | Editor",
                 "requestBody": {
                     "content": {
                         "multipart/form-data": {
@@ -328,7 +328,7 @@
             "get": {
                 "tags": ["Slider"],
                 "summary": "Get Slider",
-                "description": "Get Slider By Id",
+                "description": "Get Slider By Id \n\n Role: Admin | Editor | User",
                 "responses": {
                     "200": {
                         "description": "Success Get Slider",
@@ -356,7 +356,7 @@
             "post": {
                 "tags": ["Slider"],
                 "summary": "Edit Slider",
-                "description": "Edit Slider By Id",
+                "description": "Edit Slider By Id \n\n Role: Admin | Editor",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/_method"
@@ -428,7 +428,7 @@
             "delete": {
                 "tags": ["Slider"],
                 "summary": "Delete Slider",
-                "description": "Delete Slider By Id",
+                "description": "Delete Slider By Id  \n\n Role: Admin | Editor",
                 "responses": {
                     "200": {
                         "description": "Success Delete Slider",
@@ -447,7 +447,7 @@
             "get": {
                 "tags": ["Member"],
                 "summary": "Get List Of Members",
-                "description": "Get List Of Members",
+                "description": "Get List Of Members \n\n Role: Admin | Editor | User",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/pagePagination"
@@ -492,7 +492,7 @@
             "post": {
                 "tags": ["Member"],
                 "summary": "Create New Member",
-                "description": "Create New Member",
+                "description": "Create New Member \n\n Role: Admin | Editor",
                 "requestBody": {
                     "content": {
                         "multipart/form-data": {
@@ -613,7 +613,7 @@
             "get": {
                 "tags": ["Member"],
                 "summary": "Get Member",
-                "description": "Get Member By Id",
+                "description": "Get Member By Id \n\n Role: Admin | Editor | User",
                 "responses": {
                     "200": {
                         "description": "Success Get Member",
@@ -641,7 +641,7 @@
             "post": {
                 "tags": ["Member"],
                 "summary": "Edit Member",
-                "description": "Edit Member By Id",
+                "description": "Edit Member By Id \n\n Role: Admin | Editor",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/_method"
@@ -761,7 +761,7 @@
             "delete": {
                 "tags": ["Member"],
                 "summary": "Delete Member",
-                "description": "Delete Member By Id",
+                "description": "Delete Member By Id \n\n Role: Admin | Editor",
                 "responses": {
                     "200": {
                         "description": "Success Delete Member",
@@ -780,7 +780,7 @@
             "get": {
                 "tags": ["Article"],
                 "summary": "Get List Of Articles",
-                "description": "Get List Of Articles",
+                "description": "Get List Of Articles \n\n Role: Admin | Editor | User",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/pagePagination"
@@ -825,7 +825,7 @@
             "post": {
                 "tags": ["Article"],
                 "summary": "Create New Article",
-                "description": "Create New Article",
+                "description": "Create New Article \n\n Role: Admin | Editor",
                 "requestBody": {
                     "content": {
                         "multipart/form-data": {
@@ -899,7 +899,7 @@
             "get": {
                 "tags": ["Article"],
                 "summary": "Get Article",
-                "description": "Get Article By Id",
+                "description": "Get Article By Id \n\n Role: Admin | Editor | User",
                 "responses": {
                     "200": {
                         "description": "Success Get Article",
@@ -927,7 +927,7 @@
             "post": {
                 "tags": ["Article"],
                 "summary": "Edit Article",
-                "description": "Edit Article By Id",
+                "description": "Edit Article By Id \n\n Role: Admin | Editor",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/_method"
@@ -995,7 +995,7 @@
             "delete": {
                 "tags": ["Article"],
                 "summary": "Delete Article",
-                "description": "Delete Article By Id",
+                "description": "Delete Article By Id \n\n Role: Admin | Editor",
                 "responses": {
                     "200": {
                         "description": "Success Delete Article",
@@ -1014,7 +1014,7 @@
             "get": {
                 "tags": ["Activity"],
                 "summary": "Get List Of Activities",
-                "description": "Get List Of Activities",
+                "description": "Get List Of Activities \n\n Role: Admin | Editor | User",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/pagePagination"
@@ -1059,7 +1059,7 @@
             "post": {
                 "tags": ["Activity"],
                 "summary": "Create New Activity",
-                "description": "Create New Activity",
+                "description": "Create New Activity \n\n Role: Admin | Editor",
                 "requestBody": {
                     "content": {
                         "multipart/form-data": {
@@ -1142,7 +1142,7 @@
             "get": {
                 "tags": ["Activity"],
                 "summary": "Get Activity",
-                "description": "Get Activity By Id",
+                "description": "Get Activity By Id \n\n Role: Admin | Editor | User",
                 "responses": {
                     "200": {
                         "description": "Success Get Activity",
@@ -1170,7 +1170,7 @@
             "post": {
                 "tags": ["Activity"],
                 "summary": "Edit Activity",
-                "description": "Edit Activity By Id",
+                "description": "Edit Activity By Id \n\n Role: Admin | Editor",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/_method"
@@ -1244,7 +1244,7 @@
             "delete": {
                 "tags": ["Activity"],
                 "summary": "Delete Activity",
-                "description": "Delete Activity By Id",
+                "description": "Delete Activity By Id \n\n Role: Admin | Editor",
                 "responses": {
                     "200": {
                         "description": "Success Delete Activity",
@@ -1263,7 +1263,7 @@
             "get": {
                 "tags": ["Work"],
                 "summary": "Get List Of Works",
-                "description": "Get List Of Works",
+                "description": "Get List Of Works \n\n Role: Admin | Editor | User",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/pagePagination"
@@ -1308,7 +1308,7 @@
             "post": {
                 "tags": ["Work"],
                 "summary": "Create New Work",
-                "description": "Create New Work",
+                "description": "Create New Work \n\n Role: Admin | Editor",
                 "requestBody": {
                     "content": {
                         "multipart/form-data": {
@@ -1385,7 +1385,7 @@
             "get": {
                 "tags": ["Work"],
                 "summary": "Get Work",
-                "description": "Get Work By Id",
+                "description": "Get Work By Id \n\n Role: Admin | Editor | User",
                 "responses": {
                     "200": {
                         "description": "Success Get Work",
@@ -1413,7 +1413,7 @@
             "post": {
                 "tags": ["Work"],
                 "summary": "Edit Work",
-                "description": "Edit Work By Id",
+                "description": "Edit Work By Id \n\n Role: Admin | Editor",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/_method"
@@ -1489,7 +1489,7 @@
             "delete": {
                 "tags": ["Work"],
                 "summary": "Delete Work",
-                "description": "Delete Work By Id",
+                "description": "Delete Work By Id \n\n Role: Admin | Editor",
                 "responses": {
                     "200": {
                         "description": "Success Delete Work",
@@ -1508,7 +1508,7 @@
             "get": {
                 "tags": ["Agenda"],
                 "summary": "Get List Of Agendas",
-                "description": "Get List Of Agendas",
+                "description": "Get List Of Agendas \n\n Role: Admin | Editor | User",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/pagePagination"
@@ -1553,7 +1553,7 @@
             "post": {
                 "tags": ["Agenda"],
                 "summary": "Create New Agenda",
-                "description": "Create New Agenda",
+                "description": "Create New Agenda \n\n Role: Admin | Editor",
                 "requestBody": {
                     "content": {
                         "application/x-www-form-urlencoded": {
@@ -1622,7 +1622,7 @@
             "get": {
                 "tags": ["Agenda"],
                 "summary": "Get Agenda",
-                "description": "Get Agenda By Id",
+                "description": "Get Agenda By Id \n\n Role: Admin | Editor | User",
                 "responses": {
                     "200": {
                         "description": "Success Get Agenda",
@@ -1650,7 +1650,7 @@
             "post": {
                 "tags": ["Agenda"],
                 "summary": "Edit Agenda",
-                "description": "Edit Agenda By Id",
+                "description": "Edit Agenda By Id \n\n Role: Admin | Editor",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/_method"
@@ -1711,7 +1711,7 @@
             "delete": {
                 "tags": ["Agenda"],
                 "summary": "Delete Agenda",
-                "description": "Delete Agenda By Id",
+                "description": "Delete Agenda By Id \n\n Role: Admin | Editor",
                 "responses": {
                     "200": {
                         "description": "Success Delete Agenda",
@@ -1730,7 +1730,7 @@
             "get": {
                 "tags": ["User"],
                 "summary": "Get List Of Users",
-                "description": "Get List Of Users",
+                "description": "Get List Of Users \n\n Role: Admin | Editor | User",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/pagePagination"
@@ -1775,7 +1775,7 @@
             "post": {
                 "tags": ["User"],
                 "summary": "Create New User",
-                "description": "Create New User",
+                "description": "Create New User \n\n Role: Admin | Editor",
                 "requestBody": {
                     "content": {
                         "application/x-www-form-urlencoded": {
@@ -1790,6 +1790,10 @@
                                         "type": "string",
                                         "example": "password12345"
                                     },
+                                    "level": {
+                                        "enum": ["admin", "user", "editor"],
+                                        "default": "user"
+                                    },
                                     "member_id": {
                                         "type": "integer",
                                         "example": 1
@@ -1798,6 +1802,7 @@
                                 "required": [
                                     "username",
                                     "password",
+                                    "level",
                                     "member_id"
                                 ]
                             }
@@ -1844,7 +1849,7 @@
             "get": {
                 "tags": ["User"],
                 "summary": "Get User",
-                "description": "Get User By Id",
+                "description": "Get User By Id \n\n Role: Admin | Editor | User",
                 "responses": {
                     "200": {
                         "description": "Success Get User",
@@ -1872,7 +1877,7 @@
             "post": {
                 "tags": ["User"],
                 "summary": "Edit User",
-                "description": "Edit User By Id",
+                "description": "Edit User By Id \n\n Role: Admin | Editor",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/_method"
@@ -1929,7 +1934,7 @@
             "delete": {
                 "tags": ["User"],
                 "summary": "Delete User",
-                "description": "Delete User By Id",
+                "description": "Delete User By Id \n\n Role: Admin | Editor",
                 "responses": {
                     "200": {
                         "description": "Success Delete User",

@@ -5,7 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
-
+use App\Models\Events\SetCreatedBy;
+use App\Models\Events\SetUpdatedBy;
 
 class Article extends Model
 {

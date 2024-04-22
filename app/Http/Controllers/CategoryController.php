@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    // public function __construct() {
+    //     $this->middleware('role:admin,editor')->only(["store","update","delete"]);
+    // }
     public function index(PaginateSearchRequest $request)
     {
         $page = $request->input("page", 1);

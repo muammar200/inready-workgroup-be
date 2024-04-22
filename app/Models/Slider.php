@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\Events\SetCreatedBy;
-use App\Models\Events\SetUpdatedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Events\SetCreatedBy;
+use App\Models\Events\SetUpdatedBy;
 
 class Slider extends Model
 {

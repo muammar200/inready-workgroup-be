@@ -1,8 +1,8 @@
 <?php
 namespace App\Models\Events;
 
-use Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 
 class SetCreatedBy 
