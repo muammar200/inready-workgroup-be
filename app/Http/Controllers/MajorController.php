@@ -17,15 +17,15 @@ class MajorController extends Controller
         $search = $request->input("search", "");
 
         $majors = Major::where("name", "LIKE", "%$search%")->orderBy("name", "asc")->paginate($perpage, ["*"], 'page', $page);
-        return response()->json([
-            "meta" => new MetaPaginateResource($majors),
-            "data" => IdNameResource::collection($majors),
-        ], 200);
+        return response()->base_response_with_meta(
+            IdNameResource::collection($majors),
+            new MetaPaginateResource($majors),
+        200);
     }
 
     public function show(Major $major)
     {
-        return response()->json(new IdNameResource($major), 200);
+        return response()->base_response(new IdNameResource($major), 200);
     }
 
     public function store(Request $request)
@@ -35,7 +35,7 @@ class MajorController extends Controller
         ]);
         try {
             $major = Major::create($validated);
-            return response()->json(new IdNameResource($major), 201);
+            return response()->base_response(new IdNameResource($major), 201, "Created", "Jurusan Berhasil Ditambahkan");
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
@@ -50,7 +50,7 @@ class MajorController extends Controller
         ]);
         try {
             $major->update($validated);
-            return response()->json(new IdNameResource($major), 200);
+            return response()->base_response(new IdNameResource($major), 200, "OK", "Jurusan Berhasil Diedit");
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
@@ -62,9 +62,7 @@ class MajorController extends Controller
     {
         try {
             $major->delete();
-            return response()->json([
-                "success" => true,
-            ], 200);
+            return response()->base_response([], 200, "OK", "Jurusan Berhasil Dihapus");
         } catch (\Throwable $th) {
             return response()->json([
                 "success" => false,

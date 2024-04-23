@@ -17,17 +17,15 @@ class DivisionController extends Controller
         $search = $request->input("search", "");
 
         $divisions = Division::select()->where("name", "LIKE", "%$search%")->latest()->paginate($perpage, ["*"], 'page', $page);
-        return response()->json([
-            "meta" => new MetaPaginateResource($divisions),
-            "data" => DivisionResource::collection($divisions),
-        ], 200);
+        return response()->base_response_with_meta(
+            DivisionResource::collection($divisions),
+            new MetaPaginateResource($divisions),
+        200);
     }
 
     public function show(Division $division)
     {
-        return response()->json([
-            "data" => new DivisionResource($division),
-        ], 200);
+        return response()->base_response(new DivisionResource($division), 200);
     }
 
     public function store(Request $request)
@@ -39,7 +37,7 @@ class DivisionController extends Controller
 
         try {
             $division = Division::create($validated);
-            return response()->json(new DivisionResource($division), 201);
+            return response()->base_response(new DivisionResource($division), 201, "Created", "Divisi Berhasil Ditambahkan");
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
@@ -56,7 +54,7 @@ class DivisionController extends Controller
 
         try {
             $division->update($validated);
-            return response()->json(new DivisionResource($division), 201);
+            return response()->base_response(new DivisionResource($division), 200, "OK", "Divisi Berhasil Diedit");
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
@@ -68,9 +66,7 @@ class DivisionController extends Controller
     {
         try {
             $division->delete();
-            return response()->json([
-                "success" => true,
-            ], 200);
+            return response()->base_response([], 200, "OK", "Divisi Berhasil Dihapus");
         } catch (\Throwable $th) {
             return response()->json([
                 "success" => false,

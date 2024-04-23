@@ -18,17 +18,17 @@ class SliderController extends Controller
         $search = $request->input("search", "");
 
         $sliders = Slider::where("title", "LIKE", "%$search%")->latest()->paginate($perpage, ["*"], 'page', $page);
-        return response()->json([
-            "meta" => new MetaPaginateResource($sliders),
-            "data" => SliderResource::collection($sliders),
-        ], 200);
+        return response()->base_response_with_meta(
+            SliderResource::collection($sliders),
+            new MetaPaginateResource($sliders),
+        200);
     }
 
     public function show(Slider $slider)
     {
-        return response()->json([
-            "data" => new SliderResource($slider),
-        ], 200);
+        return response()->base_response(
+            new SliderResource($slider),
+        200);
     }
 
     public function store(Request $request)
@@ -40,11 +40,9 @@ class SliderController extends Controller
             "is_active" => "boolean",
         ]);
         $validated["image"] = $request->file("image")->storePublicly("slider", "public");
-        // $validated["created_by"]  = 1;
-        // $validated["updated_by"]  = 1;
         try {
             $slider = Slider::create($validated);
-            return response()->json(new SliderResource($slider), 201);
+            return response()->base_response(new SliderResource($slider), 201, "Created", "Slider Berhasil Ditambahkan");
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
@@ -68,10 +66,9 @@ class SliderController extends Controller
         } else {
             unset($validated["image"]);
         }
-        // $validated["updated_by"]  = 1;
         try {
             $slider->update($validated);
-            return response()->json(new SliderResource($slider), 200);
+            return response()->base_response(new SliderResource($slider), 200, "OK", "Slider Berhasil Diedit");
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
@@ -86,9 +83,7 @@ class SliderController extends Controller
                 Storage::delete($slider->image);
             }
             $slider->delete();
-            return response()->json([
-                "success" => true,
-            ], 200);
+            return response()->base_response([], 200, "OK", "Slider Berhasil Dihapus");
         } catch (\Throwable $th) {
             return response()->json([
                 "success" => false,

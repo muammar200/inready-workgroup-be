@@ -24,17 +24,15 @@ class DashboardController extends Controller
         $mobile_count = Member::whereHas('concentration', function ($query) {
             $query->where("name", 'Mobile');
         })->count();
-        return response()->json([
-            "data" => [
-                "member_count" => $member_count,
-                "desain_count" => $desain_count,
-                "website_count" => $website_count,
-                "mobile_count" => $mobile_count,
-                "desain_percent" => $member_count != 0 ? round(($desain_count / $member_count) * 100) : 0,
-                "website_percent" => $member_count != 0 ? round(($website_count / $member_count) * 100) : 0,
-                "mobile_percent" => $member_count != 0 ? round(($mobile_count / $member_count) * 100) : 0,
-            ],
-        ]);
+        return response()->base_response([
+            "member_count" => $member_count,
+            "desain_count" => $desain_count,
+            "website_count" => $website_count,
+            "mobile_count" => $mobile_count,
+            "desain_percent" => $member_count != 0 ? round(($desain_count / $member_count) * 100) : 0,
+            "website_percent" => $member_count != 0 ? round(($website_count / $member_count) * 100) : 0,
+            "mobile_percent" => $member_count != 0 ? round(($mobile_count / $member_count) * 100) : 0,
+        ], 200, "OK");
     }
 
     public function member_column_chart()
@@ -68,11 +66,9 @@ class DashboardController extends Controller
                 'count' => $femaleCounts->where('angkatan', $generation)->first() ? $femaleCounts->where('angkatan', $generation)->first()->count : 0
             ];
         }
-        return response()->json([
-            "data" => [
-                "male" => $maleResult,
-                "female" => $femaleResult,
-            ],
+        return response()->base_response([
+            "male" => $maleResult,
+            "female" => $femaleResult,
         ], 200);
     }
 
@@ -82,8 +78,6 @@ class DashboardController extends Controller
             ->orderBy("time")
             ->take(4)
             ->get();
-        return response()->json([
-            "data" => PublicAgendaResource::collection($agendas),
-        ], 200);
+        return response()->base_response(PublicAgendaResource::collection($agendas),200);
     }
 }

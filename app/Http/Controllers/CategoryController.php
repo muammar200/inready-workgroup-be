@@ -10,9 +10,6 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    // public function __construct() {
-    //     $this->middleware('role:admin,editor')->only(["store","update","delete"]);
-    // }
     public function index(PaginateSearchRequest $request)
     {
         $page = $request->input("page", 1);
@@ -20,10 +17,10 @@ class CategoryController extends Controller
         $search = $request->input("search", "");
 
         $categories = Category::where("name", "LIKE", "%$search%")->orderBy("name", "asc")->paginate($perpage, ["*"], 'page', $page);
-        return response()->json([
-            "meta" => new MetaPaginateResource($categories),
-            "data" => IdNameResource::collection($categories),
-        ], 200);
+        return response()->base_response_with_meta(
+            IdNameResource::collection($categories),
+            new MetaPaginateResource($categories),
+        200);
     }
 
     public function show(Category $category)

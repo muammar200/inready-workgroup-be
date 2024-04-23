@@ -20,17 +20,15 @@ class ActivityController extends Controller
         $search = $request->input("search", "");
 
         $activities = Activity::where("title", "LIKE", "%$search%")->latest()->paginate($perpage, ["*"], 'page', $page);
-        return response()->json([
-            "meta" => new MetaPaginateResource($activities),
-            "data" => ActivityResource::collection($activities),
-        ], 200);
+        return response()->base_response_with_meta(
+            ActivityResource::collection($activities),
+            new MetaPaginateResource($activities),
+        200);
     }
 
     public function show(Activity $activity)
     {
-        return response()->json([
-            "data" => new ActivityDetailResource($activity),
-        ], 200);
+        return response()->base_response(new ActivityDetailResource($activity), 200);
     }
 
     public function store(Request $request)
@@ -44,15 +42,13 @@ class ActivityController extends Controller
             "description" => "required|string",
         ]);
         $validated["flayer_image"] = $request->file("flayer_image")->storePublicly("activity", "public");
-        // $validated["created_by"]  = 1;
-        // $validated["updated_by"]  = 1;
         try {
             $activity = Activity::create($validated);
-            return response()->json(new ActivityDetailResource($activity), 201);
+            return response()->base_response(new ActivityDetailResource($activity), 201, "Created", "Kegiatan Berhasil Ditambahkan");
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
-            ], 400);
+            ], 500);
         }
     }
 
@@ -74,14 +70,13 @@ class ActivityController extends Controller
         } else {
             unset($validated["flayer_image"]);
         }
-        // $validated["updated_by"]  = 1;
         try {
             $activity->update($validated);
-            return response(new ActivityDetailResource($activity), 200);
+            return response()->base_response(new ActivityDetailResource($activity), 200, "OK", "Kegiatan Berhasil Diedit");
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
-            ], 400);
+            ], 500);
         }
     }
 
@@ -92,14 +87,12 @@ class ActivityController extends Controller
                 Storage::delete($activity->flayer_image);
             }
             $activity->delete();
-            return response()->json([
-                "success" => true,
-            ], 200);
+            return response()->base_response([], 200, "OK", "Kegiatan Berhasil Dihapus");
         } catch (\Throwable $th) {
             return response()->json([
                 "success" => false,
                 "message" => $th->getMessage(),
-            ], 400);
+            ], 500);
         }
     }
 }

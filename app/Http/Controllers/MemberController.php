@@ -27,17 +27,15 @@ class MemberController extends Controller
         $search = $request->input("search", "");
 
         $members = Member::where("name", "LIKE", "%$search%")->latest()->paginate($perpage, ["*"], 'page', $page);
-        return response()->json([
-            "meta" => new MetaPaginateResource($members),
-            "data" => MemberResource::collection($members),
-        ], 200);
+        return response()->base_response_with_meta(
+            MemberResource::collection($members),
+            new MetaPaginateResource($members),
+        200);
     }
 
     public function show(Member $member)
     {
-        return response()->json([
-            "data" => new MemberDetailResource($member),
-        ], 200);
+        return response()->base_response(new MemberDetailResource($member), 200);
     }
 
     public function store(Request $request)
@@ -64,15 +62,13 @@ class MemberController extends Controller
         } else {
             unset($validated["photo"]);
         }
-        // $validated["created_by"]  = 1;
-        // $validated["updated_by"]  = 1;
         try {
             $member = Member::create($validated);
-            return response()->json(new MemberDetailResource($member), 201);
+            return response()->base_response(new MemberDetailResource($member), 201, "Create", "Anggota Berhasil Ditambahkan");
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
-            ], 400);
+            ], 500);
         }
     }
 
@@ -103,14 +99,13 @@ class MemberController extends Controller
         } else {
             unset($validated["photo"]);
         }
-        // $validated["updated_by"]  = 1;
         try {
             $member->update($validated);
-            return response()->json(new MemberDetailResource($member), 200);
+            return response()->base_response(new MemberDetailResource($member), 200, "OK", "Anggota Berhasil Diedit");
         } catch (\Throwable $th) {
             return response()->json([
                 "massage" => $th->getMessage(),
-            ], 400);
+            ], 500);
         }
     }
 
@@ -121,14 +116,12 @@ class MemberController extends Controller
                 Storage::delete($member->photo);
             }
             $member->delete();
-            return response()->json([
-                "success" => true,
-            ]);
+            return response()->base_response([], 200, "OK", "Anggota Berhasil Dihapus");
         } catch (\Throwable $th) {
             return response()->json([
                 "success" => false,
                 "message" => $th->getMessage(),
-            ], 400);
+            ], 500);
         }
     }
 }

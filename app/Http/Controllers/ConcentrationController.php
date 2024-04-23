@@ -17,15 +17,15 @@ class ConcentrationController extends Controller
         $search = $request->input("search", "");
 
         $concentrations = Concentration::where("name", "LIKE", "%$search%")->orderBy("name", "asc")->paginate($perpage, ["*"], 'page', $page);
-        return response()->json([
-            "meta" => new MetaPaginateResource($concentrations),
-            "data" => IdNameResource::collection($concentrations),
-        ], 200);
+        return response()->base_response_with_meta(
+            IdNameResource::collection($concentrations),
+            new MetaPaginateResource($concentrations),
+        200);
     }
 
     public function show(Concentration $concentration)
     {
-        return response()->json(new IdNameResource($concentration), 200);
+        return response()->base_response(new IdNameResource($concentration), 200);
     }
 
     public function store(Request $request)
@@ -35,7 +35,7 @@ class ConcentrationController extends Controller
         ]);
         try {
             $concentration = Concentration::create($validated);
-            return response()->json(new IdNameResource($concentration), 201);
+            return response()->base_response(new IdNameResource($concentration), 201, "Created", "Konsentrasi Berhasil Ditambahakan");
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
@@ -50,7 +50,7 @@ class ConcentrationController extends Controller
         ]);
         try {
             $concentration->update($validated);
-            return response()->json(new IdNameResource($concentration), 200);
+            return response()->base_response(new IdNameResource($concentration), 200, "OK", "Konsentrasi Berhasil Diedit");
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
@@ -62,9 +62,7 @@ class ConcentrationController extends Controller
     {
         try {
             $concentration->delete();
-            return response()->json([
-                "success" => true,
-            ], 200);
+            return response()->base_response([], 200, "OK", "Konsentrasi Berhasil Dihapus");
         } catch (\Throwable $th) {
             return response()->json([
                 "success" => false,

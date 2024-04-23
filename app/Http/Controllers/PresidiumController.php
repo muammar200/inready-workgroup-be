@@ -17,17 +17,15 @@ class PresidiumController extends Controller
         $search = $request->input("search", "");
 
         $presidiums = Presidium::select()->where("name", "LIKE", "%$search%")->orderBy("level", "asc")->paginate($perpage, ["*"], 'page', $page);
-        return response()->json([
-            "meta" => new MetaPaginateResource($presidiums),
-            "data" => PresidiumResource::collection($presidiums),
-        ], 200);
+        return response()->base_response_with_meta(
+            PresidiumResource::collection($presidiums),
+            new MetaPaginateResource($presidiums),
+        200);
     }
 
     public function show(Presidium $presidium)
     {
-        return response()->json([
-            "data" => new PresidiumResource($presidium),
-        ], 200);
+        return response()->base_response(new PresidiumResource($presidium), 200);
     }
 
     public function store(Request $request)
@@ -39,7 +37,7 @@ class PresidiumController extends Controller
 
         try {
             $presidium = Presidium::create($validated);
-            return response()->json(new PresidiumResource($presidium), 201);
+            return response()->base_response(new PresidiumResource($presidium), 201, "Create", "Presidium Berhasil Ditambahkan");
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
@@ -56,7 +54,7 @@ class PresidiumController extends Controller
 
         try {
             $presidium->update($validated);
-            return response()->json(new PresidiumResource($presidium), 201);
+            return response()->base_response(new PresidiumResource($presidium), 200, "OK", "Presidium Berhasil Diedit");
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
@@ -68,9 +66,7 @@ class PresidiumController extends Controller
     {
         try {
             $presidium->delete();
-            return response()->json([
-                "success" => true,
-            ], 200);
+            return response()->base_response([], 200, "OK", "Presidium Berhasil Dihapus");
         } catch (\Throwable $th) {
             return response()->json([
                 "success" => false,
