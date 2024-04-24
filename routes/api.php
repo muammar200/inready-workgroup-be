@@ -77,10 +77,6 @@ Route::prefix("public")->group(function () {
 
 Route::middleware(['auth:sanctum'])->group(function () {
 Route::prefix("admin")->group(function () {
-  Route::controller(AuthenticateController::class)->group(function () {
-    Route::post('login', 'login');
-    Route::get('logout', 'logout')->middleware(['auth:sanctum']);
-  });
   Route::middleware(['role:editor,admin'])->group(function () {
     
   });
@@ -219,4 +215,9 @@ Route::prefix("admin")->group(function () {
     });
   });
 });
+});
+
+Route::controller(AuthenticateController::class)->group(function () {
+  Route::post('admin/login', 'login');
+  Route::get('admin/logout', 'logout')->middleware(['auth:sanctum']);
 });
