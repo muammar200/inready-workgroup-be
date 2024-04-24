@@ -20,17 +20,15 @@ class ArticleController extends Controller
         $search = $request->input("search", "");
 
         $articles = Article::where("title", "LIKE", "%$search%")->latest()->paginate($perpage, ["*"], 'page', $page);
-        return response()->json([
-            "meta" => new MetaPaginateResource($articles),
-            "data" => ArticleResource::collection($articles),
-        ], 200);
+        return response()->base_response_with_meta(
+            ArticleResource::collection($articles),
+            new MetaPaginateResource($articles),
+        200);
     }
 
     public function show(Article $article)
     {
-        return response()->json([
-            "data" => new ArticleDetailResource($article)
-        ], 200);
+        return response()->base_response(new ArticleDetailResource($article),200);
     }
 
     public function store(Request $request)
@@ -42,11 +40,9 @@ class ArticleController extends Controller
             "content" => "required|string",
         ]);
         $validated["image"] = $request->file("image")->storePublicly("article", "public");
-        // $validated["created_by"]  = 1;
-        // $validated["updated_by"]  = 1;
         try {
             $article = Article::create($validated);
-            return response()->json(new ArticleDetailResource($article), 201);
+            return response()->base_response(new ArticleDetailResource($article), 201, "Created", "Blog Berhasil Ditambahkan");
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
@@ -70,10 +66,9 @@ class ArticleController extends Controller
         } else {
             unset($validated["image"]);
         }
-        // $validated["updated_by"]  = 1;
         try {
             $article->update($validated);
-            return response()->json(new ArticleDetailResource($article), 200);
+            return response()->base_response(new ArticleDetailResource($article), 200, "OK", "Blog Berhasil Diedit");
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
@@ -88,9 +83,7 @@ class ArticleController extends Controller
                 Storage::delete($article->image);
             }
             $article->delete();
-            return response()->json([
-                "success" => true,
-            ], 200);
+            return response()->base_response([], 200, "OK", "Blog Berhasil Dihapus");
         } catch (\Throwable $th) {
             return response()->json([
                 "success" => false,

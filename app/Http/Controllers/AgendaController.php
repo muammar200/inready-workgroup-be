@@ -8,7 +8,6 @@ use App\Http\Resources\AgendaResource;
 use App\Http\Resources\MetaPaginateResource;
 use App\Models\Agenda;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class AgendaController extends Controller
 {
@@ -19,17 +18,15 @@ class AgendaController extends Controller
         $search = $request->input("search", "");
 
         $agendas = Agenda::latest()->where("title", "LIKE", "%$search%")->latest()->paginate($perpage, ["*"], 'page', $page);
-        return response()->json([
-            "meta" => new MetaPaginateResource($agendas),
-            "data" => AgendaResource::collection($agendas),
-        ], 200);
+        return response()->base_response_with_meta(
+            AgendaResource::collection($agendas),
+            new MetaPaginateResource($agendas),
+        200);
     }
 
     public function show(Agenda $agenda)
     {
-        return response()->json([
-            "data" => new AgendaDetailResource($agenda),
-        ], 200);
+        return response()->base_response(new AgendaDetailResource($agenda), 200);
     }
 
     public function store(Request $request)
@@ -40,11 +37,9 @@ class AgendaController extends Controller
             "location" => "required|string",
             "time" => "required|date",
         ]);
-        // $validated["created_by"]  = 1;
-        // $validated["updated_by"]  = 1;
         try {
             $agenda = Agenda::create($validated);
-            return response()->json(new AgendaDetailResource($agenda), 201);
+            return response()->base_response(new AgendaDetailResource($agenda), 201, "Created", "Agenda Berhasil Ditambahkan");
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
@@ -60,10 +55,9 @@ class AgendaController extends Controller
             "location" => "required|string",
             "time" => "required|date",
         ]);
-        // $validated["updated_by"]  = 1;
         try {
             $agenda->update($validated);
-            return response()->json(new AgendaDetailResource($agenda), 200);
+            return response()->base_response(new AgendaDetailResource($agenda), 200, "OK", "Agenda Berhasil Diedit");
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
@@ -75,9 +69,7 @@ class AgendaController extends Controller
     {
         try {
             $agenda->delete();
-            return response()->json([
-                "success" => true,
-            ], 200);
+            return response()->base_response([], 200, "OK", "Agenda Berhasil Dihapus");
         } catch (\Throwable $th) {
             return response()->json([
                 "success" => false,

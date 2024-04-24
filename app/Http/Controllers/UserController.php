@@ -19,17 +19,15 @@ class UserController extends Controller
         $search = $request->input('search', "");
 
         $users = User::where("username", "LIKE", "%$search%")->latest()->paginate($perpage, ["*"], 'page', $page);
-        return response()->json([
-            "meta" => new MetaPaginateResource($users),
-            "data" => UserResource::collection($users),
-        ], 200);
+        return response()->base_response_with_meta(
+            UserResource::collection($users),
+            new MetaPaginateResource($users),
+        200);
     }
 
     public function show(User $user)
     {
-        return response()->json([
-            "data" => new UserDetailResource($user),
-        ], 200);
+        return response()->base_response(new UserDetailResource($user), 200);
     }
 
     public function store(Request $request)
@@ -37,18 +35,17 @@ class UserController extends Controller
         $validated  = $request->validate([
             "username" => "required|unique:users,username",
             "password" => "required|min:8",
+            "level" => "required|in:admin,user,editor",
             "member_id" => "required|exists:members,id",
         ]);
         $validated["password"] = Hash::make($validated["password"]);
-        // $validated["created_by"]  = 1;
-        // $validated["updated_by"]  = 1;
         try {
             $user = User::create($validated);
-            return response()->json(new UserDetailResource($user));
+            return response()->base_response(new UserDetailResource($user), 201, "Created", "User Berhasil Ditambahkan");
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
-            ], 400);
+            ], 500);
         }
     }
 
@@ -57,6 +54,7 @@ class UserController extends Controller
         $validated  = $request->validate([
             "username" => "required|unique:users,username,$user->id",
             "password" => "nullable|min:8",
+            "level" => "required|in:admin,user,editor",
             "member_id" => "required|exists:members,id",
         ]);
         if ($request->password) {
@@ -64,14 +62,13 @@ class UserController extends Controller
         } else {
             unset($validated["password"]);
         }
-        // $validated["updated_by"]  = 1;
         try {
             $user->update($validated);
-            return response()->json(new UserDetailResource($user));
+            return response()->base_response(new UserDetailResource($user), 200, "OK", "User Berhasil Diedit");
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
-            ], 400);
+            ], 500);
         }
     }
 
@@ -79,13 +76,11 @@ class UserController extends Controller
     {
         try {
             $user->delete();
-            return response()->json([
-                "success" => true,
-            ], 200);
+            return response()->base_response([], 200, "OK", "User Berhasil Dihapus");
         } catch (\Throwable $th) {
             return response()->json([
                 "success" => false,
-            ], 400);
+            ], 500);
         }
     }
 }

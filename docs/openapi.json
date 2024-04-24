@@ -1,0 +1,4308 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "Inready",
+        "version": "1.0",
+        "description": "API Website Inready Workgroup",
+        "contact": {
+            "name": "Ikbal Djaya",
+            "url": "https://ahmadikbaldjaya.github.io/inready-docs/",
+            "email": "ikbaldjaya@gmail.com"
+        }
+    },
+    "servers": [
+        {
+            "url": "https://inr.hmjti-uinam.com/api",
+            "description": "Live Server"
+        },
+        {
+            "url": "http://localhost:3000/api",
+            "description": "Local Server"
+        }
+    ],
+    "security": [
+        {
+            "AuthToken": []
+        }
+    ],
+    "paths": {
+        "/admin/login": {
+            "post": {
+                "tags": ["Login"],
+                "summary": "Login",
+                "description": "Admin Login",
+                "security": [],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "example": "user"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "user12345"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": 1
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "token": {
+                                                    "type": "string"
+                                                },
+                                                "user": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "username": {
+                                                            "type": "string",
+                                                            "example": "auth username"
+                                                        },
+                                                        "name": {
+                                                            "type": "string",
+                                                            "example": "name"
+                                                        },
+                                                        "level": {
+                                                            "type": "string",
+                                                            "example": "level"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Login Fail",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": 0
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            }
+        },
+        "/admin/logout": {
+            "get": {
+                "tags": ["Login"],
+                "summary": "Logout",
+                "description": "Admin Logout",
+                "responses": {
+                    "200": {
+                        "description": "Success Logout",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/dashboard/member_chart": {
+            "get": {
+                "tags": ["Dashboard"],
+                "summary": "Member Chart",
+                "description": "Dashboard Member Chart \n\n Role: Admin | Editor | User",
+                "responses": {
+                    "200": {
+                        "description": "Success Get Data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "member_count": {
+                                                            "type": "integer",
+                                                            "example": 100
+                                                        },
+                                                        "desain_count": {
+                                                            "type": "integer",
+                                                            "example": 10
+                                                        },
+                                                        "website_count": {
+                                                            "type": "integer",
+                                                            "example": 70
+                                                        },
+                                                        "mobile_count": {
+                                                            "type": "integer",
+                                                            "example": 20
+                                                        },
+                                                        "desain_percent": {
+                                                            "type": "number",
+                                                            "example": 10
+                                                        },
+                                                        "website_percent": {
+                                                            "type": "number",
+                                                            "example": 70
+                                                        },
+                                                        "mobile_percent": {
+                                                            "type": "number",
+                                                            "example": 20
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/dashboard/member_column_chart": {
+            "get": {
+                "tags": ["Dashboard"],
+                "summary": "Member Colum Chart",
+                "description": "Dashboard Member Column Chart \n\n Role: Admin | Editor | User",
+                "responses": {
+                    "200": {
+                        "description": "Success Get Data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "male": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "angkatan": {
+                                                                        "type": "string",
+                                                                        "example": "nama angkatan"
+                                                                    },
+                                                                    "count": {
+                                                                        "type": "integer",
+                                                                        "example": 10
+                                                                    }
+                                                                }
+                                                            }
+                                                        },
+                                                        "female": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "angkatan": {
+                                                                        "type": "string",
+                                                                        "example": "nama angkatan"
+                                                                    },
+                                                                    "count": {
+                                                                        "type": "integer",
+                                                                        "example": 10
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/dashboard/upcoming_agenda": {
+            "get": {
+                "tags": ["Dashboard"],
+                "summary": "Upcoming Agenda",
+                "description": "Upcoming Agenda \n\n Role: Admin | Editor | User",
+                "responses": {
+                    "200": {
+                        "description": "Success Get Data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "slug": {
+                                                                "type": "string",
+                                                                "example": "agenda-slug"
+                                                            },
+                                                            "title": {
+                                                                "type": "string",
+                                                                "example": "Agenda Title"
+                                                            },
+                                                            "time": {
+                                                                "type": "string",
+                                                                "format": "date"
+                                                            },
+                                                            "location": {
+                                                                "type": "string",
+                                                                "example": "agenda location"
+                                                            },
+                                                            "description": {
+                                                                "type": "string",
+                                                                "example": "agenda description"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/slider": {
+            "get": {
+                "tags": ["Slider"],
+                "summary": "Get List Of Sliders",
+                "description": "Get List Of Sliders \n\n Role: Admin | Editor | User",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/pagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/perpagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/search"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success Get List Of Slider",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Slider"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/MetaPagination"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Slider"],
+                "summary": "Create Slider",
+                "description": "Create New Slider \n\n Role: Admin | Editor",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Slider Title"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Slider Description"
+                                    },
+                                    "image": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string",
+                                                "format": "binary"
+                                            }
+                                        ]
+                                    },
+                                    "is_active": {
+                                        "type": "boolean",
+                                        "example": 0,
+                                        "default": 0
+                                    }
+                                },
+                                "required": ["title", "description", "image"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success Create New Slider",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/Slider"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            }
+        },
+        "/admin/slider/{slider_id}": {
+            "parameters": [
+                {
+                    "name": "slider_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string",
+                        "example": 1
+                    }
+                }
+            ],
+            "get": {
+                "tags": ["Slider"],
+                "summary": "Get Slider",
+                "description": "Get Slider By Id \n\n Role: Admin | Editor | User",
+                "responses": {
+                    "200": {
+                        "description": "Success Get Slider",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/Slider"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Slider"],
+                "summary": "Edit Slider",
+                "description": "Edit Slider By Id \n\n Role: Admin | Editor",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/_method"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Slider Title"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Slider Description"
+                                    },
+                                    "image": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string",
+                                                "format": "binary"
+                                            },
+                                            {
+                                                "type": "string"
+                                            }
+                                        ]
+                                    },
+                                    "is_active": {
+                                        "type": "boolean",
+                                        "example": 0
+                                    }
+                                },
+                                "required": [
+                                    "title",
+                                    "description",
+                                    "is_active"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Create New Slider",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/Slider"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Slider"],
+                "summary": "Delete Slider",
+                "description": "Delete Slider By Id  \n\n Role: Admin | Editor",
+                "responses": {
+                    "200": {
+                        "description": "Success Delete Slider",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BaseResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/member": {
+            "get": {
+                "tags": ["Member"],
+                "summary": "Get List Of Members",
+                "description": "Get List Of Members \n\n Role: Admin | Editor | User",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/pagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/perpagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/search"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success Get List Of Members",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Member"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/MetaPagination"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Member"],
+                "summary": "Create New Member",
+                "description": "Create New Member \n\n Role: Admin | Editor",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nri": {
+                                        "type": "string",
+                                        "example": "123456788"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "member name"
+                                    },
+                                    "photo": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string",
+                                                "format": "binary"
+                                            }
+                                        ]
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "example": "member address"
+                                    },
+                                    "pob": {
+                                        "type": "string",
+                                        "example": "member pob"
+                                    },
+                                    "dob": {
+                                        "type": "string",
+                                        "example": "21-04-2024",
+                                        "format": "ISO 8601"
+                                    },
+                                    "gender": {
+                                        "enum": ["male", "female"]
+                                    },
+                                    "generation": {
+                                        "type": "string",
+                                        "example": "14"
+                                    },
+                                    "major_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "concentration_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "position": {
+                                        "type": "string",
+                                        "example": "member position"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "08123456781"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "member@gmail.com"
+                                    },
+                                    "instagram": {
+                                        "type": "string",
+                                        "example": "member_ig"
+                                    },
+                                    "facebook": {
+                                        "type": "string",
+                                        "example": "member_fb"
+                                    }
+                                },
+                                "required": [
+                                    "nri",
+                                    "name",
+                                    "gender",
+                                    "generation",
+                                    "major_id",
+                                    "concentration_id",
+                                    "position"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success Create New Member",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/MemberDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            }
+        },
+        "/admin/member/{member_id}": {
+            "parameters": [
+                {
+                    "name": "member_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }
+            ],
+            "get": {
+                "tags": ["Member"],
+                "summary": "Get Member",
+                "description": "Get Member By Id \n\n Role: Admin | Editor | User",
+                "responses": {
+                    "200": {
+                        "description": "Success Get Member",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/MemberDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Member"],
+                "summary": "Edit Member",
+                "description": "Edit Member By Id \n\n Role: Admin | Editor",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/_method"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "nri": {
+                                        "type": "string",
+                                        "example": "123456788"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "member name"
+                                    },
+                                    "photo": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "string",
+                                                "format": "binary"
+                                            }
+                                        ]
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "example": "member address"
+                                    },
+                                    "pob": {
+                                        "type": "string",
+                                        "example": "member pob"
+                                    },
+                                    "dob": {
+                                        "type": "string",
+                                        "example": "21-04-2024",
+                                        "format": "ISO 8601"
+                                    },
+                                    "gender": {
+                                        "enum": ["male", "female"]
+                                    },
+                                    "generation": {
+                                        "type": "string",
+                                        "example": "14"
+                                    },
+                                    "major_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "concentration_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "position": {
+                                        "type": "string",
+                                        "example": "member position"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "08123456781"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "member@gmail.com"
+                                    },
+                                    "instagram": {
+                                        "type": "string",
+                                        "example": "member_ig"
+                                    },
+                                    "facebook": {
+                                        "type": "string",
+                                        "example": "member_fb"
+                                    }
+                                },
+                                "required": [
+                                    "nri",
+                                    "name",
+                                    "gender",
+                                    "generation",
+                                    "major_id",
+                                    "concentration_id",
+                                    "position"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Create New Member",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/MemberDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Member"],
+                "summary": "Delete Member",
+                "description": "Delete Member By Id \n\n Role: Admin | Editor",
+                "responses": {
+                    "200": {
+                        "description": "Success Delete Member",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BaseResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/member/all": {
+            "get": {
+                "tags": ["Member"],
+                "summary": "Get All Member",
+                "description": "Get All Member",
+                "responses": {
+                    "200": {
+                        "description": "Success Get All Member",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/article": {
+            "get": {
+                "tags": ["Article"],
+                "summary": "Get List Of Articles",
+                "description": "Get List Of Articles \n\n Role: Admin | Editor | User",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/pagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/perpagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/search"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success Get List Of Articles",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Article"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/MetaPagination"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Article"],
+                "summary": "Create New Article",
+                "description": "Create New Article \n\n Role: Admin | Editor",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "article title"
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "image": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string",
+                                                "format": "binary"
+                                            }
+                                        ]
+                                    },
+                                    "content": {
+                                        "type": "string",
+                                        "example": "article content"
+                                    }
+                                },
+                                "required": [
+                                    "title",
+                                    "category_id",
+                                    "image",
+                                    "content"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success Create New Article",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/ArticleDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            }
+        },
+        "/admin/article/{article_id}": {
+            "parameters": [
+                {
+                    "name": "article_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }
+            ],
+            "get": {
+                "tags": ["Article"],
+                "summary": "Get Article",
+                "description": "Get Article By Id \n\n Role: Admin | Editor | User",
+                "responses": {
+                    "200": {
+                        "description": "Success Get Article",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/ArticleDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Article"],
+                "summary": "Edit Article",
+                "description": "Edit Article By Id \n\n Role: Admin | Editor",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/_method"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "article title"
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "image": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "string",
+                                                "format": "binary"
+                                            }
+                                        ]
+                                    },
+                                    "content": {
+                                        "type": "string",
+                                        "example": "article content"
+                                    }
+                                },
+                                "required": ["title", "category_id", "content"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Create New Article",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/ArticleDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Article"],
+                "summary": "Delete Article",
+                "description": "Delete Article By Id \n\n Role: Admin | Editor",
+                "responses": {
+                    "200": {
+                        "description": "Success Delete Article",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BaseResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/activity": {
+            "get": {
+                "tags": ["Activity"],
+                "summary": "Get List Of Activities",
+                "description": "Get List Of Activities \n\n Role: Admin | Editor | User",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/pagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/perpagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/search"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success Get List Of Activities",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Activity"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/MetaPagination"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Activity"],
+                "summary": "Create New Activity",
+                "description": "Create New Activity \n\n Role: Admin | Editor",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "activity title"
+                                    },
+                                    "registration_link": {
+                                        "type": "string",
+                                        "example": "url"
+                                    },
+                                    "flayer_image": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string",
+                                                "format": "binary"
+                                            }
+                                        ]
+                                    },
+                                    "location": {
+                                        "type": "string",
+                                        "example": "location name"
+                                    },
+                                    "time": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "activity description"
+                                    }
+                                },
+                                "required": [
+                                    "title",
+                                    "flayer_image",
+                                    "location",
+                                    "time",
+                                    "description"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success Create New Activity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/ActivityDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            }
+        },
+        "/admin/activity/{activity_id}": {
+            "parameters": [
+                {
+                    "name": "activity_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }
+            ],
+            "get": {
+                "tags": ["Activity"],
+                "summary": "Get Activity",
+                "description": "Get Activity By Id \n\n Role: Admin | Editor | User",
+                "responses": {
+                    "200": {
+                        "description": "Success Get Activity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/ActivityDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Activity"],
+                "summary": "Edit Activity",
+                "description": "Edit Activity By Id \n\n Role: Admin | Editor",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/_method"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "activity title"
+                                    },
+                                    "registration_link": {
+                                        "type": "string",
+                                        "example": "url"
+                                    },
+                                    "flayer_image": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string",
+                                                "format": "binary"
+                                            }
+                                        ]
+                                    },
+                                    "location": {
+                                        "type": "string",
+                                        "example": "location name"
+                                    },
+                                    "time": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "activity description"
+                                    }
+                                },
+                                "required": [
+                                    "title",
+                                    "location",
+                                    "time",
+                                    "description"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Edit Activity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/ActivityDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Activity"],
+                "summary": "Delete Activity",
+                "description": "Delete Activity By Id \n\n Role: Admin | Editor",
+                "responses": {
+                    "200": {
+                        "description": "Success Delete Activity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BaseResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/work": {
+            "get": {
+                "tags": ["Work"],
+                "summary": "Get List Of Works",
+                "description": "Get List Of Works \n\n Role: Admin | Editor | User",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/pagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/perpagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/search"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success Get List Of Works",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Work"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/MetaPagination"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Work"],
+                "summary": "Create New Work",
+                "description": "Create New Work \n\n Role: Admin | Editor",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Samudra Potere"
+                                    },
+                                    "member_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "image": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string",
+                                                "format": "binary"
+                                            }
+                                        ]
+                                    },
+                                    "link": {
+                                        "type": "string",
+                                        "format": "uri"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "description"
+                                    },
+                                    "is_active": {
+                                        "type": "boolean",
+                                        "example": 0
+                                    }
+                                },
+                                "required": ["title", "member_id"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success Create New Work",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/WorkDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            }
+        },
+        "/admin/work/{work_id}": {
+            "parameters": [
+                {
+                    "name": "work_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }
+            ],
+            "get": {
+                "tags": ["Work"],
+                "summary": "Get Work",
+                "description": "Get Work By Id \n\n Role: Admin | Editor | User",
+                "responses": {
+                    "200": {
+                        "description": "Success Get Work",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/WorkDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Work"],
+                "summary": "Edit Work",
+                "description": "Edit Work By Id \n\n Role: Admin | Editor",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/_method"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Samudera Potere"
+                                    },
+                                    "member_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "image": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "string",
+                                                "format": "binary"
+                                            }
+                                        ]
+                                    },
+                                    "link": {
+                                        "type": "string",
+                                        "format": "uri"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "description"
+                                    },
+                                    "is_active": {
+                                        "type": "boolean",
+                                        "example": 0
+                                    }
+                                },
+                                "required": ["title", "member_id"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Edit Work",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/WorkDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Work"],
+                "summary": "Delete Work",
+                "description": "Delete Work By Id \n\n Role: Admin | Editor",
+                "responses": {
+                    "200": {
+                        "description": "Success Delete Work",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BaseResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/agenda": {
+            "get": {
+                "tags": ["Agenda"],
+                "summary": "Get List Of Agendas",
+                "description": "Get List Of Agendas \n\n Role: Admin | Editor | User",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/pagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/perpagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/search"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success Get List Of Agendas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Agenda"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/MetaPagination"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Agenda"],
+                "summary": "Create New Agenda",
+                "description": "Create New Agenda \n\n Role: Admin | Editor",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Samudra Potere"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "description"
+                                    },
+                                    "location": {
+                                        "type": "string",
+                                        "example": "location name"
+                                    },
+                                    "time": {
+                                        "type": "string",
+                                        "format": "date"
+                                    }
+                                },
+                                "required": ["title", "location", "time"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success Create New Agenda",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/AgendaDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            }
+        },
+        "/admin/agenda/{agenda_id}": {
+            "parameters": [
+                {
+                    "name": "agenda_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }
+            ],
+            "get": {
+                "tags": ["Agenda"],
+                "summary": "Get Agenda",
+                "description": "Get Agenda By Id \n\n Role: Admin | Editor | User",
+                "responses": {
+                    "200": {
+                        "description": "Success Get Agenda",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/AgendaDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Agenda"],
+                "summary": "Edit Agenda",
+                "description": "Edit Agenda By Id \n\n Role: Admin | Editor",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/_method"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Samudra Potere"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "description"
+                                    },
+                                    "location": {
+                                        "type": "string",
+                                        "example": "location name"
+                                    },
+                                    "time": {
+                                        "type": "string",
+                                        "format": "date"
+                                    }
+                                },
+                                "required": ["title", "location", "time"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Edit Agenda",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/AgendaDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Agenda"],
+                "summary": "Delete Agenda",
+                "description": "Delete Agenda By Id \n\n Role: Admin | Editor",
+                "responses": {
+                    "200": {
+                        "description": "Success Delete Agenda",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BaseResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/user": {
+            "get": {
+                "tags": ["User"],
+                "summary": "Get List Of Users",
+                "description": "Get List Of Users \n\n Role: Admin | Editor | User",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/pagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/perpagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/search"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success Get List Of Users",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/User"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/MetaPagination"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["User"],
+                "summary": "Create New User",
+                "description": "Create New User \n\n Role: Admin | Editor",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "example": "ikrar"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password12345"
+                                    },
+                                    "level": {
+                                        "enum": ["admin", "user", "editor"],
+                                        "default": "user"
+                                    },
+                                    "member_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "required": [
+                                    "username",
+                                    "password",
+                                    "level",
+                                    "member_id"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success Create New User",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/UserDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            }
+        },
+        "/admin/user/{user_id}": {
+            "parameters": [
+                {
+                    "name": "user_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }
+            ],
+            "get": {
+                "tags": ["User"],
+                "summary": "Get User",
+                "description": "Get User By Id \n\n Role: Admin | Editor | User",
+                "responses": {
+                    "200": {
+                        "description": "Success Get User",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/UserDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["User"],
+                "summary": "Edit User",
+                "description": "Edit User By Id \n\n Role: Admin | Editor",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/_method"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "example": "ikrar"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password12345"
+                                    },
+                                    "member_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "required": ["username", "member_id"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Edit User",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/UserDetail"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["User"],
+                "summary": "Delete User",
+                "description": "Delete User By Id \n\n Role: Admin | Editor",
+                "responses": {
+                    "200": {
+                        "description": "Success Delete User",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BaseResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/bpo": {
+            "get": {
+                "tags": ["BPO"],
+                "summary": "Get List Of BPO",
+                "description": "Get List Of BPO \n\n Role: Admin | Editor | User",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/pagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/perpagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/search"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success Get List Of BPO",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/BPO"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/MetaPagination"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["BPO"],
+                "summary": "Create New BPO",
+                "description": "Create New BPO \n\n Role: Admin | Editor",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "member_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "presidium_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "division_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "is_division_head": {
+                                        "type": "boolean",
+                                        "example": 0
+                                    }
+                                },
+                                "required": ["member_id"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success Create New BPO",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/BPO"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            }
+        },
+        "/admin/bpo/{bpo_id}": {
+            "parameters": [
+                {
+                    "name": "bpo_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }
+            ],
+            "get": {
+                "tags": ["BPO"],
+                "summary": "Get BPO",
+                "description": "Get BPO By Id \n\n Role: Admin | Editor | User",
+                "responses": {
+                    "200": {
+                        "description": "Success Get BPO",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/BPO"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["BPO"],
+                "summary": "Edit BPO",
+                "description": "Edit BPO By Id \n\n Role: Admin | Editor",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/_method"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "member_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "presidium_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "division_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "is_division_head": {
+                                        "type": "boolean",
+                                        "example": 0
+                                    }
+                                },
+                                "required": ["member_id"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Edit BPO",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/BPO"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["BPO"],
+                "summary": "Delete BPO",
+                "description": "Delete BPO By Id \n\n Role: Admin | Editor",
+                "responses": {
+                    "200": {
+                        "description": "Success Delete BPO",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BaseResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/category": {
+            "get": {
+                "tags": ["Category"],
+                "summary": "Get List Of Category",
+                "description": "Get List Of Category \n\n Role: Admin | Editor | User",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/pagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/perpagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/search"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success Get List Of Category",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Category"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/MetaPagination"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Category"],
+                "summary": "Create New Category",
+                "description": "Create New Category \n\n Role: Admin | Editor",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "category name"
+                                    }
+                                },
+                                "required": ["name"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success Create New Category",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/Category"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            }
+        },
+        "/admin/category/{category_id}": {
+            "parameters": [
+                {
+                    "name": "category_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }
+            ],
+            "get": {
+                "tags": ["Category"],
+                "summary": "Get Category",
+                "description": "Get Category By Id \n\n Role: Admin | Editor | User",
+                "responses": {
+                    "200": {
+                        "description": "Success Get Category",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/Category"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Category"],
+                "summary": "Edit Category",
+                "description": "Edit Category By Id \n\n Role: Admin | Editor",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/_method"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "category name"
+                                    }
+                                },
+                                "required": ["name"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Edit Category",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/Category"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Category"],
+                "summary": "Delete Category",
+                "description": "Delete Category By Id \n\n Role: Admin | Editor",
+                "responses": {
+                    "200": {
+                        "description": "Success Delete Category",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BaseResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/major": {
+            "get": {
+                "tags": ["Major"],
+                "summary": "Get List Of Major",
+                "description": "Get List Of Major \n\n Role: Admin | Editor | User",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/pagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/perpagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/search"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success Get List Of Major",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Major"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/MetaPagination"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Major"],
+                "summary": "Create New Major",
+                "description": "Create New Major \n\n Role: Admin | Editor",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Major name"
+                                    }
+                                },
+                                "required": ["name"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success Create New Major",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/Major"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            }
+        },
+        "/admin/major/{major_id}": {
+            "parameters": [
+                {
+                    "name": "major_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }
+            ],
+            "get": {
+                "tags": ["Major"],
+                "summary": "Get Major",
+                "description": "Get Major By Id \n\n Role: Admin | Editor | User",
+                "responses": {
+                    "200": {
+                        "description": "Success Get Major",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/Major"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Major"],
+                "summary": "Edit Major",
+                "description": "Edit Major By Id \n\n Role: Admin | Editor",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/_method"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Major name"
+                                    }
+                                },
+                                "required": ["name"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Edit Major",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/Major"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Major"],
+                "summary": "Delete Major",
+                "description": "Delete Major By Id \n\n Role: Admin | Editor",
+                "responses": {
+                    "200": {
+                        "description": "Success Delete Major",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BaseResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/concentration": {
+            "get": {
+                "tags": ["Concentration"],
+                "summary": "Get List Of Concentration",
+                "description": "Get List Of Concentration \n\n Role: Admin | Editor | User",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/pagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/perpagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/search"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success Get List Of Concentration",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Concentration"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/MetaPagination"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Concentration"],
+                "summary": "Create New Concentration",
+                "description": "Create New Concentration \n\n Role: Admin | Editor",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Concentration name"
+                                    }
+                                },
+                                "required": ["name"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success Create New Concentration",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/Concentration"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            }
+        },
+        "/admin/concentration/{concentration_id}": {
+            "parameters": [
+                {
+                    "name": "concentration_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }
+            ],
+            "get": {
+                "tags": ["Concentration"],
+                "summary": "Get Concentration",
+                "description": "Get Concentration By Id \n\n Role: Admin | Editor | User",
+                "responses": {
+                    "200": {
+                        "description": "Success Get Concentration",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/Concentration"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Concentration"],
+                "summary": "Edit Concentration",
+                "description": "Edit Concentration By Id \n\n Role: Admin | Editor",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/_method"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Concentration name"
+                                    }
+                                },
+                                "required": ["name"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Edit Concentration",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/Concentration"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Concentration"],
+                "summary": "Delete Concentration",
+                "description": "Delete Concentration By Id \n\n Role: Admin | Editor",
+                "responses": {
+                    "200": {
+                        "description": "Success Delete Concentration",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BaseResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/gallery": {
+            "get": {
+                "tags": ["Gallery"],
+                "summary": "Get List Of Gallery",
+                "description": "Get List Of Gallery \n\n Role: Admin | Editor | User",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/pagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/perpagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/search"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success Get List Of Gallery",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Gallery"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/MetaPagination"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Gallery"],
+                "summary": "Create New Gallery",
+                "description": "Create New Gallery \n\n Role: Admin | Editor",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "image": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string",
+                                                "format": "binary"
+                                            }
+                                        ]
+                                    },
+                                    "is_active": {
+                                        "type": "boolean",
+                                        "example": 1
+                                    }
+                                },
+                                "required": ["image"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success Create New Gallery",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/Gallery"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            }
+        },
+        "/admin/gallery/{gallery_id}": {
+            "parameters": [
+                {
+                    "name": "gallery_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }
+            ],
+            "get": {
+                "tags": ["Gallery"],
+                "summary": "Get Gallery",
+                "description": "Get Gallery By Id \n\n Role: Admin | Editor | User",
+                "responses": {
+                    "200": {
+                        "description": "Success Get Gallery",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/Gallery"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Gallery"],
+                "summary": "Edit Gallery",
+                "description": "Edit Gallery By Id \n\n Role: Admin | Editor",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/_method"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "image": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "string",
+                                                "format": "binary"
+                                            }
+                                        ]
+                                    },
+                                    "is_active": {
+                                        "type": "boolean",
+                                        "example": 1
+                                    }
+                                },
+                                "required": ["is_active"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Edit Gallery",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/Gallery"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Gallery"],
+                "summary": "Delete Gallery",
+                "description": "Delete Gallery By Id \n\n Role: Admin | Editor",
+                "responses": {
+                    "200": {
+                        "description": "Success Delete Gallery",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BaseResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/presidium": {
+            "get": {
+                "tags": ["Presidium"],
+                "summary": "Get List Of Presidium",
+                "description": "Get List Of Presidium \n\n Role: Admin | Editor | User",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/pagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/perpagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/search"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success Get List Of Presidium",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Presidium"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/MetaPagination"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Presidium"],
+                "summary": "Create New Presidium",
+                "description": "Create New Presidium \n\n Role: Admin | Editor",
+                "requestBody": {
+                    "content": {
+                        "multipart/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "name"
+                                    },
+                                    "level": {
+                                        "type": "integer",
+                                        "example": 2
+                                    }
+                                },
+                                "required": ["name", "level"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success Create New Presidium",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/Presidium"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            }
+        },
+        "/admin/presidium/{presidium_id}": {
+            "parameters": [
+                {
+                    "name": "presidium_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }
+            ],
+            "get": {
+                "tags": ["Presidium"],
+                "summary": "Get Presidium",
+                "description": "Get Presidium By Id \n\n Role: Admin | Editor | User",
+                "responses": {
+                    "200": {
+                        "description": "Success Get Presidium",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/Presidium"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Presidium"],
+                "summary": "Edit Presidium",
+                "description": "Edit Presidium By Id \n\n Role: Admin | Editor",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/_method"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "name"
+                                    },
+                                    "level": {
+                                        "type": "integer",
+                                        "example": 2
+                                    }
+                                },
+                                "required": ["name", "level"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Edit Presidium",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/Presidium"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Presidium"],
+                "summary": "Delete Presidium",
+                "description": "Delete Presidium By Id \n\n Role: Admin | Editor",
+                "responses": {
+                    "200": {
+                        "description": "Success Delete Presidium",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BaseResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/division": {
+            "get": {
+                "tags": ["Division"],
+                "summary": "Get List Of Division",
+                "description": "Get List Of Division \n\n Role: Admin | Editor | User",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/pagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/perpagePagination"
+                    },
+                    {
+                        "$ref": "#/components/parameters/search"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success Get List Of Division",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Division"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/MetaPagination"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Division"],
+                "summary": "Create New Division",
+                "description": "Create New Division \n\n Role: Admin | Editor",
+                "requestBody": {
+                    "content": {
+                        "multipart/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "name"
+                                    },
+                                    "presidium_id": {
+                                        "type": "integer",
+                                        "example": 2
+                                    }
+                                },
+                                "required": ["name", "presidium_id"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success Create New Division",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/Division"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            }
+        },
+        "/admin/division/{division_id}": {
+            "parameters": [
+                {
+                    "name": "division_id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }
+            ],
+            "get": {
+                "tags": ["Division"],
+                "summary": "Get Division",
+                "description": "Get Division By Id \n\n Role: Admin | Editor | User",
+                "responses": {
+                    "200": {
+                        "description": "Success Get Division",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/Division"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Division"],
+                "summary": "Edit Division",
+                "description": "Edit Division By Id \n\n Role: Admin | Editor",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/_method"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "name"
+                                    },
+                                    "presidium_id": {
+                                        "type": "integer",
+                                        "example": 2
+                                    }
+                                },
+                                "required": ["name", "presidium_id"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Edit Division",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/BaseResponse"
+                                        },
+                                        {
+                                            "properties": {
+                                                "data": {
+                                                    "$ref": "#/components/schemas/Division"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Division"],
+                "summary": "Delete Division",
+                "description": "Delete Division By Id \n\n Role: Admin | Editor",
+                "responses": {
+                    "200": {
+                        "description": "Success Delete Division",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BaseResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "AuthToken": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "Bearer 'Token'"
+            }
+        },
+        "parameters": {
+            "_method": {
+                "name": "_mehtod",
+                "in": "query",
+                "description": "Post to put method",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "default": "put",
+                    "example": "put"
+                }
+            },
+            "pagePagination": {
+                "name": "page",
+                "in": "query",
+                "description": "Page Number",
+                "required": false,
+                "schema": {
+                    "type": "integer",
+                    "default": 1,
+                    "example": 1
+                }
+            },
+            "perpagePagination": {
+                "name": "perpage",
+                "in": "query",
+                "description": "Items per page",
+                "required": false,
+                "schema": {
+                    "type": "integer",
+                    "default": 10,
+                    "example": 10
+                }
+            },
+            "search": {
+                "name": "search",
+                "in": "query",
+                "description": "Search Keyword",
+                "required": false,
+                "schema": {
+                    "type": "string",
+                    "default": "",
+                    "example": ""
+                }
+            }
+        },
+        "schemas": {
+            "BaseResponse": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "example": 200
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "OK"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Success Process"
+                    }
+                }
+            },
+            "MetaPagination": {
+                "type": "object",
+                "properties": {
+                    "meta": {
+                        "type": "object",
+                        "properties": {
+                            "page": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "perpage": {
+                                "type": "integer",
+                                "example": 10
+                            },
+                            "total_page": {
+                                "type": "integer",
+                                "example": 5
+                            },
+                            "total_item": {
+                                "type": "integer",
+                                "example": 45
+                            }
+                        }
+                    }
+                }
+            },
+            "Slider": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Slider 1"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Slider Description"
+                    },
+                    "image": {
+                        "type": "string",
+                        "example": "http://localhost/slider/slider.jpg"
+                    },
+                    "is_active": {
+                        "type": "boolean",
+                        "example": 0
+                    }
+                }
+            },
+            "Member": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "nri": {
+                        "type": "string",
+                        "example": "123456789"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "member name"
+                    },
+                    "address": {
+                        "type": "string",
+                        "example": "member address"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "081234567899"
+                    }
+                }
+            },
+            "MemberDetail": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Member"
+                    },
+                    {
+                        "properties": {
+                            "photo": {
+                                "type": "string",
+                                "example": "http://localhost/member/member.jpg"
+                            },
+                            "pob": {
+                                "type": "string",
+                                "example": "Pangkep"
+                            },
+                            "dob": {
+                                "type": "string",
+                                "example": "18 Agustus 2002",
+                                "format": "D MMMM Y"
+                            },
+                            "gender": {
+                                "type": "string",
+                                "example": "male"
+                            },
+                            "generation": {
+                                "type": "string",
+                                "example": "100"
+                            },
+                            "major": {
+                                "type": "string",
+                                "example": "Teknik Informatika"
+                            },
+                            "major_id": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "concentration": {
+                                "type": "string",
+                                "example": "Website"
+                            },
+                            "concentration_id": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "position": {
+                                "type": "string",
+                                "example": "Member Position"
+                            },
+                            "email": {
+                                "type": "string",
+                                "example": "member@gmail.com"
+                            },
+                            "instagram": {
+                                "type": "string",
+                                "example": "member_ig"
+                            },
+                            "facebook": {
+                                "type": "string",
+                                "example": "member_fb"
+                            }
+                        }
+                    }
+                ]
+            },
+            "Article": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "article title"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "example": "article-slug"
+                    },
+                    "category": {
+                        "type": "string",
+                        "example": "article category"
+                    },
+                    "writer": {
+                        "type": "string",
+                        "example": "user writer"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date"
+                    }
+                }
+            },
+            "ArticleDetail": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Article"
+                    },
+                    {
+                        "properties": {
+                            "category_id": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "image": {
+                                "type": "string",
+                                "example": "http://localhost/article/article.jpg"
+                            },
+                            "content": {
+                                "type": "string",
+                                "example": "content body"
+                            },
+                            "updated_at": {
+                                "type": "string",
+                                "format": "date"
+                            }
+                        }
+                    }
+                ]
+            },
+            "Activity": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "activity title"
+                    },
+                    "location": {
+                        "type": "string",
+                        "example": "activity location"
+                    },
+                    "time": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "registration_link": {
+                        "type": "string",
+                        "example": "http://regis"
+                    },
+                    "flayer_image": {
+                        "type": "string",
+                        "example": "http://localhost/activity/activity.jpg"
+                    }
+                }
+            },
+            "ActivityDetail": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Activity"
+                    },
+                    {
+                        "properties": {
+                            "description": {
+                                "type": "string",
+                                "example": "activity description"
+                            },
+                            "created_at": {
+                                "type": "string",
+                                "format": "date"
+                            },
+                            "updated_at": {
+                                "type": "string",
+                                "format": "date"
+                            }
+                        }
+                    }
+                ]
+            },
+            "Work": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "title"
+                    },
+                    "creator": {
+                        "type": "string",
+                        "example": "member name"
+                    },
+                    "link": {
+                        "type": "string",
+                        "format": "uri"
+                    }
+                }
+            },
+            "WorkDetail": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Work"
+                    },
+                    {
+                        "properties": {
+                            "member_id": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "concentration": {
+                                "type": "string",
+                                "example": "Mobile"
+                            },
+                            "image": {
+                                "type": "string",
+                                "example": "http://localhost/work/work.jpg",
+                                "format": "uri"
+                            },
+                            "description": {
+                                "type": "string",
+                                "example": "description"
+                            },
+                            "created_at": {
+                                "type": "string",
+                                "format": "date"
+                            },
+                            "updated_at": {
+                                "type": "string",
+                                "format": "date"
+                            }
+                        }
+                    }
+                ]
+            },
+            "Agenda": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "title"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "example": "agenda-slug"
+                    },
+                    "location": {
+                        "type": "string",
+                        "example": "location name"
+                    },
+                    "time": {
+                        "type": "string",
+                        "format": "date"
+                    }
+                }
+            },
+            "AgendaDetail": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Agenda"
+                    },
+                    {
+                        "properties": {
+                            "description": {
+                                "type": "string",
+                                "example": "agenda description"
+                            },
+                            "created_at": {
+                                "type": "string",
+                                "format": "date"
+                            },
+                            "updayed_at": {
+                                "type": "string",
+                                "format": "date"
+                            }
+                        }
+                    }
+                ]
+            },
+            "User": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Aidil"
+                    },
+                    "username": {
+                        "type": "string",
+                        "example": "bagong"
+                    },
+                    "level": {
+                        "type": "string",
+                        "example": "editor"
+                    }
+                }
+            },
+            "UserDetail": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/User"
+                    },
+                    {
+                        "properties": {
+                            "member_id": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "created_at": {
+                                "type": "string",
+                                "format": "date"
+                            },
+                            "updated_at": {
+                                "type": "string",
+                                "format": "date"
+                            }
+                        }
+                    }
+                ]
+            },
+            "BPO": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Aidil"
+                    },
+                    "is_division_head": {
+                        "type": "boolean",
+                        "example": 1
+                    },
+                    "presidium": {
+                        "type": "string",
+                        "example": "Wakil Ketua 1"
+                    },
+                    "division": {
+                        "type": "string",
+                        "example": "Bootcamp"
+                    },
+                    "presidium_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "division_id": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }
+            },
+            "Category": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "category name"
+                    }
+                }
+            },
+            "Major": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Major name"
+                    }
+                }
+            },
+            "Concentration": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Concentration name"
+                    }
+                }
+            },
+            "Gallery": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "image": {
+                        "type": "string",
+                        "format": "uri"
+                    },
+                    "is_active": {
+                        "type": "boolean",
+                        "example": 0
+                    }
+                }
+            },
+            "Presidium": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": " name"
+                    },
+                    "lavel": {
+                        "type": "integer",
+                        "example": 3
+                    }
+                }
+            },
+            "Division": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": " name"
+                    },
+                    "presidium": {
+                        "type": "string",
+                        "example": " name"
+                    },
+                    "presidium_id": {
+                        "type": "integer",
+                        "example": 3
+                    }
+                }
+            }
+        },
+        "responses": {
+            "422": {
+                "description": "Invalid Data",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                },
+                                "errors": {
+                                    "type": "object",
+                                    "properties": {
+                                        "field_name": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "500": {
+                "description": "Internal Server Error",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/BaseResponse"
+                                },
+                                {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

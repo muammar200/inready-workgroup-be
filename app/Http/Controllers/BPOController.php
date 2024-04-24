@@ -22,17 +22,15 @@ class BPOController extends Controller
             ->orderBy('bpo.presidium_id', 'DESC')
             ->latest()
             ->paginate($perpage, ["*"], 'page', $page);
-        return response()->json([
-            "meta" => new MetaPaginateResource($bpos),
-            'data' => BPOResource::collection($bpos),
-        ]);
+        return response()->base_response_with_meta(
+            BPOResource::collection($bpos),
+            new MetaPaginateResource($bpos),
+        200);
     }
 
     public function show(BPO $bpo)
     {
-        return response()->json([
-            "data" => new BPOResource($bpo),
-        ], 200);
+        return response()->base_response(new BPOResource($bpo), 200);
     }
 
     public function store(Request $request)
@@ -47,7 +45,7 @@ class BPOController extends Controller
 
         try {
             $bpo = BPO::create($validated);
-            return response()->json($bpo);
+            return response()->base_response(new BPOResource($bpo), 201, "Create", "BPO Berhasil Ditambahkan");
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
@@ -60,10 +58,7 @@ class BPOController extends Controller
 
         try {
             $bpo->update($request->all());
-            return response()->json([
-                'message' => 'data berhasil di update',
-                'data' => $bpo
-            ]);
+            return response()->base_response(new BPOResource($bpo), 200, "OK", "BPO Berhasil Diedit");
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
@@ -76,7 +71,7 @@ class BPOController extends Controller
 
         try {
             $bpo->delete();
-            return response()->json(['message' => 'data berhasil di hapus']);
+            return response()->base_response([], 200, "OK", "BPO Berhasil Dihapus");
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),

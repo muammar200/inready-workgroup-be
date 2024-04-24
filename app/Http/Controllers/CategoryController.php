@@ -17,10 +17,10 @@ class CategoryController extends Controller
         $search = $request->input("search", "");
 
         $categories = Category::where("name", "LIKE", "%$search%")->orderBy("name", "asc")->paginate($perpage, ["*"], 'page', $page);
-        return response()->json([
-            "meta" => new MetaPaginateResource($categories),
-            "data" => IdNameResource::collection($categories),
-        ], 200);
+        return response()->base_response_with_meta(
+            IdNameResource::collection($categories),
+            new MetaPaginateResource($categories),
+        200);
     }
 
     public function show(Category $category)

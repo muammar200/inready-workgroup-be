@@ -75,7 +75,11 @@ Route::prefix("public")->group(function () {
   Route::get('/member', [PublicMemberController::class, 'index']);
 });
 
-// Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware(['auth:sanctum'])->group(function () {
+Route::prefix("admin")->group(function () {
+  Route::middleware(['role:editor,admin'])->group(function () {
+    
+  });
   Route::prefix("dashboard")->group(function () {
     Route::controller(DashboardController::class)->group(function () {
         Route::get('member_chart', 'member_chart');
@@ -84,21 +88,134 @@ Route::prefix("public")->group(function () {
     });
   });
   Route::get('/member/all', [MemberController::class, 'getAllMember']);
-  Route::resource('bpo', BPOController::class)->except(['create', 'edit']);
-  Route::resource('category', CategoryController::class)->except(['create', 'edit']);
-  Route::resource('major', MajorController::class)->except(['create', 'edit']);
-  Route::resource('concentration', ConcentrationController::class)->except(['create', 'edit']);
-  Route::resource('article', ArticleController::class)->except(['create', 'edit'])->parameters(["article" => "article:slug"]);
-  Route::resource('agenda', AgendaController::class)->except(['create', 'edit'])->parameters(["agenda" => "agenda:slug"]);
-  Route::resource('activity', ActivityController::class)->except(['create', 'edit']);
-  Route::resource('member', MemberController::class)->except(['create', 'edit']);
-  Route::resource('work', WorkController::class)->except(['create', 'edit']);
-  Route::resource('user', UserController::class)->except(['create', 'edit']);
-  Route::resource('slider', SliderController::class)->except(['create', 'edit']);
-  Route::resource('gallery', GalleryController::class)->except(['create', 'edit']);
-  Route::resource('presidium', PresidiumController::class)->except(['create', 'edit']);
-  Route::resource('division', DivisionController::class)->except(['create', 'edit']);
-// });
+  Route::prefix("bpo")->controller(BPOController::class)->group(function () {
+    Route::get('', 'index');
+    Route::get('{bpo}', 'show');
+    Route::middleware(['role:admin,editor'])->group(function () {
+        Route::post('', 'store');
+        Route::put('{bpo}', 'update');
+        Route::delete('{bpo}', 'destroy');
+    });
+  });
+  Route::prefix("category")->controller(CategoryController::class)->group(function () {
+      Route::get('', 'index');
+      Route::get('{category}', 'show');
+      Route::middleware(['role:admin,editor'])->group(function () {
+          Route::post('', "store");
+          Route::put('{category}', "update");
+          Route::delete('{category}', "destroy");
+      });
+  });
+  Route::prefix("major")->controller(MajorController::class)->group(function () {
+    Route::get('', 'index');
+    Route::get('{major}', 'show');
+    Route::middleware(['role:admin,editor'])->group(function () {
+        Route::post('', 'store');
+        Route::put('{major}', 'update');
+        Route::delete('{major}', 'destroy');
+    });
+  });
+  Route::prefix("concentration")->controller(ConcentrationController::class)->group(function () {
+    Route::get('', 'index');
+    Route::get('{concentration}', 'show');
+    Route::middleware(['role:admin,editor'])->group(function () {
+        Route::post('', 'store');
+        Route::put('{concentration}', 'update');
+        Route::delete('{concentration}', 'destroy');
+    });
+  });
+  Route::prefix("article")->controller(ArticleController::class)->group(function () {
+    Route::get('', 'index');
+    Route::get('{article:slug}', 'show');
+    Route::middleware(['role:admin,editor'])->group(function () {
+        Route::post('', 'store');
+        Route::put('{article:slug}', 'update');
+        Route::delete('{article:slug}', 'destroy');
+    });
+  });
+  Route::prefix("agenda")->controller(AgendaController::class)->group(function () {
+    Route::get('', 'index');
+    Route::get('{agenda:slug}', 'show');
+    Route::middleware(['role:admin,editor'])->group(function () {
+        Route::post('', 'store');
+        Route::put('{agenda:slug}', 'update');
+        Route::delete('{agenda:slug}', 'destroy');
+    });
+  });
+  Route::prefix("activity")->controller(ActivityController::class)->group(function () {
+    Route::get('', 'index');
+    Route::get('{activity}', 'show');
+    Route::middleware(['role:admin,editor'])->group(function () {
+        Route::post('', 'store');
+        Route::put('{activity}', 'update');
+        Route::delete('{activity}', 'destroy');
+    });
+  });
+  Route::prefix("member")->controller(MemberController::class)->group(function () {
+    Route::get('', 'index');
+    Route::get('{member}', 'show');
+    Route::middleware(['role:admin,editor'])->group(function () {
+        Route::post('', 'store');
+        Route::put('{member}', 'update');
+        Route::delete('{member}', 'destroy');
+    });
+  });
+  Route::prefix("work")->controller(WorkController::class)->group(function () {
+    Route::get('', 'index');
+    Route::get('{work}', 'show');
+    Route::middleware(['role:admin,editor'])->group(function () {
+        Route::post('', 'store');
+        Route::put('{work}', 'update');
+        Route::delete('{work}', 'destroy');
+    });
+  });
+  Route::prefix("user")->controller(UserController::class)->group(function () {
+    Route::get('', 'index');
+    Route::get('{user}', 'show');
+    Route::middleware(['role:admin'])->group(function () {
+        Route::post('', 'store');
+        Route::put('{user}', 'update');
+        Route::delete('{user}', 'destroy');
+    });
+  });
+  Route::prefix("slider")->controller(SliderController::class)->group(function () {
+    Route::get('', 'index');
+    Route::get('{slider}', 'show');
+    Route::middleware(['role:admin,editor'])->group(function () {
+        Route::post('', 'store');
+        Route::put('{slider}', 'update');
+        Route::delete('{slider}', 'destroy');
+    });
+  });
+  Route::prefix("gallery")->controller(GalleryController::class)->group(function () {
+    Route::get('', 'index');
+    Route::get('{gallery}', 'show');
+    Route::middleware(['role:admin,editor'])->group(function () {
+        Route::post('', 'store');
+        Route::put('{gallery}', 'update');
+        Route::delete('{gallery}', 'destroy');
+    });
+  });
+  Route::prefix("presidium")->controller(PresidiumController::class)->group(function () {
+    Route::get('', 'index');
+    Route::get('{presidium}', 'show');
+    Route::middleware(['role:admin,editor'])->group(function () {
+        Route::post('', 'store');
+        Route::put('{presidium}', 'update');
+        Route::delete('{presidium}', 'destroy');
+    });
+  });
+  Route::prefix("division")->controller(DivisionController::class)->group(function () {
+    Route::get('', 'index');
+    Route::get('{division}', 'show');
+    Route::middleware(['role:admin,editor'])->group(function () {
+        Route::post('', 'store');
+        Route::put('{division}', 'update');
+        Route::delete('{division}', 'destroy');
+    });
+  });
+});
+});
 
 Route::controller(AuthenticateController::class)->group(function () {
   Route::post('login', 'login');

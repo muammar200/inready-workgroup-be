@@ -19,17 +19,15 @@ class WorkController extends Controller
         $search = $request->input('search', "");
 
         $works = Work::where("title", "LIKE", "%$search%")->latest()->paginate($perpage, ["*"], 'page', $page);
-        return response()->json([
-            "meta" => new MetaPaginateResource($works),
-            "data" => WorkResource::collection($works),
-        ], 200);
+        return response()->base_response_with_meta(
+            WorkResource::collection($works),
+            new MetaPaginateResource($works),
+        200);
     }
 
     public function show(Work $work)
     {
-        return response([
-            "data" => new WorkDetailResource($work),
-        ], 200);
+        return response()->base_response(new WorkDetailResource($work), 200);
     }
 
     public function store(Request $request)
@@ -45,11 +43,9 @@ class WorkController extends Controller
         if ($request->file("image")) {
             $validated["image"] = $request->file("image")->storePublicly("work", "public");
         }
-        // $validated["created_by"]  = 1;
-        // $validated["updated_by"]  = 1;
         try {
             $work = Work::create($validated);
-            return response()->json(new WorkDetailResource($work), 201);
+            return response()->base_response(new WorkDetailResource($work), 201, "Created", "Karya Berhasil Ditambahkan");
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
@@ -75,10 +71,9 @@ class WorkController extends Controller
         } else {
             unset($validated["image"]);
         }
-        // $validated["updated_by"]  = 1;
         try {
             $work->update($validated);
-            return response()->json(new WorkDetailResource($work), 200);
+            return response()->base_response(new WorkDetailResource($work), 200, "OK", "Karya Berhasil Diedit");
         } catch (\Throwable $th) {
             return response()->json([
                 "message" => $th->getMessage(),
@@ -93,9 +88,7 @@ class WorkController extends Controller
                 Storage::delete($work->image);
             }
             $work->delete();
-            return response()->json([
-                "success" => true,
-            ], 200);
+            return response()->base_response([], 200, "OK", "Karya Berhasil Dihapus");
         } catch (\Throwable $th) {
             return response()->json([
                 "success" => false,

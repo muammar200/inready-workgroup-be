@@ -17,17 +17,15 @@ class GalleryController extends Controller
         $perpage = $request->input("perpage", 10);
 
         $galleries = Gallery::latest()->paginate($perpage, ["*"], 'page', $page);
-        return response()->json([
-            "meta" => new MetaPaginateResource($galleries),
-            "data" => GalleryResource::collection($galleries),
-        ], 200);
+        return response()->base_response_with_meta(
+            GalleryResource::collection($galleries),
+            new MetaPaginateResource($galleries),
+        200);
     }
 
     public function show(Gallery $gallery)
     {
-        return response()->json([
-            "data" => new GalleryResource($gallery),
-        ], 200);
+        return response()->base_response(new GalleryResource($gallery), 200);
     }
 
     public function store(Request $request)
@@ -37,11 +35,9 @@ class GalleryController extends Controller
             "is_active" => "nullable|boolean",
         ]);
         $validated["image"] = $request->file("image")->storePublicly("gallery", "public");
-        // $validated["created_by"]  = 1;
-        // $validated["updated_by"]  = 1;
         try {
             $gallery = Gallery::create($validated);
-            return response()->json(new GalleryResource($gallery), 201);
+            return response()->base_response(new GalleryResource($gallery), 201, "Created", "Gambar Berhasil Ditambahkan");
         } catch (\Throwable $th) {
             return response()->json([
                 "massage" => $th->getMessage(),
@@ -63,10 +59,9 @@ class GalleryController extends Controller
         } else {
             unset($validated["image"]);
         }
-        // $validated["updated_by"]  = 1;
         try {
             $gallery->update($validated);
-            return response()->json(new GalleryResource($gallery), 200);
+            return response()->base_response(new GalleryResource($gallery), 200, "OK", "Gambar Berhasil Diedit");
         } catch (\Throwable $th) {
             return response()->json([
                 "massage" => $th->getMessage(),
@@ -81,9 +76,7 @@ class GalleryController extends Controller
                 Storage::delete($gallery->image);
             }
             $gallery->delete();
-            return response()->json([
-                "success" => true,
-            ], 200);
+            return response()->base_response([], 200, "OK", "Gambar Berhasil Dihapus");
         } catch (\Throwable $th) {
             return response()->json([
                 "success" => "false",

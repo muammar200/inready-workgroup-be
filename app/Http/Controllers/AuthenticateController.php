@@ -23,6 +23,7 @@ class AuthenticateController extends Controller
                     "user" => [
                         "username" => $user->username,
                         "name" => $user->member->name,
+                        "level" => $user->level,
                     ],
                 ],
                 "message" => "Login Berhasil",
