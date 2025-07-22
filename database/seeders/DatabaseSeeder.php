@@ -46,20 +46,28 @@ class DatabaseSeeder extends Seeder
                 'level' => 2,
             ],
             [
-                'name' => 'Sekretaris Umum',
+                'name' => 'Wakil Bendahara Umum',
                 'level' => 3,
             ],
             [
-                'name' => 'Wakil Ketua 1',
+                'name' => 'Sekretaris Umum',
                 'level' => 4,
             ],
             [
-                'name' => 'Wakil Ketua 2',
+                'name' => 'Wakil Sekretaris Umum',
                 'level' => 5,
             ],
             [
-                'name' => 'Wakil Ketua 3',
+                'name' => 'Wakil Ketua 1',
                 'level' => 6,
+            ],
+            [
+                'name' => 'Wakil Ketua 2',
+                'level' => 7,
+            ],
+            [
+                'name' => 'Wakil Ketua 3',
+                'level' => 8,
             ],
         ];
 
@@ -67,7 +75,7 @@ class DatabaseSeeder extends Seeder
             Presidium::create($i);
         }
 
-        foreach(Presidium::where('level', '>', 3)->get() as $pres){
+        foreach(Presidium::where('level', '>', 5)->get() as $pres){
             for($i = 0; $i < rand(2,3); $i++){
                 Division::create([
                     'name' => fake()->jobTitle,
@@ -76,14 +84,14 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        foreach(Member::limit(6)->get() as $i => $member){
+        foreach(Member::limit(8)->get() as $i => $member){
             BPO::create([
                 'member_id' => $member->id,
                 'presidium_id' => $i+1,
             ]);
         }
 
-        foreach(Member::where('id', '>', 6)->get() as $member){
+        foreach(Member::where('id', '>', 8)->get() as $member){
             BPO::create([
                 'member_id' => $member->id,
                 'division_id' => Division::inRandomOrder()->first()->id,
