@@ -40,6 +40,7 @@ Route::prefix("public")->group(function () {
   Route::prefix("home")->group(function () {
     Route::controller(HomeController::class)->group(function () {
       Route::get('slider', 'slider');
+      Route::get('slider/show/{activity}', 'showSlider');
       Route::get('work', 'work');
       Route::get('blog', 'article');
       Route::get('gallery', 'gallery');

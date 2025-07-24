@@ -2,29 +2,39 @@
 
 namespace App\Http\Controllers\Public;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\Public\PublicAgendaResource;
-use App\Http\Resources\Public\PublicArticleResource;
-use App\Http\Resources\Public\PublicSliderResource;
-use App\Http\Resources\Public\PublicWorkResourece;
+use Carbon\Carbon;
+use App\Models\Work;
 use App\Models\Agenda;
 use App\Models\Article;
 use App\Models\Gallery;
-use App\Models\Slider;
-use App\Models\Work;
-use Carbon\Carbon;
+use App\Models\Activity;
 
-use function PHPSTORM_META\map;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\MetaPaginateResource;
+use App\Http\Resources\Public\PublicWorkResourece;
+
+use App\Http\Resources\Public\PublicAgendaResource;
+use App\Http\Resources\Public\PublicSliderResource;
+use App\Http\Resources\Public\PublicArticleResource;
+use App\Http\Resources\Public\DetailActivityResource;
+use App\Http\Resources\Public\PublicActivityResource;
+use App\Http\Resources\Public\SliderActivityResource;
 
 class HomeController extends Controller
 {
     public function slider()
     {
-        $sliders = Slider::where("is_active", 1)->latest()->get();
+        $sliders = Activity::latest()->limit(3)->get();
         return response()->json([
-            "data" => PublicSliderResource::collection($sliders)
-        ], 200);
+            'data' => SliderActivityResource::collection($sliders),
+        ]);
+    }
+
+    public function showSlider(Activity $activity)
+    {
+        return response()->json([
+            'data' => new DetailActivityResource($activity),
+        ]);
     }
 
     public function work()
