@@ -19,7 +19,7 @@ class BPOController extends Controller
                 ->get();
         
 
-        $bpo = Presidium::where('level', '>', 3)
+        $bpo = Presidium::where('level', '>', 5)
                 ->orderBy('level', 'ASC')
                 ->get();
         
