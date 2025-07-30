@@ -25,6 +25,30 @@ class BPOController extends Controller
         
 
         return response()->json([
+            'pembina' => [
+                [
+                    "name" => 'Kak Farida',
+                    "profession" => 'Dosen',
+                    "photo" => url("storage/syahid.jpg")
+                ]
+            ],
+            'dpo' => [
+                [
+                    "name" => "Ikrar Restu Gibrani",
+                    "concentration" => "Mobile",
+                    "photo" => url("storage/syahid.jpg")
+                ],
+                [
+                    "name" => "Nur Halis",
+                    "concentration" => "Mobile",
+                    "photo" => url("storage/syahid.jpg")
+                ],
+                [
+                    "name" => "Muammar",
+                    "concentration" => "Website",
+                    "photo" => url("storage/syahid.jpg")
+                ]
+            ],
             'presidium' => PresidiumResource::collection($presidium),
             'bpo' => BPOResource::collection($bpo)
         ]);
