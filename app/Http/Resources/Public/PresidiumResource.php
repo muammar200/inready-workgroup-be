@@ -17,7 +17,8 @@ class PresidiumResource extends JsonResource
         return [
             'name' => $this->member->name,
             'position' => $this->name,
-            'concentration' => $this->member->concentration->name
+            'concentration' => $this->member->concentration->name,
+            'photo' => url("storage/" . $this->member->photo)
         ];
     }
 }

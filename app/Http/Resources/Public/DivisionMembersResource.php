@@ -20,7 +20,8 @@ class DivisionMembersResource extends JsonResource
             'concentration' => $this->member->concentration->name,
             'ig' => $this->member->instagram,
             'fb' => $this->member->facebook,
-            'email' => $this->member->email
+            'email' => $this->member->email,
+            'photo' => url("storage/" . $this->member->photo)
         ];
     }
 }

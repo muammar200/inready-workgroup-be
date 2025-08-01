@@ -28,7 +28,8 @@ class MemberFactory extends Factory
         return [
             "nri" => fake()->randomNumber(9, true),
             "name" => fake()->name(),
-            "photo" => "member_photo/image-$imageNumber.jpg",
+            // "photo" => "member_photo/image-$imageNumber.jpg",
+            "photo" => "syahid.jpg",
             "address" => fake()->sentence(3,true),
             "pob" => fake()->sentence(2, true),
             "dob" => fake()->date(),
