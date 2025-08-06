@@ -20,8 +20,8 @@ class GalleryFactory extends Factory
         $imageNumber = self::$counter;
         self::$counter++;
         return [
-            "image" => "gallery/image-$imageNumber.jpg",
-            "is_active" => fake()->randomElement([0, 1]),
+            "image" => "gallery/image-$imageNumber.webp",
+            "is_active" => 1,
         ];
     }
 }
