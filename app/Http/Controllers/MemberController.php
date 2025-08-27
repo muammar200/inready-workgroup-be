@@ -25,7 +25,7 @@ class MemberController extends Controller
     public function getMembersByGeneration($generation)
     {
         return response()->json([
-            'data' => DB::table('members')->where('generation', $generation)->latest()->get(['name'])
+            'data' => DB::table('members')->where('generation', $generation)->latest()->get(['id','name'])
         ], 200);
     }
 
