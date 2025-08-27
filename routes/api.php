@@ -1,29 +1,31 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AgendaController;
-use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\ActivityController;
-use App\Http\Controllers\AuthenticateController;
 use App\Http\Controllers\BPOController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ConcentrationController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DivisionController;
-use App\Http\Controllers\GalleryController;
-use App\Http\Controllers\MajorController;
-use App\Http\Controllers\MemberController;
-use App\Http\Controllers\PresidiumController;
-use App\Http\Controllers\Public\ActivityController as PublicActivityController;
-use App\Http\Controllers\Public\BlogCategoryController;
-use App\Http\Controllers\Public\BlogController;
-use App\Http\Controllers\Public\BPOController as PublicBPOController;
-use App\Http\Controllers\Public\HomeController;
-use App\Http\Controllers\Public\MemberController as PublicMemberController;
-use App\Http\Controllers\Public\WorksController;
-use App\Http\Controllers\SliderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkController;
+use App\Http\Controllers\MajorController;
+use App\Http\Controllers\AgendaController;
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\SliderController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DivisionController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PresidiumController;
+use App\Http\Controllers\Public\BlogController;
+use App\Http\Controllers\Public\HomeController;
+use App\Http\Controllers\AuthenticateController;
+use App\Http\Controllers\Public\WorksController;
+use App\Http\Controllers\ConcentrationController;
+use App\Http\Controllers\Public\ProfileController;
+use App\Http\Controllers\Public\BlogCategoryController;
+use App\Http\Controllers\Public\BPOController as PublicBPOController;
+use App\Http\Controllers\Public\MemberController as PublicMemberController;
+use App\Http\Controllers\Public\ActivityController as PublicActivityController;
+use App\Http\Controllers\Public\ConcentrationController as PublicConcentrationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +50,15 @@ Route::prefix("public")->group(function () {
     });
   });
 
+  // Route::prefix("profile")->group(function() {
+  //     Route::controller(ProfileController::class)->group(function (){
+  //         Route::get('history', 'history');
+  //         Route::get('history/timeline', 'timeline');
+  //         Route::get('vision-mission', 'visionMission');
+  //         Route::get('about', 'about');
+  //     });
+  // });
+  
   Route::prefix("blog")->group(function () {
 
     Route::get('/categories', [BlogCategoryController::class, 'index']);
@@ -55,6 +66,7 @@ Route::prefix("public")->group(function () {
     Route::controller(BlogController::class)->group(function () {
       Route::get('/', 'index');
       Route::get('/show/{article:slug}', 'show');
+      // Route::get('/read-more/{article:slug}', 'readMore');
     });
   });
 
@@ -74,6 +86,8 @@ Route::prefix("public")->group(function () {
 
   Route::get('/bpo', [PublicBPOController::class, 'index']);
   Route::get('/member', [PublicMemberController::class, 'index']);
+  // Route::get('/member/generation', [PublicMemberController::class, 'generation']);
+  // Route::get('/concentration', [PublicConcentrationController::class, 'index']);
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
@@ -89,6 +103,8 @@ Route::prefix("admin")->group(function () {
     });
   });
   Route::get('/member/all', [MemberController::class, 'getAllMember']);
+  Route::get('/generations', [MemberController::class, 'getGenerations']);
+  Route::get('/generations/{id_generation}/members', [MemberController::class, 'getMembersByGeneration']);
   Route::prefix("bpo")->controller(BPOController::class)->group(function () {
     Route::get('', 'index');
     Route::get('{bpo}', 'show');

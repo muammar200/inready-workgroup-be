@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Member;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Resources\MemberResource;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Resources\AngkatanResource;
 use App\Http\Resources\MetaSearchResource;
 use App\Http\Requests\PaginateSearchRequest;
 use App\Http\Resources\MemberDetailResource;
@@ -20,6 +22,26 @@ class MemberController extends Controller
         ],200);
     }
 
+    public function getMembersByGeneration($generation)
+    {
+        return response()->json([
+            'data' => DB::table('members')->where('generation', $generation)->latest()->get(['name'])
+        ], 200);
+    }
+
+    public function getGenerations()
+    {
+        $data = DB::table('members')
+            ->select('generation')
+            ->distinct()
+            ->orderByRaw('CAST(generation AS UNSIGNED)')
+            ->get();
+
+        return response()->json([
+            'data' => AngkatanResource::collection($data),
+        ]);
+    }
+
     public function index(PaginateSearchRequest $request)
     {
         $page = $request->input("page", 1);
@@ -30,7 +52,8 @@ class MemberController extends Controller
         return response()->base_response_with_meta(
             MemberResource::collection($members),
             new MetaPaginateResource($members),
-        200);
+            200
+        );
     }
 
     public function show(Member $member)
