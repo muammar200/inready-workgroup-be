@@ -90,7 +90,7 @@ Route::prefix("public")->group(function () {
   // Route::get('/concentration', [PublicConcentrationController::class, 'index']);
 });
 
-// Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware(['auth:sanctum'])->group(function () {
 Route::prefix("admin")->group(function () {
   Route::middleware(['role:editor,admin'])->group(function () {
     
@@ -232,7 +232,7 @@ Route::prefix("admin")->group(function () {
     });
   });
 });
-// });
+});
 
 Route::controller(AuthenticateController::class)->group(function () {
   Route::post('admin/login', 'login');
