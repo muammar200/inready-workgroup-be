@@ -21,7 +21,9 @@ class ActivityDetailResource extends JsonResource
             "location" => $this->location,
             "time" => Carbon::parse($this->time)->isoFormat("D MMMM Y"),
             "registration_link" => $this->registration_link,
-            "flayer_image" => url("storage/$this->flayer_image"),
+            'images' => collect($this->images)->map(function ($image) {
+                return url('storage/' . $image);
+            })->all(),
             "description" => $this->description,
             "created_at" => $this->created_at->isoFormat("D MMMM Y"),
             "updated_at" => $this->updated_at->isoFormat("D MMMM Y"),

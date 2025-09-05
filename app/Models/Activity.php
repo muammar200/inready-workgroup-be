@@ -14,6 +14,9 @@ class Activity extends Model
     protected $dispatchesEvents = [
         "creating" => SetCreatedBy::class,
         "saving" => SetUpdatedBy::class,
+    ]; 
+    protected $casts = [
+        'images' => 'array',
     ];
     
     public function creator() {

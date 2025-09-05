@@ -35,13 +35,21 @@ class ActivityController extends Controller
     {
         $validated = $request->validate([
             "title" => "required|string",
-            "registration_link" => "nullable",
-            "flayer_image" => "required|image",
+            "registration_link" => "nullable|string",
+            "images" => "required|array",
+            "images.*" => "image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048",
             "location" => "required|string",
             "time" => "required|date",
             "description" => "required|string",
         ]);
-        $validated["flayer_image"] = $request->file("flayer_image")->storePublicly("activity", "public");
+
+        $imagePaths = [];
+        foreach ($request->file("images") as $image) {
+            $imagePaths[] = $image->storePublicly("activity", "public");
+        }
+
+        $validated["images"] = $imagePaths;
+
         try {
             $activity = Activity::create($validated);
             return response()->base_response(new ActivityDetailResource($activity), 201, "Created", "Kegiatan Berhasil Ditambahkan");
@@ -56,20 +64,33 @@ class ActivityController extends Controller
     {
         $validated = $request->validate([
             "title" => "required|string",
-            "flayer_image" => "nullable",
+            "images" => "nullable|array",
+            "images.*" => "image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048",
             "location" => "required|string",
             "time" => "required|date",
             "description" => "required|string",
-            "registration_link" => "nullable",
+            "registration_link" => "nullable|string",
         ]);
-        if ($request->file("flayer_image")) {
-            if ($activity->flayer_image && Storage::exists($activity->flayer_image)) {
-                Storage::delete($activity->flayer_image);
+
+        if ($request->hasFile("images")) {
+            if (!empty($activity->images)) {
+                foreach ($activity->images as $oldImage) {
+                    if (Storage::disk('public')->exists($oldImage)) {
+                        Storage::disk('public')->delete($oldImage);
+                    }
+                }
             }
-            $validated["flayer_image"] = $request->file("flayer_image")->storePublicly("activity", "public");
+
+            $imagePaths = [];
+            foreach ($request->file("images") as $image) {
+                $imagePaths[] = $image->storePublicly("activity", "public");
+            }
+
+            $validated["images"] = $imagePaths;
         } else {
-            unset($validated["flayer_image"]);
+            unset($validated["images"]);
         }
+
         try {
             $activity->update($validated);
             return response()->base_response(new ActivityDetailResource($activity), 200, "OK", "Kegiatan Berhasil Diedit");
