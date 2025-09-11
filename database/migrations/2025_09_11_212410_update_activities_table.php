@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('activities', function (Blueprint $table) {
-            $table->renameColumn('flayer_image', 'images');
             $table->json('images')->change();
         });
     }
@@ -23,7 +22,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('activities', function (Blueprint $table) {
-            $table->renameColumn('images', 'flayer_image');
             $table->string('images')->change();
         });
     }
