@@ -143,20 +143,20 @@ Route::prefix("admin")->group(function () {
   });
   Route::prefix("article")->controller(ArticleController::class)->group(function () {
     Route::get('', 'index');
-    Route::get('{article:slug}', 'show');
+    Route::get('{article}', 'show');
     Route::middleware(['role:admin,editor'])->group(function () {
         Route::post('', 'store');
-        Route::put('{article:slug}', 'update');
-        Route::delete('{article:slug}', 'destroy');
+        Route::put('{article}', 'update');
+        Route::delete('{article}', 'destroy');
     });
   });
   Route::prefix("agenda")->controller(AgendaController::class)->group(function () {
     Route::get('', 'index');
-    Route::get('{agenda:slug}', 'show');
+    Route::get('{agenda}', 'show');
     Route::middleware(['role:admin,editor'])->group(function () {
         Route::post('', 'store');
-        Route::put('{agenda:slug}', 'update');
-        Route::delete('{agenda:slug}', 'destroy');
+        Route::put('{agenda}', 'update');
+        Route::delete('{agenda}', 'destroy');
     });
   });
   Route::prefix("activity")->controller(ActivityController::class)->group(function () {
